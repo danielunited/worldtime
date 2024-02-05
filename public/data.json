@@ -5,13 +5,238 @@
     "timezone": "Asia/Bangkok"
   },
   {
-    "name": "Thailand",
-    "type": "country",
-    "timezone": "Asia/Bangkok"
-  },
-  {
     "name": "Tel Aviv",
     "type": "city",
     "timezone": "Asia/Jerusalem"
+  },
+  {
+    "name": "New York",
+    "type": "city",
+    "timezone": "America/New_York"
+  },
+  {
+    "name": "Tokyo",
+    "type": "city",
+    "timezone": "Asia/Tokyo"
+  },
+  {
+    "name": "London",
+    "type": "city",
+    "timezone": "Europe/London"
+  },
+  {
+    "name": "Paris",
+    "type": "city",
+    "timezone": "Europe/Paris"
+  },
+  {
+    "name": "Sydney",
+    "type": "city",
+    "timezone": "Australia/Sydney"
+  },
+  {
+    "name": "Los Angeles",
+    "type": "city",
+    "timezone": "America/Los_Angeles"
+  },
+  {
+    "name": "Dubai",
+    "type": "city",
+    "timezone": "Asia/Dubai"
+  },
+  {
+    "name": "Singapore",
+    "type": "city",
+    "timezone": "Asia/Singapore"
+  },
+  {
+    "name": "Hong Kong",
+    "type": "city",
+    "timezone": "Asia/Hong_Kong"
+  },
+  {
+    "name": "Berlin",
+    "type": "city",
+    "timezone": "Europe/Berlin"
+  },
+  {
+    "name": "Mumbai",
+    "type": "city",
+    "timezone": "Asia/Kolkata"
+  },
+  {
+    "name": "Rome",
+    "type": "city",
+    "timezone": "Europe/Rome"
+  },
+  {
+    "name": "Istanbul",
+    "type": "city",
+    "timezone": "Europe/Istanbul"
+  },
+  {
+    "name": "San Francisco",
+    "type": "city",
+    "timezone": "America/Los_Angeles"
+  },
+  {
+    "name": "Seoul",
+    "type": "city",
+    "timezone": "Asia/Seoul"
+  },
+  {
+    "name": "Toronto",
+    "type": "city",
+    "timezone": "America/Toronto"
+  },
+  {
+    "name": "Shanghai",
+    "type": "city",
+    "timezone": "Asia/Shanghai"
+  },
+  {
+    "name": "Cairo",
+    "type": "city",
+    "timezone": "Africa/Cairo"
+  },
+  {
+    "name": "Moscow",
+    "type": "city",
+    "timezone": "Europe/Moscow"
+  },
+  {
+    "name": "Rio de Janeiro",
+    "type": "city",
+    "timezone": "America/Sao_Paulo"
+  },
+  {
+    "name": "Mexico City",
+    "type": "city",
+    "timezone": "America/Mexico_City"
+  },
+  {
+    "name": "Toronto",
+    "type": "city",
+    "timezone": "America/Toronto"
+  },
+  {
+    "name": "Beijing",
+    "type": "city",
+    "timezone": "Asia/Shanghai"
+  },
+  {
+    "name": "Cape Town",
+    "type": "city",
+    "timezone": "Africa/Johannesburg"
+  },
+  {
+    "name": "Stockholm",
+    "type": "city",
+    "timezone": "Europe/Stockholm"
+  },
+  {
+    "name": "Dublin",
+    "type": "city",
+    "timezone": "Europe/Dublin"
+  },
+  {
+    "name": "Amsterdam",
+    "type": "city",
+    "timezone": "Europe/Amsterdam"
+  },
+  {
+    "name": "Rio de Janeiro",
+    "type": "city",
+    "timezone": "America/Sao_Paulo"
+  },
+  {
+    "name": "Miami",
+    "type": "city",
+    "timezone": "America/New_York"
+  },
+  {
+    "name": "Madrid",
+    "type": "city",
+    "timezone": "Europe/Madrid"
+  },
+  {
+    "name": "Buenos Aires",
+    "type": "city",
+    "timezone": "America/Argentina/Buenos_Aires"
+  },
+  {
+    "name": "Bangalore",
+    "type": "city",
+    "timezone": "Asia/Kolkata"
+  },
+  {
+    "name": "Prague",
+    "type": "city",
+    "timezone": "Europe/Prague"
+  },
+  {
+    "name": "Osaka",
+    "type": "city",
+    "timezone": "Asia/Tokyo"
+  },
+  {
+    "name": "Vienna",
+    "type": "city",
+    "timezone": "Europe/Vienna"
+  },
+  {
+    "name": "San Diego",
+    "type": "city",
+    "timezone": "America/Los_Angeles"
+  },
+  {
+    "name": "Bangalore",
+    "type": "city",
+    "timezone": "Asia/Kolkata"
+  },
+  {
+    "name": "Warsaw",
+    "type": "city",
+    "timezone": "Europe/Warsaw"
+  },
+  {
+    "name": "Helsinki",
+    "type": "city",
+    "timezone": "Europe/Helsinki"
+  },
+  {
+    "name": "Lisbon",
+    "type": "city",
+    "timezone": "Europe/Lisbon"
+  },
+  {
+    "name": "Vienna",
+    "type": "city",
+    "timezone": "Europe/Vienna"
+  },
+  {
+    "name": "Vancouver",
+    "type": "city",
+    "timezone": "America/Vancouver"
+  },
+  {
+    "name": "Manila",
+    "type": "city",
+    "timezone": "Asia/Manila"
+  },
+  {
+    "name": "Munich",
+    "type": "city",
+    "timezone": "Europe/Berlin"
+  },
+  {
+    "name": "Dublin",
+    "type": "city",
+    "timezone": "Europe/Dublin"
+  },
+  {
+    "name": "Barcelona",
+    "type": "city",
+    "timezone": "Europe/Madrid"
   }
 ]
