@@ -2,12 +2,14 @@
   {
     "name": "Bangkok",
     "type": "city",
-    "timezone": "Asia/Bangkok"
+    "timezone": "Asia/Bangkok",
+    "image": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=2000&auto=format&fit=crop"
   },
   {
     "name": "Tel Aviv",
     "type": "city",
-    "timezone": "Asia/Jerusalem"
+    "timezone": "Asia/Jerusalem",
+    "image": "https://images.unsplash.com/photo-1547483029-77784da27709?q=80&w=2000&auto=format&fit=crop"
   },
   {
     "name": "New York",

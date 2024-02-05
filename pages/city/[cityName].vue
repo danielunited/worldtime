@@ -1,9 +1,10 @@
 <template>
-  <div class="time-converter">
+  <div class="time-converter" :style="backgroundStyle">
     <!-- User's Local Time Slider Row -->
     <div class="location-row my-4">
       <div class="location-info">
-        <h3 class="location-title">Local Time ({{ localTimezone }})</h3>
+        <h3 class="location-title">Local Time</h3>
+        <p class="timezone-label">(UTC {{ localOffset }})</p>
         <p class="location-time">{{ formattedLocalTime }}</p>
       </div>
       <input type="range" min="0" max="23" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" />
@@ -11,7 +12,8 @@
     <!-- Other Location's Time Slider Row -->
     <div class="location-row my-4">
       <div class="location-info">
-        <h3 class="location-title">{{ cityName }} ({{ otherTimezone }})</h3>
+        <h3 class="location-title">{{ cityName }}</h3>
+        <p class="timezone-label">(UTC {{ otherOffset }})</p>
         <p class="location-time">{{ formattedOtherTime }}</p>
       </div>
       <input type="range" min="0" max="23" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" />
@@ -30,6 +32,7 @@ const otherHour = ref(DateTime.local().hour);
 const localTimezone = ref(Intl.DateTimeFormat().resolvedOptions().timeZone);
 const otherTimezone = ref('');
 const cityName = ref('');
+const image = ref(''); // Use 'image' as the reactive variable for the city's image
 const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
 
@@ -37,12 +40,22 @@ const formattedOtherTime = ref('');
 async function fetchCityTimezone(city) {
   const mappings = await $fetch('/data.json');
   const cityInfo = mappings.find((c) => c.name.toLowerCase() === city.toLowerCase() && c.type === 'city');
-  if (cityInfo && cityInfo.timezone) {
+  if (cityInfo) {
     otherTimezone.value = cityInfo.timezone;
+    image.value = cityInfo.image; // Assign the city's image URL from the data.json
   } else {
     throw new Error('City timezone not found');
   }
 }
+
+// Computed properties for UTC offsets
+const localOffset = computed(() => {
+  return DateTime.local().setZone(localTimezone.value).offset / 60;
+});
+
+const otherOffset = computed(() => {
+  return DateTime.local().setZone(otherTimezone.value).offset / 60;
+});
 
 // Update times based on the slider's values and origin
 function updateTimes(hour, origin) {
@@ -71,11 +84,17 @@ function updateTimes(hour, origin) {
   }
 }
 
+const backgroundStyle = computed(() => ({
+  backgroundImage: `url(${image.value})`, // Use 'image' reactive variable here
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+}));
+
 const route = useRoute();
 onMounted(async () => {
   cityName.value = decodeURIComponent(route.params.cityName).replace(/-/g, ' ');
   await fetchCityTimezone(cityName.value);
-
   // Set the initial times without rounding
   const now = DateTime.local();
   formattedLocalTime.value = now.setZone(localTimezone.value).toFormat('h:mm a');
