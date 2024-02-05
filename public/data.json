@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Bangkok",
+    "type": "city",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "name": "Thailand",
+    "type": "country",
+    "timezone": "Asia/Bangkok"
+  },
+  {
+    "name": "Tel Aviv",
+    "type": "city",
+    "timezone": "Asia/Jerusalem"
+  }
+]
