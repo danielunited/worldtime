@@ -1,49 +1,84 @@
+<template>
+  <div class="time-converter">
+    <!-- User's Local Time Slider Row -->
+    <div class="location-row my-4">
+      <div class="location-info">
+        <h3 class="location-title">Local Time ({{ localTimezone }})</h3>
+        <p class="location-time">{{ formattedLocalTime }}</p>
+      </div>
+      <input type="range" min="0" max="23" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" />
+    </div>
+    <!-- Other Location's Time Slider Row -->
+    <div class="location-row my-4">
+      <div class="location-info">
+        <h3 class="location-title">{{ cityName }} ({{ otherTimezone }})</h3>
+        <p class="location-time">{{ formattedOtherTime }}</p>
+      </div>
+      <input type="range" min="0" max="23" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" />
+    </div>
+  </div>
+</template>
+
 <script setup>
-import { DateTime } from 'luxon';
-import { onMounted, ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { DateTime } from 'luxon';
 
+// Reactive states
+const localHour = ref(DateTime.local().hour);
+const otherHour = ref(DateTime.local().hour);
+const localTimezone = ref(Intl.DateTimeFormat().resolvedOptions().timeZone);
+const otherTimezone = ref('');
 const cityName = ref('');
-const timeData = ref(null);
-const formattedDateTime = ref('');
-const error = ref(null);
-const pending = ref(true);
+const formattedLocalTime = ref('');
+const formattedOtherTime = ref('');
 
-async function fetchTimeData(city) {
-  pending.value = true;
-  try {
-    const mappings = await $fetch('/data.json');
-    const normalizedCityName = city.replace(/-/g, ' ').toLowerCase(); // Adjust for URL to name matching
-    const cityInfo = mappings.find((c) => c.name.toLowerCase() === normalizedCityName && c.type === 'city');
-    if (cityInfo && cityInfo.timezone) {
-      // Fetch time data from WorldTimeAPI
-      const data = await $fetch(`https://www.worldtimeapi.org/api/timezone/${cityInfo.timezone}`);
-      timeData.value = data;
-      // Parse and format the datetime with timezone using Luxon
-      const dt = DateTime.fromISO(data.datetime, { zone: data.timezone });
-      formattedDateTime.value = dt.toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS);
-    } else {
-      throw new Error('City not found');
-    }
-  } catch (e) {
-    error.value = e.message;
-  } finally {
-    pending.value = false;
+// Fetch the city's timezone from data.json based on the route parameter
+async function fetchCityTimezone(city) {
+  const mappings = await $fetch('/data.json');
+  const cityInfo = mappings.find((c) => c.name.toLowerCase() === city.toLowerCase() && c.type === 'city');
+  if (cityInfo && cityInfo.timezone) {
+    otherTimezone.value = cityInfo.timezone;
+  } else {
+    throw new Error('City timezone not found');
+  }
+}
+
+// Update times based on the slider's values and origin
+function updateTimes(hour, origin) {
+  // Convert hour to a number to ensure calculations are correct
+  hour = Number(hour);
+
+  // Determine the reference time for the slider that was changed
+  let referenceTime = DateTime.local().set({ hour, minute: 0, second: 0 });
+
+  if (origin === 'local') {
+    // Update the local hour and format the time
+    localHour.value = hour;
+    formattedLocalTime.value = referenceTime.setZone(localTimezone.value).toFormat('h:mm a');
+    // Calculate and update the other hour
+    referenceTime = referenceTime.setZone(otherTimezone.value);
+    otherHour.value = referenceTime.hour;
+    formattedOtherTime.value = referenceTime.toFormat('h:mm a');
+  } else {
+    // Update the other hour and format the time
+    otherHour.value = hour;
+    formattedOtherTime.value = referenceTime.setZone(otherTimezone.value).toFormat('h:mm a');
+    // Calculate and update the local hour
+    referenceTime = referenceTime.setZone(localTimezone.value);
+    localHour.value = referenceTime.hour;
+    formattedLocalTime.value = referenceTime.toFormat('h:mm a');
   }
 }
 
 const route = useRoute();
-onMounted(() => {
+onMounted(async () => {
   cityName.value = decodeURIComponent(route.params.cityName).replace(/-/g, ' ');
-  fetchTimeData(cityName.value);
+  await fetchCityTimezone(cityName.value);
+
+  // Set the initial times without rounding
+  const now = DateTime.local();
+  formattedLocalTime.value = now.setZone(localTimezone.value).toFormat('h:mm a');
+  formattedOtherTime.value = now.setZone(otherTimezone.value).toFormat('h:mm a');
 });
 </script>
-
-<template>
-  <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold">{{ cityName }} Time Conversion</h1>
-    <p v-if="pending">Loading time data...</p>
-    <p v-else-if="error">Failed to load time data: {{ error }}</p>
-    <p v-else>{{ formattedDateTime }}</p>
-  </div>
-</template>
