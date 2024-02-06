@@ -42,8 +42,8 @@ const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
 const image = ref('');
 
-const fetchTimezoneData = async (ip = '125.25.164.185') => {
-  const response = await fetch(`https://worldtimeapi.org/api/ip/${ip}`);
+const fetchTimezoneData = async () => {
+  const response = await fetch('https://worldtimeapi.org/api/ip');
   const data = await response.json();
   localTimezone.value = data.timezone;
 };
