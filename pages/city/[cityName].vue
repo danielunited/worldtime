@@ -29,7 +29,7 @@
 
 <script setup>
 import { DateTime } from 'luxon';
-import { onMounted, ref, computed, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 // Reactive states for UI
