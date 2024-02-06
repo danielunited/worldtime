@@ -29,101 +29,94 @@
 
 <script setup>
 import { DateTime } from 'luxon';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-// Reactive states
+// Reactive states for UI
 const localHour = ref(DateTime.local().hour);
 const otherHour = ref(DateTime.local().hour);
+const cityName = ref('');
 const localTimezone = ref('');
 const otherTimezone = ref('');
-const cityName = ref('');
-const image = ref('');
 const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
+const image = ref('');
 
-// Fetch real-time data for local timezone using WorldTimeAPI
-async function fetchLocalTimezone(ip = '125.25.164.185') {
+const fetchTimezoneData = async (ip = '125.25.164.185') => {
   const response = await fetch(`https://worldtimeapi.org/api/ip/${ip}`);
   const data = await response.json();
-  localTimezone.value = data.timezone; // Set the local timezone
-  // Update local time formatting based on fetched timezone
-  const now = DateTime.now().setZone(data.timezone);
-  formattedLocalTime.value = now.toFormat('h:mm a');
-}
+  localTimezone.value = data.timezone;
+};
 
-// Existing function to fetch the city's timezone - keep this unchanged
-async function fetchCityTimezone(city) {
+const fetchCityData = async (city) => {
   const mappings = await $fetch('/data.json');
-  const cityInfo = mappings.find((c) => c.name.toLowerCase() === city.toLowerCase() && c.type === 'city');
+  const cityInfo = mappings.find((c) => c.name.toLowerCase() === city.toLowerCase());
   if (cityInfo) {
     otherTimezone.value = cityInfo.timezone;
     image.value = cityInfo.image;
   } else {
-    throw new Error('City timezone not found');
+    throw new Error('City data not found');
   }
-}
+};
+
+// Update times based on slider movement and round to the nearest hour
+const updateTimes = (hour, origin) => {
+  const originHourRef = origin === 'local' ? localHour : otherHour;
+  originHourRef.value = hour;
+
+  const originTimezone = origin === 'local' ? localTimezone.value : otherTimezone.value;
+  const targetTimezone = origin === 'local' ? otherTimezone.value : localTimezone.value;
+
+  const originDateTime = DateTime.now()
+    .setZone(originTimezone)
+    .set({ hour: Number(hour), minute: 0 });
+  const targetDateTime = originDateTime.setZone(targetTimezone);
+
+  if (origin === 'local') {
+    formattedLocalTime.value = originDateTime.toFormat('h:mm a');
+    otherHour.value = targetDateTime.hour;
+    formattedOtherTime.value = targetDateTime.toFormat('h:mm a');
+  } else {
+    formattedOtherTime.value = originDateTime.toFormat('h:mm a');
+    localHour.value = targetDateTime.hour;
+    formattedLocalTime.value = targetDateTime.toFormat('h:mm a');
+  }
+};
+
+const formatOffset = (offset) => {
+  const hours = offset / 60;
+  const sign = hours >= 0 ? '+' : '-';
+  return `UTC ${sign}${Math.abs(hours).toString().padStart(2, '0')}:00`;
+};
+
+const localOffset = computed(() => formatOffset(DateTime.now().setZone(localTimezone.value).offset));
+const otherOffset = computed(() => formatOffset(DateTime.now().setZone(otherTimezone.value).offset));
 
 const timeDifferenceMessage = computed(() => {
-  // Ensure the time zones are correctly set for both local and other city times
   const localDateTime = DateTime.now().setZone(localTimezone.value);
   const otherDateTime = DateTime.now().setZone(otherTimezone.value);
-
-  // Calculate the difference in hours
   const differenceInHours = otherDateTime.offset / 60 - localDateTime.offset / 60;
-
-  // Generate the message
   const diffMessage = differenceInHours === 0 ? 'the same time as' : `${Math.abs(differenceInHours)} hours ${differenceInHours > 0 ? 'ahead of' : 'behind'}`;
-
   return `${cityName.value} is ${diffMessage} your location`;
 });
 
-// Ensure updateTimes function correctly reflects changes in hour and timezone
-function updateTimes(hour, origin) {
-  hour = Number(hour);
-
-  if (origin === 'local') {
-    const referenceTime = DateTime.now().setZone(localTimezone.value).set({ hour });
-    formattedLocalTime.value = referenceTime.toFormat('h:mm a');
-
-    const otherTime = referenceTime.setZone(otherTimezone.value);
-    otherHour.value = otherTime.hour;
-    formattedOtherTime.value = otherTime.toFormat('h:mm a');
-  } else {
-    const referenceTime = DateTime.now().setZone(otherTimezone.value).set({ hour });
-    formattedOtherTime.value = referenceTime.toFormat('h:mm a');
-
-    const localTime = referenceTime.setZone(localTimezone.value);
-    localHour.value = localTime.hour;
-    formattedLocalTime.value = localTime.toFormat('h:mm a');
-  }
-}
-
-// Adjust the UTC offset formatting
-const formatOffset = (offset) => {
-  const sign = offset >= 0 ? '+' : '-';
-  return `UTC ${sign}${Math.abs(offset).toString().padStart(2, '0')}:00`;
-};
-
-const localOffset = computed(() => {
-  return formatOffset(DateTime.local().setZone(localTimezone.value).offset / 60);
-});
-
-const otherOffset = computed(() => {
-  return formatOffset(DateTime.local().setZone(otherTimezone.value).offset / 60);
-});
-
 const backgroundStyle = computed(() => ({
-  backgroundImage: `url(${image.value})`, // Use 'image' reactive variable here
+  backgroundImage: `url(${image.value})`,
 }));
 
 const route = useRoute();
 
-// Adjusted to include fetching of local timezone on mount
 onMounted(async () => {
   cityName.value = decodeURIComponent(route.params.cityName).replace(/-/g, ' ');
-  await fetchLocalTimezone(); // Fetch local timezone upon component mount
-  await fetchCityTimezone(cityName.value); // Fetch other city's timezone
+  await fetchTimezoneData(); // Optionally, use dynamic IP
+  await fetchCityData(cityName.value);
+  // Initial time setup
+  updateTimes(localHour.value, 'local');
+});
+
+// Watchers to ensure the UI updates correctly when the timezones are known
+watch([localTimezone, otherTimezone], () => {
+  updateTimes(localHour.value, 'local');
 });
 </script>
 
