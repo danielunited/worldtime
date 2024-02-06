@@ -168,6 +168,78 @@
     "slug": "amsterdam"
   },
   {
+    "name": "Rio de Janeiro",
+    "type": "city",
+    "timezone": "America/Sao_Paulo",
+    "slug": "rio-de-janeiro"
+  },
+  {
+    "name": "Miami",
+    "type": "city",
+    "timezone": "America/New_York",
+    "slug": "miami"
+  },
+  {
+    "name": "Madrid",
+    "type": "city",
+    "timezone": "Europe/Madrid",
+    "slug": "madrid"
+  },
+  {
+    "name": "Buenos Aires",
+    "type": "city",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "slug": "buenos-aires"
+  },
+  {
+    "name": "Bangalore",
+    "type": "city",
+    "timezone": "Asia/Kolkata",
+    "slug": "bangalore"
+  },
+  {
+    "name": "Prague",
+    "type": "city",
+    "timezone": "Europe/Prague",
+    "slug": "prague"
+  },
+  {
+    "name": "Osaka",
+    "type": "city",
+    "timezone": "Asia/Tokyo",
+    "slug": "osaka"
+  },
+  {
+    "name": "Vienna",
+    "type": "city",
+    "timezone": "Europe/Vienna",
+    "slug": "vienna"
+  },
+  {
+    "name": "San Diego",
+    "type": "city",
+    "timezone": "America/Los_Angeles",
+    "slug": "san-diego"
+  },
+  {
+    "name": "Bangalore",
+    "type": "city",
+    "timezone": "Asia/Kolkata",
+    "slug": "bangalore"
+  },
+  {
+    "name": "Warsaw",
+    "type": "city",
+    "timezone": "Europe/Warsaw",
+    "slug": "warsaw"
+  },
+  {
+    "name": "Lisbon",
+    "type": "city",
+    "timezone": "Europe/Lisbon",
+    "slug": "lisbon"
+  },
+  {
     "name": "Houston",
     "type": "city",
     "timezone": "America/Chicago",
