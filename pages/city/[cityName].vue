@@ -6,7 +6,7 @@
         <div class="location-info">
           <div class="location-text">
             <h3 class="location-title">Local Time</h3>
-            <p class="timezone-label">({{ localOffset }})</p>
+            <p class="timezone-label">{{ localOffset }}</p>
           </div>
 
           <p class="location-time">{{ formattedLocalTime }}</p>
@@ -17,7 +17,7 @@
         <div class="location-info">
           <div class="location-text">
             <h3 class="location-title">{{ cityName }}</h3>
-            <p class="timezone-label">({{ otherOffset }})</p>
+            <p class="timezone-label">{{ otherOffset }}</p>
           </div>
           <p class="location-time">{{ formattedOtherTime }}</p>
         </div>
