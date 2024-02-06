@@ -48,10 +48,11 @@ const fetchTimezoneData = async () => {
   localTimezone.value = data.timezone;
 };
 
-const fetchCityData = async (city) => {
+const fetchCityData = async (slug) => {
   const mappings = await $fetch('/data.json');
-  const cityInfo = mappings.find((c) => c.name.toLowerCase() === city.toLowerCase());
+  const cityInfo = mappings.find((c) => c.slug === slug);
   if (cityInfo) {
+    cityName.value = cityInfo.name; // Update the city name based on fetched data
     otherTimezone.value = cityInfo.timezone;
     image.value = cityInfo.image;
   } else {
@@ -110,9 +111,9 @@ const backgroundStyle = computed(() => ({
 const route = useRoute();
 
 onMounted(async () => {
-  cityName.value = decodeURIComponent(route.params.cityName).replace(/-/g, ' ');
-  await fetchTimezoneData(); // Optionally, use dynamic IP
-  await fetchCityData(cityName.value);
+  const slug = route.params.cityName; // Assuming the route parameter is still called cityName for compatibility
+  await fetchTimezoneData();
+  await fetchCityData(slug); // Fetch city data using slug
   // Initial time setup
   updateTimes(localHour.value, 'local', false);
 });

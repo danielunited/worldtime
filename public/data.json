@@ -3,242 +3,294 @@
     "name": "Bangkok",
     "type": "city",
     "timezone": "Asia/Bangkok",
-    "image": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=2000&auto=format&fit=crop"
+    "image": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=2000&auto=format&fit=crop",
+    "slug": "bangkok"
   },
   {
     "name": "Tel Aviv",
     "type": "city",
     "timezone": "Asia/Jerusalem",
-    "image": "https://images.unsplash.com/photo-1547483029-77784da27709?q=80&w=2000&auto=format&fit=crop"
+    "image": "https://images.unsplash.com/photo-1547483029-77784da27709?q=80&w=2000&auto=format&fit=crop",
+    "slug": "tel-aviv"
   },
   {
     "name": "New York",
     "type": "city",
-    "timezone": "America/New_York"
+    "timezone": "America/New_York",
+    "image": "https://images.unsplash.com/photo-1550850839-8dc894ed385a?q=80&w=2000&auto=format&fit=crop",
+    "slug": "new-york"
   },
   {
     "name": "Tokyo",
     "type": "city",
-    "timezone": "Asia/Tokyo"
+    "timezone": "Asia/Tokyo",
+    "slug": "tokyo"
   },
   {
     "name": "London",
     "type": "city",
-    "timezone": "Europe/London"
+    "timezone": "Europe/London",
+    "image": "https://images.unsplash.com/photo-1510265119258-db115b0e8172?q=80&w=2000&auto=format&fit=crop",
+    "slug": "london"
   },
   {
     "name": "Paris",
     "type": "city",
-    "timezone": "Europe/Paris"
+    "timezone": "Europe/Paris",
+    "image": "https://images.unsplash.com/photo-1612821058477-8b39080e8dee?q=80&w=2000&auto=format&fit=crop",
+    "slug": "paris"
   },
   {
     "name": "Sydney",
     "type": "city",
-    "timezone": "Australia/Sydney"
+    "timezone": "Australia/Sydney",
+    "slug": "sydney"
   },
   {
     "name": "Los Angeles",
     "type": "city",
-    "timezone": "America/Los_Angeles"
+    "timezone": "America/Los_Angeles",
+    "slug": "los-angeles"
   },
   {
     "name": "Dubai",
     "type": "city",
-    "timezone": "Asia/Dubai"
+    "timezone": "Asia/Dubai",
+    "image": "https://images.unsplash.com/flagged/photo-1559717865-a99cac1c95d8?q=80&w=2000&auto=format&fit=crop",
+    "slug": "dubai"
   },
   {
     "name": "Singapore",
     "type": "city",
-    "timezone": "Asia/Singapore"
+    "timezone": "Asia/Singapore",
+    "slug": "singapore"
   },
   {
     "name": "Hong Kong",
     "type": "city",
-    "timezone": "Asia/Hong_Kong"
+    "timezone": "Asia/Hong_Kong",
+    "slug": "hong-kong"
   },
   {
     "name": "Berlin",
     "type": "city",
-    "timezone": "Europe/Berlin"
+    "timezone": "Europe/Berlin",
+    "slug": "berlin"
   },
   {
     "name": "Mumbai",
     "type": "city",
-    "timezone": "Asia/Kolkata"
+    "timezone": "Asia/Kolkata",
+    "slug": "mumbai"
   },
   {
     "name": "Rome",
     "type": "city",
-    "timezone": "Europe/Rome"
+    "timezone": "Europe/Rome",
+    "slug": "rome"
   },
   {
     "name": "Istanbul",
     "type": "city",
-    "timezone": "Europe/Istanbul"
+    "timezone": "Europe/Istanbul",
+    "slug": "istanbul"
   },
   {
     "name": "San Francisco",
     "type": "city",
-    "timezone": "America/Los_Angeles"
+    "timezone": "America/Los_Angeles",
+    "slug": "san-francisco"
   },
   {
     "name": "Seoul",
     "type": "city",
-    "timezone": "Asia/Seoul"
+    "timezone": "Asia/Seoul",
+    "slug": "seoul"
   },
   {
     "name": "Toronto",
     "type": "city",
-    "timezone": "America/Toronto"
+    "timezone": "America/Toronto",
+    "slug": "toronto"
   },
   {
     "name": "Shanghai",
     "type": "city",
-    "timezone": "Asia/Shanghai"
+    "timezone": "Asia/Shanghai",
+    "slug": "shanghai"
   },
   {
     "name": "Cairo",
     "type": "city",
-    "timezone": "Africa/Cairo"
+    "timezone": "Africa/Cairo",
+    "slug": "cairo"
   },
   {
     "name": "Moscow",
     "type": "city",
-    "timezone": "Europe/Moscow"
+    "timezone": "Europe/Moscow",
+    "slug": "moscow"
   },
   {
     "name": "Rio de Janeiro",
     "type": "city",
-    "timezone": "America/Sao_Paulo"
+    "timezone": "America/Sao_Paulo",
+    "slug": "rio-de-janeiro"
   },
   {
     "name": "Mexico City",
     "type": "city",
-    "timezone": "America/Mexico_City"
+    "timezone": "America/Mexico_City",
+    "slug": "mexico-city"
   },
   {
     "name": "Toronto",
     "type": "city",
-    "timezone": "America/Toronto"
+    "timezone": "America/Toronto",
+    "slug": "toronto"
   },
   {
     "name": "Beijing",
     "type": "city",
-    "timezone": "Asia/Shanghai"
+    "timezone": "Asia/Shanghai",
+    "slug": "beijing"
   },
   {
     "name": "Cape Town",
     "type": "city",
-    "timezone": "Africa/Johannesburg"
+    "timezone": "Africa/Johannesburg",
+    "slug": "cape-town"
   },
   {
     "name": "Stockholm",
     "type": "city",
-    "timezone": "Europe/Stockholm"
+    "timezone": "Europe/Stockholm",
+    "slug": "stockholm"
   },
   {
     "name": "Dublin",
     "type": "city",
-    "timezone": "Europe/Dublin"
+    "timezone": "Europe/Dublin",
+    "slug": "dublin"
   },
   {
     "name": "Amsterdam",
     "type": "city",
-    "timezone": "Europe/Amsterdam"
+    "timezone": "Europe/Amsterdam",
+    "slug": "amsterdam"
   },
   {
     "name": "Rio de Janeiro",
     "type": "city",
-    "timezone": "America/Sao_Paulo"
+    "timezone": "America/Sao_Paulo",
+    "slug": "rio-de-janeiro"
   },
   {
     "name": "Miami",
     "type": "city",
-    "timezone": "America/New_York"
+    "timezone": "America/New_York",
+    "slug": "miami"
   },
   {
     "name": "Madrid",
     "type": "city",
-    "timezone": "Europe/Madrid"
+    "timezone": "Europe/Madrid",
+    "slug": "madrid"
   },
   {
     "name": "Buenos Aires",
     "type": "city",
-    "timezone": "America/Argentina/Buenos_Aires"
+    "timezone": "America/Argentina/Buenos_Aires",
+    "slug": "buenos-aires"
   },
   {
     "name": "Bangalore",
     "type": "city",
-    "timezone": "Asia/Kolkata"
+    "timezone": "Asia/Kolkata",
+    "slug": "bangalore"
   },
   {
     "name": "Prague",
     "type": "city",
-    "timezone": "Europe/Prague"
+    "timezone": "Europe/Prague",
+    "slug": "prague"
   },
   {
     "name": "Osaka",
     "type": "city",
-    "timezone": "Asia/Tokyo"
+    "timezone": "Asia/Tokyo",
+    "slug": "osaka"
   },
   {
     "name": "Vienna",
     "type": "city",
-    "timezone": "Europe/Vienna"
+    "timezone": "Europe/Vienna",
+    "slug": "vienna"
   },
   {
     "name": "San Diego",
     "type": "city",
-    "timezone": "America/Los_Angeles"
+    "timezone": "America/Los_Angeles",
+    "slug": "san-diego"
   },
   {
     "name": "Bangalore",
     "type": "city",
-    "timezone": "Asia/Kolkata"
+    "timezone": "Asia/Kolkata",
+    "slug": "bangalore"
   },
   {
     "name": "Warsaw",
     "type": "city",
-    "timezone": "Europe/Warsaw"
+    "timezone": "Europe/Warsaw",
+    "slug": "warsaw"
   },
   {
     "name": "Helsinki",
     "type": "city",
-    "timezone": "Europe/Helsinki"
+    "timezone": "Europe/Helsinki",
+    "slug": "helsinki"
   },
   {
     "name": "Lisbon",
     "type": "city",
-    "timezone": "Europe/Lisbon"
+    "timezone": "Europe/Lisbon",
+    "slug": "lisbon"
   },
   {
     "name": "Vienna",
     "type": "city",
-    "timezone": "Europe/Vienna"
+    "timezone": "Europe/Vienna",
+    "slug": "vienna"
   },
   {
     "name": "Vancouver",
     "type": "city",
-    "timezone": "America/Vancouver"
+    "timezone": "America/Vancouver",
+    "slug": "vancouver"
   },
   {
     "name": "Manila",
     "type": "city",
-    "timezone": "Asia/Manila"
+    "timezone": "Asia/Manila",
+    "slug": "manila"
   },
   {
     "name": "Munich",
     "type": "city",
-    "timezone": "Europe/Berlin"
+    "timezone": "Europe/Berlin",
+    "slug": "munich"
   },
   {
     "name": "Dublin",
     "type": "city",
-    "timezone": "Europe/Dublin"
+    "timezone": "Europe/Dublin",
+    "slug": "dublin"
   },
   {
     "name": "Barcelona",
     "type": "city",
-    "timezone": "Europe/Madrid"
+    "timezone": "Europe/Madrid",
+    "slug": "barcelona"
   }
 ]
