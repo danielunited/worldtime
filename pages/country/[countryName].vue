@@ -1,6 +1,6 @@
 <script setup>
-import TimeConverter from '../../components/TimeConverter.vue';
 import { useRoute } from 'vue-router';
+import TimeConverter from '../../components/TimeConverter.vue';
 
 const route = useRoute();
 const slug = route.params.countryName;

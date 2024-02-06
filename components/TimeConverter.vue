@@ -27,6 +27,7 @@
 </template>
 
 <script setup>
+import { createError } from '#app';
 import { DateTime } from 'luxon';
 import { computed, defineProps, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -52,25 +53,26 @@ const fetchTimezoneData = async () => {
 };
 
 const fetchEntityData = async (slug, entityType) => {
-  const nuxtApp = useNuxtApp(); // Get access to Nuxt app instance
   try {
-    const mappings = await $fetch('/data.json'); // Fetch your data source
+    const mappings = await $fetch('/data.json');
     const entityInfo = mappings.find((c) => c.slug === slug && c.type === entityType);
 
     if (!entityInfo) {
-      // If no matching entity is found, use Nuxt's error handling to show the default 404 page
-      nuxtApp.$nuxt.error({ statusCode: 404, message: 'Page not found' });
-      return; // Prevent further execution
+      // Trigger an error page client-side
+      nuxtApp.$nuxt.error({
+        statusCode: 404,
+        message: 'Page not found',
+        fatal: true,
+      });
+      return;
     }
 
-    // If entity is found and matches the type, proceed with setting the data
     entityName.value = entityInfo.name;
     otherTimezone.value = entityInfo.timezone;
     image.value = entityInfo.image;
   } catch (error) {
     console.error('Failed to fetch entity data:', error);
-    // Optionally, handle the error more gracefully here
-    nuxtApp.$nuxt.error({ statusCode: 404, message: 'Page not found' });
+    throw createError({ statusCode: 404, message: 'Page not found', fatal: true });
   }
 };
 
@@ -90,13 +92,13 @@ const updateTimes = (hour, origin, round = true) => {
   const targetDateTime = originDateTime.setZone(targetTimezone);
 
   if (origin === 'local') {
-    formattedLocalTime.value = originDateTime.toFormat('h:mm a');
+    formattedLocalTime.value = originDateTime.toFormat('HH:mm');
     otherHour.value = targetDateTime.hour;
-    formattedOtherTime.value = targetDateTime.toFormat('h:mm a');
+    formattedOtherTime.value = targetDateTime.toFormat('HH:mm');
   } else {
-    formattedOtherTime.value = originDateTime.toFormat('h:mm a');
+    formattedOtherTime.value = originDateTime.toFormat('HH:mm');
     localHour.value = targetDateTime.hour;
-    formattedLocalTime.value = targetDateTime.toFormat('h:mm a');
+    formattedLocalTime.value = targetDateTime.toFormat('HH:mm');
   }
 };
 
@@ -132,24 +134,30 @@ const meetingTimeGradient = computed(() => {
   const workColor = '#00E28D';
 
   return `linear-gradient(to right,
-      ${nightColor} 0%, 
-      ${nightColor} ${morningStartPct}%, 
-      ${earlyLateColor} ${morningStartPct}%, 
-      ${earlyLateColor} ${workStartPct}%, 
-      ${workColor} ${workStartPct}%, 
-      ${workColor} ${workEndPct}%, 
-      ${earlyLateColor} ${workEndPct}%, 
-      ${earlyLateColor} ${eveningEndPct}%, 
-      ${nightColor} ${eveningEndPct}%, 
+      ${nightColor} 0%,
+      ${nightColor} ${morningStartPct}%,
+      ${earlyLateColor} ${morningStartPct}%,
+      ${earlyLateColor} ${workStartPct}%,
+      ${workColor} ${workStartPct}%,
+      ${workColor} ${workEndPct}%,
+      ${earlyLateColor} ${workEndPct}%,
+      ${earlyLateColor} ${eveningEndPct}%,
+      ${nightColor} ${eveningEndPct}%,
       ${nightColor} 100%)`;
 });
 
 const route = useRoute();
 
 onMounted(async () => {
-  await fetchTimezoneData();
-  await fetchEntityData(props.entitySlug, props.entityType);
-  updateTimes(localHour.value, 'local', false);
+  try {
+    await fetchTimezoneData();
+    await fetchEntityData(props.entitySlug, props.entityType);
+    updateTimes(localHour.value, 'local', false);
+  } catch (error) {
+    // If an error is caught here, it means `fetchEntityData` threw a 404 error
+    // You can decide whether to handle this error further or let it propagate
+    console.error('Error during component mounting:', error);
+  }
 });
 
 watch([localTimezone, otherTimezone], () => {
