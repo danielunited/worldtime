@@ -60,16 +60,19 @@ const fetchCityData = async (city) => {
 };
 
 // Update times based on slider movement and round to the nearest hour
-const updateTimes = (hour, origin) => {
+const updateTimes = (hour, origin, round = true) => {
   const originHourRef = origin === 'local' ? localHour : otherHour;
-  originHourRef.value = hour;
+  if (round) {
+    originHourRef.value = hour;
+  }
 
   const originTimezone = origin === 'local' ? localTimezone.value : otherTimezone.value;
   const targetTimezone = origin === 'local' ? otherTimezone.value : localTimezone.value;
 
-  const originDateTime = DateTime.now()
-    .setZone(originTimezone)
-    .set({ hour: Number(hour), minute: 0 });
+  let originDateTime = DateTime.now().setZone(originTimezone);
+  if (round) {
+    originDateTime = originDateTime.set({ hour: Number(hour), minute: 0 });
+  }
   const targetDateTime = originDateTime.setZone(targetTimezone);
 
   if (origin === 'local') {
@@ -111,7 +114,7 @@ onMounted(async () => {
   await fetchTimezoneData(); // Optionally, use dynamic IP
   await fetchCityData(cityName.value);
   // Initial time setup
-  updateTimes(localHour.value, 'local');
+  updateTimes(localHour.value, 'local', false);
 });
 
 // Watchers to ensure the UI updates correctly when the timezones are known
