@@ -50,6 +50,27 @@
 }
 
 .slider {
-  width: 100%;
-  margin-top: 12px;
+  -webkit-appearance: none; /* Remove default styling */
+  width: 100%; /* Full width */
+  height: 4px; /* Match the image */
+  border-radius: 5px; /* Rounded corners for the slider */
+  background: #ddd; /* Default background for testing */
+  outline: none; /* Remove the outline */
+  padding: 0; /* Reset padding */
+  margin: 0; /* Reset margin */
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none; /* Remove default border */
+  height: 24px; /* Height of the thumb */
+  width: 24px; /* Width of the thumb */
+  border-radius: 50%; /* Make it circular */
+  background: #fff; /* Thumb color */
+  cursor: pointer; /* Pointer cursor on hover */
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.slider::-moz-range-thumb {
+  /* Firefox specific styles here */
 }

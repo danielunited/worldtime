@@ -11,7 +11,7 @@
 
           <p class="location-time">{{ formattedLocalTime }}</p>
         </div>
-        <input type="range" min="0" max="23" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" />
+        <input type="range" min="0" max="23" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" :style="{ background: meetingTimeGradient }" />
       </div>
       <div class="location-row">
         <div class="location-info">
@@ -21,7 +21,7 @@
           </div>
           <p class="location-time">{{ formattedOtherTime }}</p>
         </div>
-        <input type="range" min="0" max="23" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" />
+        <input type="range" min="0" max="23" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" :style="{ background: meetingTimeGradient }" />
       </div>
     </div>
   </div>
@@ -108,6 +108,32 @@ const backgroundStyle = computed(() => ({
   backgroundImage: `url(${image.value})`,
 }));
 
+const meetingTimeGradient = computed(() => {
+  // Convert hours to percentages of the day
+  const morningStartPct = (6 / 24) * 100; // 6 AM start
+  const workStartPct = (9 / 24) * 100; // 9 AM start
+  const workEndPct = (18 / 24) * 100; // 6 PM end
+  const eveningEndPct = (21 / 24) * 100; // 9 PM end
+
+  // Define colors based on the specified times
+  const nightColor = '#FF4F64'; // For hours outside 6 AM to 9 PM
+  const earlyLateColor = '#FFAB00'; // For 6 AM to 9 AM and 6 PM to 9 PM
+  const workColor = '#00E28D'; // For 9 AM to 6 PM
+
+  // Build the gradient with sharp transitions
+  return `linear-gradient(to right,
+    ${nightColor} 0%, 
+    ${nightColor} ${morningStartPct}%, 
+    ${earlyLateColor} ${morningStartPct}%, 
+    ${earlyLateColor} ${workStartPct}%, 
+    ${workColor} ${workStartPct}%, 
+    ${workColor} ${workEndPct}%, 
+    ${earlyLateColor} ${workEndPct}%, 
+    ${earlyLateColor} ${eveningEndPct}%, 
+    ${nightColor} ${eveningEndPct}%, 
+    ${nightColor} 100%)`;
+});
+
 const route = useRoute();
 
 onMounted(async () => {
@@ -124,4 +150,4 @@ watch([localTimezone, otherTimezone], () => {
 });
 </script>
 
-<style scoped src="./cityName.styles.css"></style>
+<style scoped src="./cityName.styles.css" />
