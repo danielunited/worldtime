@@ -106,14 +106,14 @@ const timeDifferenceMessage = computed(() => {
   let diffMessage;
 
   if (differenceInHours === 0) {
-    diffMessage = 'באותו הזמן כמו';
+    diffMessage = 'זהה לאזור';
   } else if (differenceInHours > 0) {
     diffMessage = `היא ${Math.abs(differenceInHours)} שעות לפני`;
   } else {
     diffMessage = `היא ${Math.abs(differenceInHours)} שעות אחרי`;
   }
 
-  return `${entityName.value} ${diffMessage} הזמן המקומי אצלך`;
+  return `${entityName.value} ${diffMessage} הזמן המקומי שלך`;
 });
 
 const backgroundStyle = computed(() => ({
@@ -160,6 +160,31 @@ onMounted(async () => {
 watch([localTimezone, otherTimezone], () => {
   updateTimes(localHour.value, 'local');
 });
+
+// SEO metadata
+watch(
+  entityName,
+  (entityName) => {
+    useHead({
+      title: `השעה עכשיו ב${entityName} - Worldtime`,
+      meta: [
+        {
+          name: 'description',
+          content: `מצא את הזמן המדויק ב${entityName}. הכלי מאפשר חישוב זמנים ומציאת שעות מתאימות שמתאימות לשני האזורים.`,
+        },
+        {
+          property: 'og:title',
+          content: `השעה עכשיו ב${entityName} - Worldtime`,
+        },
+        {
+          property: 'og:description',
+          content: `מצא והשווה זמנים ב${entityName} וברחבי העולם. אידיאלי לתכנון פגישות בינלאומיות.`,
+        },
+      ],
+    });
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped src="./TimeConverter.styles.css" />
