@@ -56,22 +56,10 @@ const fetchEntityData = async (slug, entityType) => {
   try {
     const mappings = await $fetch('/data.json');
     const entityInfo = mappings.find((c) => c.slug === slug && c.type === entityType);
-
-    if (!entityInfo) {
-      // Trigger an error page client-side
-      nuxtApp.$nuxt.error({
-        statusCode: 404,
-        message: 'Page not found',
-        fatal: true,
-      });
-      return;
-    }
-
     entityName.value = entityInfo.name;
     otherTimezone.value = entityInfo.timezone;
     image.value = entityInfo.image;
   } catch (error) {
-    console.error('Failed to fetch entity data:', error);
     throw createError({ statusCode: 404, message: 'Page not found', fatal: true });
   }
 };
@@ -154,9 +142,7 @@ onMounted(async () => {
     await fetchEntityData(props.entitySlug, props.entityType);
     updateTimes(localHour.value, 'local', false);
   } catch (error) {
-    // If an error is caught here, it means `fetchEntityData` threw a 404 error
-    // You can decide whether to handle this error further or let it propagate
-    console.error('Error during component mounting:', error);
+    throw createError({ statusCode: 404, message: 'Page not found', fatal: true });
   }
 });
 
