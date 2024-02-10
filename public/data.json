@@ -1,290 +1,290 @@
 [
   {
-    "name": "Bangkok",
+    "name": "בנגקוק",
     "type": "city",
     "timezone": "Asia/Bangkok",
     "image": "https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=2000&auto=format&fit=crop",
     "slug": "bangkok"
   },
   {
-    "name": "Tel Aviv",
+    "name": "תל אביב",
     "type": "city",
     "timezone": "Asia/Jerusalem",
     "image": "https://images.unsplash.com/photo-1547483029-77784da27709?q=80&w=2000&auto=format&fit=crop",
     "slug": "tel-aviv"
   },
   {
-    "name": "New York",
+    "name": "ניו יורק",
     "type": "city",
     "timezone": "America/New_York",
     "image": "https://images.unsplash.com/photo-1550850839-8dc894ed385a?q=80&w=2000&auto=format&fit=crop",
     "slug": "new-york"
   },
   {
-    "name": "Tokyo",
+    "name": "טוקיו",
     "type": "city",
     "timezone": "Asia/Tokyo",
     "slug": "tokyo"
   },
   {
-    "name": "London",
+    "name": "לונדון",
     "type": "city",
     "timezone": "Europe/London",
     "image": "https://images.unsplash.com/photo-1510265119258-db115b0e8172?q=80&w=2000&auto=format&fit=crop",
     "slug": "london"
   },
   {
-    "name": "Paris",
+    "name": "פריז",
     "type": "city",
     "timezone": "Europe/Paris",
     "image": "https://images.unsplash.com/photo-1612821058477-8b39080e8dee?q=80&w=2000&auto=format&fit=crop",
     "slug": "paris"
   },
   {
-    "name": "Sydney",
+    "name": "סידני",
     "type": "city",
     "timezone": "Australia/Sydney",
     "slug": "sydney"
   },
   {
-    "name": "Los Angeles",
+    "name": "לוס אנג'לס",
     "type": "city",
     "timezone": "America/Los_Angeles",
     "slug": "los-angeles"
   },
   {
-    "name": "Dubai",
+    "name": "דובאי",
     "type": "city",
     "timezone": "Asia/Dubai",
     "image": "https://images.unsplash.com/flagged/photo-1559717865-a99cac1c95d8?q=80&w=2000&auto=format&fit=crop",
     "slug": "dubai"
   },
   {
-    "name": "Singapore",
+    "name": "סינגפור",
     "type": "city",
     "timezone": "Asia/Singapore",
     "slug": "singapore"
   },
   {
-    "name": "Hong Kong",
+    "name": "הונג קונג",
     "type": "city",
     "timezone": "Asia/Hong_Kong",
     "slug": "hong-kong"
   },
   {
-    "name": "Berlin",
+    "name": "ברלין",
     "type": "city",
     "timezone": "Europe/Berlin",
     "slug": "berlin"
   },
   {
-    "name": "Mumbai",
+    "name": "מומבאי",
     "type": "city",
     "timezone": "Asia/Kolkata",
     "slug": "mumbai"
   },
   {
-    "name": "Rome",
+    "name": "רומא",
     "type": "city",
     "timezone": "Europe/Rome",
     "slug": "rome"
   },
   {
-    "name": "Istanbul",
+    "name": "איסטנבול",
     "type": "city",
     "timezone": "Europe/Istanbul",
     "slug": "istanbul"
   },
   {
-    "name": "San Francisco",
+    "name": "סן פרנסיסקו",
     "type": "city",
     "timezone": "America/Los_Angeles",
     "slug": "san-francisco"
   },
   {
-    "name": "Seoul",
+    "name": "סיאול",
     "type": "city",
     "timezone": "Asia/Seoul",
     "slug": "seoul"
   },
   {
-    "name": "Toronto",
+    "name": "טורונטו",
     "type": "city",
     "timezone": "America/Toronto",
     "slug": "toronto"
   },
   {
-    "name": "Shanghai",
+    "name": "שנחאי",
     "type": "city",
     "timezone": "Asia/Shanghai",
     "slug": "shanghai"
   },
   {
-    "name": "Cairo",
+    "name": "קהיר",
     "type": "city",
     "timezone": "Africa/Cairo",
     "slug": "cairo"
   },
   {
-    "name": "Moscow",
+    "name": "מוסקבה",
     "type": "city",
     "timezone": "Europe/Moscow",
     "slug": "moscow"
   },
   {
-    "name": "Mexico City",
+    "name": "מקסיקו סיטי",
     "type": "city",
     "timezone": "America/Mexico_City",
     "slug": "mexico-city"
   },
   {
-    "name": "Beijing",
+    "name": "בייג'ינג",
     "type": "city",
     "timezone": "Asia/Shanghai",
     "slug": "beijing"
   },
   {
-    "name": "Cape Town",
+    "name": "קייפטאון",
     "type": "city",
     "timezone": "Africa/Johannesburg",
     "slug": "cape-town"
   },
   {
-    "name": "Stockholm",
+    "name": "סטוקהולם",
     "type": "city",
     "timezone": "Europe/Stockholm",
     "slug": "stockholm"
   },
   {
-    "name": "Dublin",
+    "name": "דבלין",
     "type": "city",
     "timezone": "Europe/Dublin",
     "slug": "dublin"
   },
   {
-    "name": "Amsterdam",
+    "name": "אמסטרדם",
     "type": "city",
     "timezone": "Europe/Amsterdam",
     "slug": "amsterdam"
   },
   {
-    "name": "Rio de Janeiro",
+    "name": "ריו דה ז'ניירו",
     "type": "city",
     "timezone": "America/Sao_Paulo",
     "slug": "rio-de-janeiro"
   },
   {
-    "name": "Miami",
+    "name": "מיאמי",
     "type": "city",
     "timezone": "America/New_York",
     "slug": "miami"
   },
   {
-    "name": "Madrid",
+    "name": "מדריד",
     "type": "city",
     "timezone": "Europe/Madrid",
     "slug": "madrid"
   },
   {
-    "name": "Buenos Aires",
+    "name": "בואנוס איירס",
     "type": "city",
     "timezone": "America/Argentina/Buenos_Aires",
     "slug": "buenos-aires"
   },
   {
-    "name": "Bangalore",
+    "name": "בנגלור",
     "type": "city",
     "timezone": "Asia/Kolkata",
     "slug": "bangalore"
   },
   {
-    "name": "Prague",
+    "name": "פראג",
     "type": "city",
     "timezone": "Europe/Prague",
     "slug": "prague"
   },
   {
-    "name": "Osaka",
+    "name": "אוסקה",
     "type": "city",
     "timezone": "Asia/Tokyo",
     "slug": "osaka"
   },
   {
-    "name": "Vienna",
+    "name": "וינה",
     "type": "city",
     "timezone": "Europe/Vienna",
     "slug": "vienna"
   },
   {
-    "name": "San Diego",
+    "name": "סן דייגו",
     "type": "city",
     "timezone": "America/Los_Angeles",
     "slug": "san-diego"
   },
   {
-    "name": "Bangalore",
+    "name": "בנגלור",
     "type": "city",
     "timezone": "Asia/Kolkata",
     "slug": "bangalore"
   },
   {
-    "name": "Warsaw",
+    "name": "ורשה",
     "type": "city",
     "timezone": "Europe/Warsaw",
     "slug": "warsaw"
   },
   {
-    "name": "Lisbon",
+    "name": "ליסבון",
     "type": "city",
     "timezone": "Europe/Lisbon",
     "slug": "lisbon"
   },
   {
-    "name": "Houston",
+    "name": "היוסטון",
     "type": "city",
     "timezone": "America/Chicago",
     "image": "https://images.unsplash.com/photo-1622007151631-25aa98ab394b?q=80&w=2000&auto=format&fit=crop",
     "slug": "houston"
   },
   {
-    "name": "Israel",
+    "name": "ישראל",
     "type": "country",
     "timezone": "Asia/Jerusalem",
     "image": "https://images.unsplash.com/photo-1561369669-a6531d6eb336?q=80&w=2000",
     "slug": "israel"
   },
   {
-    "name": "Cyprus",
+    "name": "קפריסין",
     "type": "country",
     "timezone": "Asia/Nicosia",
     "slug": "cyprus"
   },
   {
-    "name": "Greece",
+    "name": "יוון",
     "type": "country",
     "timezone": "Europe/Athens",
     "slug": "greece"
   },
   {
-    "name": "Turkey",
+    "name": "טורקיה",
     "type": "country",
     "timezone": "Europe/Istanbul",
     "slug": "turkey"
   },
   {
-    "name": "Egypt",
+    "name": "מצרים",
     "type": "country",
     "timezone": "Africa/Cairo",
     "slug": "egypt"
   },
   {
-    "name": "Jordan",
+    "name": "ירדן",
     "type": "country",
     "timezone": "Asia/Amman",
     "slug": "jordan"
   },
   {
-    "name": "Thailand",
+    "name": "תאילנד",
     "type": "country",
     "timezone": "Asia/Bangkok",
     "image": "https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=2000&auto=format&fit=crop",

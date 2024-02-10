@@ -5,7 +5,7 @@
       <div class="location-row">
         <div class="location-info">
           <div class="location-text">
-            <h3 class="location-title">Local Time</h3>
+            <h3 class="location-title">זמן מקומי</h3>
             <p class="timezone-label">{{ localOffset }}</p>
           </div>
           <p class="location-time">{{ formattedLocalTime }}</p>
@@ -115,8 +115,17 @@ const timeDifferenceMessage = computed(() => {
   const localDateTime = DateTime.now().setZone(localTimezone.value);
   const otherDateTime = DateTime.now().setZone(otherTimezone.value);
   const differenceInHours = otherDateTime.offset / 60 - localDateTime.offset / 60;
-  const diffMessage = differenceInHours === 0 ? 'the same time as' : `${Math.abs(differenceInHours)} hours ${differenceInHours > 0 ? 'ahead of' : 'behind'}`;
-  return `${entityName.value} is ${diffMessage} your location`;
+  let diffMessage;
+
+  if (differenceInHours === 0) {
+    diffMessage = 'באותו הזמן כמו';
+  } else if (differenceInHours > 0) {
+    diffMessage = `היא ${Math.abs(differenceInHours)} שעות לפני`;
+  } else {
+    diffMessage = `היא ${Math.abs(differenceInHours)} שעות אחרי`;
+  }
+
+  return `${entityName.value} ${diffMessage} הזמן המקומי אצלך`;
 });
 
 const backgroundStyle = computed(() => ({
@@ -133,7 +142,8 @@ const meetingTimeGradient = computed(() => {
   const earlyLateColor = '#FFAB00';
   const workColor = '#00E28D';
 
-  return `linear-gradient(to right,
+  // Note the change here: `to right` becomes `to left` for RTL
+  return `linear-gradient(to left,
       ${nightColor} 0%,
       ${nightColor} ${morningStartPct}%,
       ${earlyLateColor} ${morningStartPct}%,
@@ -158,6 +168,7 @@ onMounted(async () => {
     // You can decide whether to handle this error further or let it propagate
     console.error('Error during component mounting:', error);
   }
+  document.documentElement.setAttribute('dir', 'rtl');
 });
 
 watch([localTimezone, otherTimezone], () => {

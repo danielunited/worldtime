@@ -9,6 +9,8 @@
   justify-content: center;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   padding: 24px;
+  direction: rtl; /* Ensures text and layout flow right-to-left */
+  text-align: right; /* Aligns text to the right */
 }
 .card {
   background-color: #f3f5f9;
@@ -38,6 +40,7 @@
 .location-info {
   display: flex;
   justify-content: space-between;
+  text-align: right;
 }
 
 .location-title,
@@ -47,6 +50,7 @@
 
 .timezone-label {
   color: #737373;
+  direction: ltr;
 }
 
 .slider {
@@ -73,4 +77,10 @@
 
 .slider::-moz-range-thumb {
   /* Firefox specific styles here */
+}
+
+input,
+textarea,
+button {
+  text-align: right;
 }
