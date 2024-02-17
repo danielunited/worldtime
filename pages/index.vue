@@ -5,7 +5,7 @@
     <div class="city-card-container">
       <div class="city-card" v-for="city in cities" :key="city.slug">
         <NuxtLink :to="`/city/${city.slug}`">
-          <div class="city-image" :style="city.image ? `background-image: url(${city.image})` : ''"></div>
+          <div class="city-image" :style="`background-image: url(${city.image ? city.image.replace('w=2000', 'w=500').replace('q=80', 'q=50') : 'path/to/your/placeholder.png'})`"></div>
           <h4>{{ city.name }}</h4>
         </NuxtLink>
       </div>
