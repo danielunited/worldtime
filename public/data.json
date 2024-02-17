@@ -24,6 +24,7 @@
     "name": "טוקיו",
     "type": "city",
     "timezone": "Asia/Tokyo",
+    "image": "https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=2000&auto=format&fit=crop",
     "slug": "tokyo"
   },
   {
@@ -44,6 +45,7 @@
     "name": "סידני",
     "type": "city",
     "timezone": "Australia/Sydney",
+    "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=2000&auto=format&fit=crop",
     "slug": "sydney"
   },
   {
