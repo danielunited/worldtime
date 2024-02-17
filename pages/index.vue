@@ -1,7 +1,7 @@
 <template>
   <div class="rtl container">
     <span class="logo">Worldtime</span>
-    <h1>השעה עכשיו ב</h1>
+    <h1>השעה עכשיו ב...</h1>
     <div class="city-card-container">
       <div class="city-card" v-for="city in cities" :key="city.slug">
         <NuxtLink :to="`${city.type === 'city' ? '/city' : '/country'}/${city.slug}`">
@@ -65,6 +65,10 @@ useHead({
   justify-content: center;
   padding-top: 48px;
   margin: auto;
+  /* background-image: radial-gradient(at 40% 20%, rgba(255, 184, 122, 0.558) 0, transparent 40%), radial-gradient(at 80% 0, rgba(31, 221, 255, 0.725) 0, transparent 30%),
+    radial-gradient(at 0 50%, #ffdbde 0, transparent 40%), radial-gradient(at 68% 50%, rgba(255, 133, 174, 0.583) 0, transparent 40%), radial-gradient(at 0 100%, #fff 0, transparent 40%),
+    radial-gradient(at 80% 100%, #fff 0, transparent 40%), radial-gradient(at 0 0, rgba(255, 202, 217, 0.738) 0, transparent 40%); */
+  /* background-color: #fff; */
 }
 h1 {
   text-align: center;
@@ -89,8 +93,8 @@ h4 {
 }
 
 .city-image {
-  height: 150px; /* Adjust based on your design */
-  background-color: #ccc; /* Gray background */
+  height: 150px;
+  background-color: #ccc;
   background-size: cover;
   background-position: center;
   border-radius: 5px 5px 0 0;

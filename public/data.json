@@ -49,7 +49,7 @@
     "slug": "sydney"
   },
   {
-    "name": "לוס אנג'לס",
+    "name": "לוס אנג'לס, קליפורניה",
     "type": "city",
     "timezone": "America/Los_Angeles",
     "image": "https://images.unsplash.com/flagged/photo-1575555201693-7cd442b8023f?q=80&w=2000&auto=format&fit=crop",
@@ -73,34 +73,39 @@
     "name": "הונג קונג",
     "type": "city",
     "timezone": "Asia/Hong_Kong",
+    "image": "https://images.unsplash.com/photo-1619187269972-267d2b78a423?q=80&w=2000&auto=format&fit=crop",
     "slug": "hong-kong"
   },
   {
     "name": "ברלין",
     "type": "city",
     "timezone": "Europe/Berlin",
+    "image": "https://images.unsplash.com/photo-1559564484-e48b3e040ff4?q=80&w=2000&auto=format&fit=crop",
     "slug": "berlin"
   },
   {
     "name": "מומבאי",
     "type": "city",
     "timezone": "Asia/Kolkata",
+    "image": "https://images.unsplash.com/photo-1573143950521-36ef5345dae9?q=80&w=2000&auto=format&fit=crop",
     "slug": "mumbai"
   },
   {
     "name": "רומא",
     "type": "city",
     "timezone": "Europe/Rome",
+    "image": "https://images.unsplash.com/photo-1555992828-35627f3b373f?q=80&w=2000&auto=format&fit=crop",
     "slug": "rome"
   },
   {
     "name": "איסטנבול",
     "type": "city",
     "timezone": "Europe/Istanbul",
+    "image": "https://images.unsplash.com/photo-1633773246110-442d2a731938?q=80&w=2000&auto=format&fit=crop",
     "slug": "istanbul"
   },
   {
-    "name": "סן פרנסיסקו",
+    "name": "סן פרנסיסקו, קליפורניה",
     "type": "city",
     "timezone": "America/Los_Angeles",
     "slug": "san-francisco"
@@ -178,7 +183,7 @@
     "slug": "rio-de-janeiro"
   },
   {
-    "name": "מיאמי",
+    "name": "מיאמי, פלורידה",
     "type": "city",
     "timezone": "America/New_York",
     "slug": "miami"
@@ -220,10 +225,18 @@
     "slug": "vienna"
   },
   {
-    "name": "סן דייגו",
+    "name": "וושינגטון די. סי.",
+    "type": "city",
+    "timezone": "America/New_York",
+    "image": "https://images.unsplash.com/photo-1617581629397-a72507c3de9e?q=80&w=2000&auto=format&fit=crop",
+    "slug": "washington-dc"
+  },
+  {
+    "name": "וושינגטון (מדינה)",
     "type": "city",
     "timezone": "America/Los_Angeles",
-    "slug": "san-diego"
+    "image": "https://images.unsplash.com/photo-1501914334045-d73f21057207?q=80&w=2000&auto=format&fit=crop",
+    "slug": "washington-state"
   },
   {
     "name": "בנגלור",
@@ -244,7 +257,7 @@
     "slug": "lisbon"
   },
   {
-    "name": "יוסטון",
+    "name": "יוסטון, טקסס",
     "type": "city",
     "timezone": "America/Chicago",
     "image": "https://images.unsplash.com/photo-1622007151631-25aa98ab394b?q=80&w=2000&auto=format&fit=crop",
@@ -261,6 +274,7 @@
     "name": "קפריסין",
     "type": "country",
     "timezone": "Asia/Nicosia",
+    "image": "https://images.unsplash.com/photo-1622615822298-eb693dc257ce?q=80&w=2000&auto=format&fit=crop",
     "slug": "cyprus"
   },
   {
@@ -279,12 +293,14 @@
     "name": "מצרים",
     "type": "country",
     "timezone": "Africa/Cairo",
+    "image": "https://images.unsplash.com/photo-1539768942893-daf53e448371?q=80&w=2000&auto=format&fit=crop",
     "slug": "egypt"
   },
   {
     "name": "ירדן",
     "type": "country",
     "timezone": "Asia/Amman",
+    "image": "https://images.unsplash.com/photo-1580834341580-8c17a3a630ca?q=80&w=2000&auto=format&fit=crop",
     "slug": "jordan"
   },
   {

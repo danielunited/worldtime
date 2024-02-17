@@ -106,14 +106,14 @@ const timeDifferenceMessage = computed(() => {
   let diffMessage;
 
   if (differenceInHours === 0) {
-    diffMessage = 'זהה לאזור';
+    diffMessage = 'זהה לאזור הזמן שלך';
   } else if (differenceInHours > 0) {
-    diffMessage = `היא ${Math.abs(differenceInHours)} שעות לפני`;
+    diffMessage = `מקדימה אותך ב-${Math.abs(differenceInHours)} שעות`;
   } else {
-    diffMessage = `היא ${Math.abs(differenceInHours)} שעות אחרי`;
+    diffMessage = `מאחרת אחריך ב-${Math.abs(differenceInHours)} שעות`;
   }
 
-  return `${entityName.value} ${diffMessage} הזמן המקומי שלך`;
+  return `${entityName.value} ${diffMessage}`;
 });
 
 const backgroundStyle = computed(() => ({
