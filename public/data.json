@@ -108,30 +108,35 @@
     "name": "סן פרנסיסקו, קליפורניה",
     "type": "city",
     "timezone": "America/Los_Angeles",
+    "image": "https://images.unsplash.com/photo-1602730307445-03a827d3f975?q=80&w=2000&auto=format&fit=crop",
     "slug": "san-francisco"
   },
   {
     "name": "סיאול",
     "type": "city",
     "timezone": "Asia/Seoul",
+    "image": "https://images.unsplash.com/photo-1595185515922-9b79af1ef52d?q=80&w=2000&auto=format&fit=crop",
     "slug": "seoul"
   },
   {
     "name": "טורונטו",
     "type": "city",
     "timezone": "America/Toronto",
+    "image": "https://images.unsplash.com/photo-1517090504586-fde19ea6066f?q=80&w=2000Ø&auto=format&fit=crop",
     "slug": "toronto"
   },
   {
     "name": "שנחאי",
     "type": "city",
     "timezone": "Asia/Shanghai",
+    "image": "https://images.unsplash.com/photo-1538428494232-9c0d8a3ab403?q=80&w=2000&auto=format&fit=crop",
     "slug": "shanghai"
   },
   {
     "name": "קהיר",
     "type": "city",
     "timezone": "Africa/Cairo",
+    "image": "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=2000&auto=format&fit=crop",
     "slug": "cairo"
   },
   {
@@ -239,21 +244,17 @@
     "slug": "washington-state"
   },
   {
-    "name": "בנגלור",
-    "type": "city",
-    "timezone": "Asia/Kolkata",
-    "slug": "bangalore"
-  },
-  {
     "name": "ורשה",
     "type": "city",
     "timezone": "Europe/Warsaw",
+    "image": "https://images.unsplash.com/photo-1577133192629-5140c5371590?q=80&w=2000&auto=format&fit=crop",
     "slug": "warsaw"
   },
   {
     "name": "ליסבון",
     "type": "city",
     "timezone": "Europe/Lisbon",
+    "image": "https://images.unsplash.com/photo-1605459797804-d96adf26811a?q=80&w=2000&auto=format&fit=crop",
     "slug": "lisbon"
   },
   {
@@ -281,12 +282,14 @@
     "name": "יוון",
     "type": "country",
     "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1601581875039-e899893d520c?q=80&w=2000&auto=format&fit=crop",
     "slug": "greece"
   },
   {
     "name": "טורקיה",
     "type": "country",
     "timezone": "Europe/Istanbul",
+    "image": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=2000&auto=format&fit=crop",
     "slug": "turkey"
   },
   {
