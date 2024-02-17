@@ -4,8 +4,8 @@
     <h1>השעה עכשיו ב</h1>
     <div class="city-card-container">
       <div class="city-card" v-for="city in cities" :key="city.slug">
-        <NuxtLink :to="`/city/${city.slug}`">
-          <div class="city-image" :style="`background-image: url(${city.image ? city.image.replace('w=2000', 'w=500').replace('q=80', 'q=50') : 'path/to/your/placeholder.png'})`"></div>
+        <NuxtLink :to="`${city.type === 'city' ? '/city' : '/country'}/${city.slug}`">
+          <div class="city-image" :style="`background-image: url(${city.image ? city.image.replace('w=2000', 'w=500').replace('q=80', 'q=50') : ''})`"></div>
           <h4>{{ city.name }}</h4>
         </NuxtLink>
       </div>
@@ -64,6 +64,7 @@ useHead({
   flex-direction: column;
   justify-content: center;
   padding-top: 48px;
+  margin: auto;
 }
 h1 {
   text-align: center;

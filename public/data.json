@@ -52,6 +52,7 @@
     "name": "לוס אנג'לס",
     "type": "city",
     "timezone": "America/Los_Angeles",
+    "image": "https://images.unsplash.com/flagged/photo-1575555201693-7cd442b8023f?q=80&w=2000&auto=format&fit=crop",
     "slug": "los-angeles"
   },
   {
@@ -65,6 +66,7 @@
     "name": "סינגפור",
     "type": "city",
     "timezone": "Asia/Singapore",
+    "image": "https://images.unsplash.com/photo-1542114740389-9b46fb1e5be7?q=80&w=2000&auto=format&fit=crop",
     "slug": "singapore"
   },
   {
