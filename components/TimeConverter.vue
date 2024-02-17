@@ -1,11 +1,11 @@
 <template>
-  <div class="time-converter" :style="backgroundStyle">
+  <div class="time-converter rtl" :style="backgroundStyle">
     <div class="card">
       <div class="time-difference">{{ timeDifferenceMessage }}</div>
       <div class="location-row">
         <div class="location-info">
           <div class="location-text">
-            <h3 class="location-title">Local Time</h3>
+            <h3 class="location-title">זמן מקומי</h3>
             <p class="timezone-label">{{ localOffset }}</p>
           </div>
           <p class="location-time">{{ formattedLocalTime }}</p>
@@ -103,8 +103,17 @@ const timeDifferenceMessage = computed(() => {
   const localDateTime = DateTime.now().setZone(localTimezone.value);
   const otherDateTime = DateTime.now().setZone(otherTimezone.value);
   const differenceInHours = otherDateTime.offset / 60 - localDateTime.offset / 60;
-  const diffMessage = differenceInHours === 0 ? 'the same time as' : `${Math.abs(differenceInHours)} hours ${differenceInHours > 0 ? 'ahead of' : 'behind'}`;
-  return `${entityName.value} is ${diffMessage} your location`;
+  let diffMessage;
+
+  if (differenceInHours === 0) {
+    diffMessage = 'זהה לאזור';
+  } else if (differenceInHours > 0) {
+    diffMessage = `היא ${Math.abs(differenceInHours)} שעות לפני`;
+  } else {
+    diffMessage = `היא ${Math.abs(differenceInHours)} שעות אחרי`;
+  }
+
+  return `${entityName.value} ${diffMessage} הזמן המקומי שלך`;
 });
 
 const backgroundStyle = computed(() => ({
@@ -121,7 +130,8 @@ const meetingTimeGradient = computed(() => {
   const earlyLateColor = '#FFAB00';
   const workColor = '#00E28D';
 
-  return `linear-gradient(to right,
+  // Note the change here: `to right` becomes `to left` for RTL
+  return `linear-gradient(to left,
       ${nightColor} 0%,
       ${nightColor} ${morningStartPct}%,
       ${earlyLateColor} ${morningStartPct}%,
@@ -144,11 +154,37 @@ onMounted(async () => {
   } catch (error) {
     throw createError({ statusCode: 404, message: 'Page not found', fatal: true });
   }
+  document.documentElement.setAttribute('dir', 'rtl');
 });
 
 watch([localTimezone, otherTimezone], () => {
   updateTimes(localHour.value, 'local');
 });
+
+// SEO metadata
+watch(
+  entityName,
+  (entityName) => {
+    useHead({
+      title: `השעה עכשיו ב${entityName} - Worldtime`,
+      meta: [
+        {
+          name: 'description',
+          content: `מצא את הזמן המדויק ב${entityName}. הכלי מאפשר חישוב זמנים ומציאת שעות מתאימות שמתאימות לשני האזורים.`,
+        },
+        {
+          property: 'og:title',
+          content: `השעה עכשיו ב${entityName} - Worldtime`,
+        },
+        {
+          property: 'og:description',
+          content: `מצא והשווה זמנים ב${entityName} וברחבי העולם. אידיאלי לתכנון פגישות בינלאומיות.`,
+        },
+      ],
+    });
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped src="./TimeConverter.styles.css" />

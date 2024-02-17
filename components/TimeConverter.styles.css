@@ -1,3 +1,8 @@
+.rtl {
+  direction: rtl; /* Ensures text and layout flow right-to-left */
+  text-align: right; /* Aligns text to the right */
+}
+
 .time-converter {
   background-size: cover;
   background-position: center;
@@ -38,6 +43,7 @@
 .location-info {
   display: flex;
   justify-content: space-between;
+  text-align: right;
 }
 
 .location-title,
@@ -47,6 +53,7 @@
 
 .timezone-label {
   color: #737373;
+  direction: ltr;
 }
 
 .slider {
@@ -73,4 +80,10 @@
 
 .slider::-moz-range-thumb {
   /* Firefox specific styles here */
+}
+
+input,
+textarea,
+button {
+  text-align: right;
 }
