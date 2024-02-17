@@ -1,5 +1,5 @@
 <template>
-  <div class="time-converter" :style="backgroundStyle">
+  <div class="time-converter rtl" :style="backgroundStyle">
     <div class="card">
       <div class="time-difference">{{ timeDifferenceMessage }}</div>
       <div class="location-row">

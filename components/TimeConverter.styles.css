@@ -1,3 +1,8 @@
+.rtl {
+  direction: rtl; /* Ensures text and layout flow right-to-left */
+  text-align: right; /* Aligns text to the right */
+}
+
 .time-converter {
   background-size: cover;
   background-position: center;
@@ -9,8 +14,6 @@
   justify-content: center;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   padding: 24px;
-  direction: rtl; /* Ensures text and layout flow right-to-left */
-  text-align: right; /* Aligns text to the right */
 }
 .card {
   background-color: #f3f5f9;
