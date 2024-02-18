@@ -181,6 +181,12 @@ watch(
           content: `מצא והשווה זמנים ב${entityName} וברחבי העולם. אידיאלי לתכנון פגישות בינלאומיות.`,
         },
       ],
+      link: [
+        {
+          rel: 'canonical',
+          href: `https://worldtime.co.il${route.path}`,
+        },
+      ],
     });
   },
   { immediate: true }
