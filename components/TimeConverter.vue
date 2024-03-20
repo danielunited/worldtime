@@ -97,7 +97,7 @@ const timeDifferenceMessage = computed(() => {
   } else if (differenceInHours > 0) {
     diffMessage = `מקדימה אותך ב-${Math.abs(differenceInHours)} שעות`;
   } else {
-    diffMessage = `מאחרת אחריך ב-${Math.abs(differenceInHours)} שעות`;
+    diffMessage = `מפגרת אחריך ב-${Math.abs(differenceInHours)} שעות`;
   }
 
   return `${entityName.value} ${diffMessage}`;
