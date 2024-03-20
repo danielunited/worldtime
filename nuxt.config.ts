@@ -1,5 +1,10 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss"]
-})
+  modules: ['@nuxtjs/sitemap', '@nuxtjs/tailwindcss'],
+  site: {
+    url: 'https://worldtime.co.il',
+  },
+  sitemap: {
+    sources: ['/api/sitemap'],
+  },
+});
