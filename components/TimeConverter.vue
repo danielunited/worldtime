@@ -27,10 +27,10 @@
 </template>
 
 <script setup>
-import { createError } from '#app';
 import { DateTime } from 'luxon';
 import { computed, defineProps, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { default as locationData } from '../public/data.json';
 
 const props = defineProps({
   entitySlug: String,
@@ -39,30 +39,17 @@ const props = defineProps({
 
 const localHour = ref(DateTime.local().hour);
 const otherHour = ref(DateTime.local().hour);
-const entityName = ref('');
-const localTimezone = ref('');
-const otherTimezone = ref('');
 const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
-const image = ref('');
 
-const fetchTimezoneData = async () => {
-  const response = await fetch('https://worldtimeapi.org/api/ip');
-  const data = await response.json();
-  localTimezone.value = data.timezone;
-};
+// fetchTimezoneData
+const { data } = await useFetch('https://worldtimeapi.org/api/ip');
+const localTimezone = computed(() => data.value.timezone);
 
-const fetchEntityData = async (slug, entityType) => {
-  try {
-    const mappings = await $fetch('/data.json');
-    const entityInfo = mappings.find((c) => c.slug === slug && c.type === entityType);
-    entityName.value = entityInfo.name;
-    otherTimezone.value = entityInfo.timezone;
-    image.value = entityInfo.image;
-  } catch (error) {
-    throw createError({ statusCode: 404, message: 'Page not found', fatal: true });
-  }
-};
+const entityInfo = locationData.find((c) => c.slug === props.entitySlug && c.type === props.entityType);
+const entityName = computed(() => entityInfo.name);
+const otherTimezone = computed(() => entityInfo.timezone);
+const image = computed(() => entityInfo.image);
 
 const updateTimes = (hour, origin, round = true) => {
   const originHourRef = origin === 'local' ? localHour : otherHour;
@@ -147,13 +134,7 @@ const meetingTimeGradient = computed(() => {
 const route = useRoute();
 
 onMounted(async () => {
-  try {
-    await fetchTimezoneData();
-    await fetchEntityData(props.entitySlug, props.entityType);
-    updateTimes(localHour.value, 'local', false);
-  } catch (error) {
-    throw createError({ statusCode: 404, message: 'Page not found', fatal: true });
-  }
+  updateTimes(localHour.value, 'local', false);
   document.documentElement.setAttribute('dir', 'rtl');
 });
 
