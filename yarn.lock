@@ -1588,7 +1588,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:^3.10.2, @nuxt/kit@npm:^3.10.3, @nuxt/kit@npm:^3.11.1, @nuxt/kit@npm:^3.9.3":
+"@nuxt/kit@npm:^3.0.0, @nuxt/kit@npm:^3.10.2, @nuxt/kit@npm:^3.10.3, @nuxt/kit@npm:^3.11.1, @nuxt/kit@npm:^3.9.3":
   version: 3.11.1
   resolution: "@nuxt/kit@npm:3.11.1"
   dependencies:
@@ -1737,6 +1737,16 @@ __metadata:
     "@nuxt/kit": "npm:^3.11.1"
     pathe: "npm:^1.1.2"
   checksum: 10c0/ccb2f488d920533c0375f13c372ddf93402f24a835155c5d577331bb55d05ec17def57e682d0fbb3598abc9b71502f555d6ad991444793b1b12f17801ab517c4
+  languageName: node
+  linkType: hard
+
+"@nuxtjs/robots@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@nuxtjs/robots@npm:3.0.0"
+  dependencies:
+    "@nuxt/kit": "npm:^3.0.0"
+    h3: "npm:^1.0.1"
+  checksum: 10c0/7194b3259837050970840092e9c101947305be2d2eb86ea71ea78495d7e2556dce931c895da50766b4b06f4b0d989688d23834aaf75f9bbc49cea649e5db6f0c
   languageName: node
   linkType: hard
 
@@ -5135,7 +5145,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"h3@npm:^1.10.0":
+"h3@npm:^1.0.1, h3@npm:^1.10.0":
   version: 1.11.1
   resolution: "h3@npm:1.11.1"
   dependencies:
@@ -6820,6 +6830,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nuxt-app@workspace:."
   dependencies:
+    "@nuxtjs/robots": "npm:^3.0.0"
     "@nuxtjs/sitemap": "npm:^5.1.2"
     "@nuxtjs/tailwindcss": "npm:^6.11.4"
     "@vercel/analytics": "npm:^1.2.2"
