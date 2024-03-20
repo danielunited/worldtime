@@ -10,7 +10,7 @@
           </div>
           <p class="location-time">{{ formattedLocalTime }}</p>
         </div>
-        <input type="range" min="0" max="23" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" :style="{ background: meetingTimeGradient }" />
+        <input type="range" min="0" max="47" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" :style="{ background: meetingTimeGradient }" />
       </div>
       <div class="location-row">
         <div class="location-info">
@@ -20,7 +20,7 @@
           </div>
           <p class="location-time">{{ formattedOtherTime }}</p>
         </div>
-        <input type="range" min="0" max="23" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" :style="{ background: meetingTimeGradient }" />
+        <input type="range" min="0" max="47" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" :style="{ background: meetingTimeGradient }" />
       </div>
     </div>
   </div>
@@ -51,28 +51,28 @@ const entityName = computed(() => entityInfo.name);
 const otherTimezone = computed(() => entityInfo.timezone);
 const image = computed(() => entityInfo.image);
 
-const updateTimes = (hour, origin, round = true) => {
+const updateTimes = (value, origin, round = true) => {
+  const hour = Math.floor(value / 2);
+  const minute = (value % 2) * 30;
+
   const originHourRef = origin === 'local' ? localHour : otherHour;
   if (round) {
-    originHourRef.value = hour;
+    originHourRef.value = value;
   }
 
   const originTimezone = origin === 'local' ? localTimezone.value : otherTimezone.value;
   const targetTimezone = origin === 'local' ? otherTimezone.value : localTimezone.value;
 
-  let originDateTime = DateTime.now().setZone(originTimezone);
-  if (round) {
-    originDateTime = originDateTime.set({ hour: Number(hour), minute: 0 });
-  }
+  let originDateTime = DateTime.now().setZone(originTimezone).set({ hour, minute });
   const targetDateTime = originDateTime.setZone(targetTimezone);
 
   if (origin === 'local') {
     formattedLocalTime.value = originDateTime.toFormat('HH:mm');
-    otherHour.value = targetDateTime.hour;
+    otherHour.value = targetDateTime.hour * 2 + targetDateTime.minute / 30;
     formattedOtherTime.value = targetDateTime.toFormat('HH:mm');
   } else {
     formattedOtherTime.value = originDateTime.toFormat('HH:mm');
-    localHour.value = targetDateTime.hour;
+    localHour.value = targetDateTime.hour * 2 + targetDateTime.minute / 30;
     formattedLocalTime.value = targetDateTime.toFormat('HH:mm');
   }
 };

@@ -3,10 +3,10 @@
     <span class="logo">Worldtime</span>
     <h1>השעה עכשיו ב...</h1>
     <div class="city-card-container">
-      <div class="city-card" v-for="city in cities" :key="city.slug">
-        <NuxtLink :to="`${city.type === 'city' ? '/city' : '/country'}/${city.slug}`">
-          <div class="city-image" :style="`background-image: url(${city.image ? city.image.replace('w=2000', 'w=500').replace('q=80', 'q=50') : ''})`"></div>
-          <h4>{{ city.name }}</h4>
+      <div class="city-card" v-for="location in locations" :key="location.slug">
+        <NuxtLink :to="`${location.type === 'city' ? '/city' : '/country'}/${location.slug}`">
+          <div class="city-image" :style="`background-image: url(${location.image ? location.image.replace('w=2000', 'w=500').replace('q=80', 'q=50') : ''})`"></div>
+          <h4>{{ location.name }}</h4>
         </NuxtLink>
       </div>
     </div>
@@ -15,10 +15,10 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-const cities = ref([]);
+const locations = ref([]);
 
 onMounted(async () => {
-  cities.value = await $fetch('/data.json');
+  locations.value = await $fetch('/data.json');
 });
 
 useHead({
