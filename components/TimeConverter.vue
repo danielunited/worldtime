@@ -10,7 +10,17 @@
           </div>
           <p class="location-time">{{ formattedLocalTime }}</p>
         </div>
-        <input type="range" min="0" max="47" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" :style="{ background: meetingTimeGradient }" />
+        <input
+          type="range"
+          min="0"
+          max="47"
+          step="1"
+          class="slider"
+          v-model="localHour"
+          @input="updateTimes(localHour, 'local')"
+          :style="{ background: meetingTimeGradient }"
+          aria-label="מחוון זמן מקומי"
+        />
       </div>
       <div class="location-row">
         <div class="location-info">
@@ -20,7 +30,17 @@
           </div>
           <p class="location-time">{{ formattedOtherTime }}</p>
         </div>
-        <input type="range" min="0" max="47" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" :style="{ background: meetingTimeGradient }" />
+        <input
+          type="range"
+          min="0"
+          max="47"
+          step="1"
+          class="slider"
+          v-model="otherHour"
+          @input="updateTimes(otherHour, 'other')"
+          :style="{ background: meetingTimeGradient }"
+          :aria-label="'מחוון זמן ל' + entityName"
+        />
       </div>
     </div>
   </div>
