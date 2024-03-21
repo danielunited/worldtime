@@ -10,7 +10,7 @@
           </div>
           <p class="location-time">{{ formattedLocalTime }}</p>
         </div>
-        <input type="range" min="0" max="23" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" :style="{ background: meetingTimeGradient }" />
+        <input type="range" min="0" max="47" step="1" class="slider" v-model="localHour" @input="updateTimes(localHour, 'local')" :style="{ background: meetingTimeGradient }" />
       </div>
       <div class="location-row">
         <div class="location-info">
@@ -20,7 +20,7 @@
           </div>
           <p class="location-time">{{ formattedOtherTime }}</p>
         </div>
-        <input type="range" min="0" max="23" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" :style="{ background: meetingTimeGradient }" />
+        <input type="range" min="0" max="47" step="1" class="slider" v-model="otherHour" @input="updateTimes(otherHour, 'other')" :style="{ background: meetingTimeGradient }" />
       </div>
     </div>
   </div>
@@ -51,28 +51,30 @@ const entityName = computed(() => entityInfo.name);
 const otherTimezone = computed(() => entityInfo.timezone);
 const image = computed(() => entityInfo.image);
 
-const updateTimes = (hour, origin, round = true) => {
-  const originHourRef = origin === 'local' ? localHour : otherHour;
-  if (round) {
-    originHourRef.value = hour;
-  }
+const updateTimes = (sliderValue, origin) => {
+  const isLocal = origin === 'local';
+  const originHourRef = isLocal ? localHour : otherHour;
+  originHourRef.value = sliderValue;
 
-  const originTimezone = origin === 'local' ? localTimezone.value : otherTimezone.value;
-  const targetTimezone = origin === 'local' ? otherTimezone.value : localTimezone.value;
+  // Calculate the hour and minute based on the slider value
+  const hour = Math.floor(sliderValue / 2);
+  const minute = (sliderValue % 2) * 30;
 
-  let originDateTime = DateTime.now().setZone(originTimezone);
-  if (round) {
-    originDateTime = originDateTime.set({ hour: Number(hour), minute: 0 });
-  }
+  const originTimezone = isLocal ? localTimezone.value : otherTimezone.value;
+  const targetTimezone = isLocal ? otherTimezone.value : localTimezone.value;
+
+  let originDateTime = DateTime.now().setZone(originTimezone).set({ hour, minute });
   const targetDateTime = originDateTime.setZone(targetTimezone);
 
-  if (origin === 'local') {
+  if (isLocal) {
     formattedLocalTime.value = originDateTime.toFormat('HH:mm');
-    otherHour.value = targetDateTime.hour;
+    // Convert targetDateTime's hour and minute back to slider value for the other slider
+    otherHour.value = targetDateTime.hour * 2 + (targetDateTime.minute === 30 ? 1 : 0);
     formattedOtherTime.value = targetDateTime.toFormat('HH:mm');
   } else {
     formattedOtherTime.value = originDateTime.toFormat('HH:mm');
-    localHour.value = targetDateTime.hour;
+    // Convert targetDateTime's hour and minute back to slider value for the local slider
+    localHour.value = targetDateTime.hour * 2 + (targetDateTime.minute === 30 ? 1 : 0);
     formattedLocalTime.value = targetDateTime.toFormat('HH:mm');
   }
 };
@@ -134,8 +136,13 @@ const meetingTimeGradient = computed(() => {
 const route = useRoute();
 
 onMounted(async () => {
-  updateTimes(localHour.value, 'local', false);
-  document.documentElement.setAttribute('dir', 'rtl');
+  const now = DateTime.local();
+  const initialSliderValue = now.hour * 2 + (now.minute >= 30 ? 1 : 0);
+  localHour.value = initialSliderValue;
+  formattedLocalTime.value = now.toFormat('HH:mm');
+  const otherNow = now.setZone(otherTimezone.value);
+  otherHour.value = otherNow.hour * 2 + (otherNow.minute >= 30 ? 1 : 0);
+  formattedOtherTime.value = otherNow.toFormat('HH:mm');
 });
 
 watch([localTimezone, otherTimezone], () => {
