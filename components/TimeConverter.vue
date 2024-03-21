@@ -153,8 +153,13 @@ watch([localTimezone, otherTimezone], () => {
 watch(
   entityName,
   (entityName) => {
+    const optimizedImageUrl = image.value.replace('w=2000', 'w=1200');
+
     useHead({
-      title: `השעה עכשיו ב${entityName} - Worldtime`,
+      htmlAttrs: {
+        lang: 'he',
+      },
+      title: `מה השעה ב${entityName}? הפרש השעות בין ${entityName} לישראל`,
       meta: [
         {
           name: 'description',
@@ -162,17 +167,19 @@ watch(
         },
         {
           property: 'og:title',
-          content: `השעה עכשיו ב${entityName} - Worldtime`,
+          content: `מה השעה ב${entityName}? הפרש השעות בין ${entityName} לישראל`,
         },
         {
           property: 'og:description',
           content: `מצא והשווה זמנים ב${entityName} וברחבי העולם. אידיאלי לתכנון פגישות בינלאומיות.`,
         },
-      ],
-      link: [
         {
-          rel: 'canonical',
-          href: `https://worldtime.co.il${route.path}`,
+          property: 'og:image',
+          content: optimizedImageUrl,
+        },
+        {
+          property: 'og:url',
+          content: `https://worldtime.co.il${route.path}`,
         },
       ],
     });
