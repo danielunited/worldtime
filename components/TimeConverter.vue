@@ -5,7 +5,7 @@
       <div class="location-row">
         <div class="location-info">
           <div class="location-text">
-            <h3 class="location-title">זמן מקומי</h3>
+            <h3 class="location-title">{{ isUserInIsrael ? 'ישראל' : 'זמן מקומי' }}</h3>
             <p class="timezone-label">{{ localOffset }}</p>
           </div>
           <p class="location-time">{{ formattedLocalTime }}</p>
@@ -66,6 +66,10 @@ const formattedOtherTime = ref('');
 const { data } = await useFetch('https://worldtimeapi.org/api/ip');
 const localTimezone = computed(() => data.value.timezone);
 
+const isUserInIsrael = computed(() => {
+  return localTimezone.value === 'Asia/Jerusalem';
+});
+
 const entityInfo = locationData.find((c) => c.slug === props.entitySlug && c.type === props.entityType);
 const entityName = computed(() => entityInfo.name);
 const otherTimezone = computed(() => entityInfo.timezone);
@@ -111,19 +115,28 @@ const otherOffset = computed(() => formatOffset(DateTime.now().setZone(otherTime
 const timeDifferenceMessage = computed(() => {
   const localDateTime = DateTime.now().setZone(localTimezone.value);
   const otherDateTime = DateTime.now().setZone(otherTimezone.value);
-  const differenceInHours = otherDateTime.offset / 60 - localDateTime.offset / 60;
-
-  const isUserInIsrael = localTimezone.value === 'Asia/Jerusalem';
-
+  const differenceInHours = Math.abs(otherDateTime.offset / 60 - localDateTime.offset / 60);
   let diffMessage;
+
   if (differenceInHours === 0) {
     diffMessage = 'זהה לאזור הזמן שלך';
   } else {
-    const hoursText = `ב-${Math.abs(differenceInHours)} שעות`;
-    if (differenceInHours > 0) {
-      diffMessage = isUserInIsrael ? `מקדימה את ישראל ${hoursText}` : `מקדימה אותך ${hoursText}`;
+    let hoursText;
+    switch (differenceInHours) {
+      case 1:
+        hoursText = 'שעה';
+        break;
+      case 2:
+        hoursText = 'שעתיים';
+        break;
+      default:
+        hoursText = `ב-${differenceInHours} שעות`;
+    }
+
+    if (otherDateTime.offset > localDateTime.offset) {
+      diffMessage = isUserInIsrael.value ? `מקדימה את ישראל ${hoursText}` : `מקדימה אותך ${hoursText}`;
     } else {
-      diffMessage = isUserInIsrael ? `מפגרת מישראל ${hoursText}` : `מפגרת אחריך ${hoursText}`;
+      diffMessage = isUserInIsrael.value ? `מפגרת אחר ישראל ${hoursText}` : `מפגרת אחריך ${hoursText}`;
     }
   }
 
