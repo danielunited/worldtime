@@ -124,10 +124,10 @@ const timeDifferenceMessage = computed(() => {
     let hoursText;
     switch (differenceInHours) {
       case 1:
-        hoursText = 'שעה';
+        hoursText = 'בשעה';
         break;
       case 2:
-        hoursText = 'שעתיים';
+        hoursText = 'בשעתיים';
         break;
       default:
         hoursText = `ב-${differenceInHours} שעות`;

@@ -15,11 +15,14 @@
 
 <script setup>
 import { ref } from 'vue';
-import locationData from '/public/data.json'; // Adjust the path as necessary
+import locationData from '/public/data.json';
 
 const locations = ref(locationData);
 
 useHead({
+  htmlAttrs: {
+    lang: 'he',
+  },
   title: 'Worldtime | מחשבון המרת זמן בינלאומי | מה השעה בערים שונות בעולם',
   meta: [
     {
@@ -37,11 +40,9 @@ useHead({
       property: 'og:description',
       content: 'השווה/י הפרשי זמנים עם כלי אונליין חינמי להמרת הזמן בין ערים שונות כמו ניו יורק, לונדון ופריז ביחס לישראל.',
     },
-  ],
-  link: [
     {
-      rel: 'canonical',
-      href: 'https://worldtime.co.il/',
+      property: 'og:url',
+      content: `https://worldtime.co.il`,
     },
   ],
 });
@@ -94,6 +95,10 @@ h4 {
   text-align: right;
   width: 240px;
   margin: 10px;
+  @media (max-width: 768px) {
+    width: 100%; /* 100% width on devices <= 768px */
+    margin: 10px 0; /* Adjust margin as needed for mobile */
+  }
 }
 
 .city-image {
