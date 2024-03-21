@@ -112,14 +112,19 @@ const timeDifferenceMessage = computed(() => {
   const localDateTime = DateTime.now().setZone(localTimezone.value);
   const otherDateTime = DateTime.now().setZone(otherTimezone.value);
   const differenceInHours = otherDateTime.offset / 60 - localDateTime.offset / 60;
-  let diffMessage;
 
+  const isUserInIsrael = localTimezone.value === 'Asia/Jerusalem';
+
+  let diffMessage;
   if (differenceInHours === 0) {
     diffMessage = 'זהה לאזור הזמן שלך';
-  } else if (differenceInHours > 0) {
-    diffMessage = `מקדימה אותך ב-${Math.abs(differenceInHours)} שעות`;
   } else {
-    diffMessage = `מפגרת אחריך ב-${Math.abs(differenceInHours)} שעות`;
+    const hoursText = `ב-${Math.abs(differenceInHours)} שעות`;
+    if (differenceInHours > 0) {
+      diffMessage = isUserInIsrael ? `מקדימה את ישראל ${hoursText}` : `מקדימה אותך ${hoursText}`;
+    } else {
+      diffMessage = isUserInIsrael ? `מפגרת מישראל ${hoursText}` : `מפגרת אחריך ${hoursText}`;
+    }
   }
 
   return `${entityName.value} ${diffMessage}`;
