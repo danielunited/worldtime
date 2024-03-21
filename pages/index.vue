@@ -14,12 +14,10 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-const locations = ref([]);
+import { ref } from 'vue';
+import locationData from '/public/data.json'; // Adjust the path as necessary
 
-onMounted(async () => {
-  locations.value = await $fetch('/data.json');
-});
+const locations = ref(locationData);
 
 useHead({
   title: 'Worldtime | מחשבון המרת זמן בינלאומי | מה השעה בערים שונות בעולם',
@@ -79,7 +77,7 @@ useHead({
 h1 {
   text-align: center;
   font-size: 40px;
-  font-weight: 48px;
+  line-height: 48px;
   font-weight: 700;
   margin-top: -2px;
   margin-bottom: 24px;
