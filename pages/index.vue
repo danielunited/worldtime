@@ -2,8 +2,11 @@
   <div class="rtl container">
     <span class="logo">Worldtime</span>
     <h1>השעה עכשיו ב...</h1>
+    <label for="search" class="sr-only">חפש עיר או מדינה</label>
+    <input v-model="searchQuery" type="text" placeholder="חפש עיר או מדינה..." class="search-input" autofocus />
+
     <div class="city-card-container">
-      <div class="city-card" v-for="location in locations" :key="location.slug">
+      <div class="city-card" v-for="location in filteredLocations" :key="location.slug">
         <NuxtLink :to="`${location.type === 'city' ? '/city' : '/country'}/${location.slug}`">
           <div class="city-image" :style="`background-image: url(${location.image ? location.image.replace('w=2000', 'w=500').replace('q=80', 'q=50') : ''})`"></div>
           <h4>{{ location.name }}</h4>
@@ -17,7 +20,16 @@
 import { ref } from 'vue';
 import locationData from '/public/data.json';
 
-const locations = ref(locationData);
+const searchQuery = ref(''); // Reactive variable for search input
+const locations = ref(locationData); // Original locations array
+
+// Computed property for filtered locations
+const filteredLocations = computed(() => {
+  if (!searchQuery.value) {
+    return locations.value; // Return all locations if searchQuery is empty
+  }
+  return locations.value.filter((location) => location.name.toLowerCase().includes(searchQuery.value.toLowerCase()));
+});
 
 useHead({
   htmlAttrs: {
@@ -74,6 +86,34 @@ useHead({
     radial-gradient(at 0 50%, #ffdbde 0, transparent 40%), radial-gradient(at 68% 50%, rgba(255, 133, 174, 0.583) 0, transparent 40%), radial-gradient(at 0 100%, #fff 0, transparent 40%),
     radial-gradient(at 80% 100%, #fff 0, transparent 40%), radial-gradient(at 0 0, rgba(255, 202, 217, 0.738) 0, transparent 40%); */
   /* background-color: #fff; */
+  max-width: 1080px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.search-input {
+  max-width: 1020px;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #d7d7d7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  min-height: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: auto;
 }
 h1 {
   text-align: center;
@@ -113,7 +153,7 @@ h4 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 20px;
+  margin-top: 20px;
 }
 
 .city-card h4 {
