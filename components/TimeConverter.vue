@@ -193,7 +193,7 @@ watch([localTimezone, otherTimezone], () => {
 watch(
   entityName,
   (entityName) => {
-    const optimizedImageUrl = image.value.replace('w=2000', 'w=1200');
+    const optimizedImageUrl = image.value?.replace('w=2000', 'w=1200');
     const titleAndContentSuffix = entityInfo.country ? `${entityName}, ${entityInfo.country}` : `ב${entityName}`;
 
     useHead({
