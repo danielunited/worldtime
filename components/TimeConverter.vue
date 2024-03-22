@@ -118,6 +118,8 @@ const timeDifferenceMessage = computed(() => {
   const differenceInHours = Math.abs(otherDateTime.offset / 60 - localDateTime.offset / 60);
   let diffMessage;
 
+  const displayName = entityInfo.country ? `${entityName.value} (${entityInfo.country})` : entityName.value;
+
   if (differenceInHours === 0) {
     diffMessage = 'זהה לאזור הזמן שלך';
   } else {
@@ -140,7 +142,7 @@ const timeDifferenceMessage = computed(() => {
     }
   }
 
-  return `${entityName.value} ${diffMessage}`;
+  return `${displayName} ${diffMessage}`;
 });
 
 const backgroundStyle = computed(() => ({
@@ -192,24 +194,25 @@ watch(
   entityName,
   (entityName) => {
     const optimizedImageUrl = image.value.replace('w=2000', 'w=1200');
+    const titleAndContentSuffix = entityInfo.country ? `ב${entityName}, ${entityInfo.country}` : `ב${entityName}`;
 
     useHead({
       htmlAttrs: {
         lang: 'he',
       },
-      title: `מה השעה ב${entityName}? הפרש השעות בין ${entityName} לישראל`,
+      title: `מה השעה ב${titleAndContentSuffix}? הפרש השעות בין ${entityName} לישראל`,
       meta: [
         {
           name: 'description',
-          content: `מצא את הזמן המדויק ב${entityName}. הכלי מאפשר חישוב זמנים ומציאת שעות מתאימות שמתאימות לשני האזורים.`,
+          content: `מצא את הזמן המדויק ב${titleAndContentSuffix}. הכלי מאפשר חישוב זמנים ומציאת שעות מתאימות שמתאימות לשני האזורים.`,
         },
         {
           property: 'og:title',
-          content: `מה השעה ב${entityName}? הפרש השעות בין ${entityName} לישראל`,
+          content: `מה השעה ב${titleAndContentSuffix}? הפרש השעות בין ${entityName} לישראל`,
         },
         {
           property: 'og:description',
-          content: `מצא והשווה זמנים ב${entityName} וברחבי העולם. אידיאלי לתכנון פגישות בינלאומיות.`,
+          content: `מצא והשווה זמנים ב${titleAndContentSuffix} וברחבי העולם. אידיאלי לתכנון פגישות בינלאומיות.`,
         },
         {
           property: 'og:image',

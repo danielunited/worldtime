@@ -9,7 +9,9 @@
       <div class="city-card" v-for="location in filteredLocations" :key="location.slug">
         <NuxtLink :to="`${location.type === 'city' ? '/city' : '/country'}/${location.slug}`">
           <div class="city-image" :style="`background-image: url(${location.image ? location.image.replace('w=2000', 'w=500').replace('q=80', 'q=50') : ''})`"></div>
-          <h4>{{ location.name }}</h4>
+          <h4>
+            {{ location.name }}<span v-if="location.country">, {{ location.country }}</span>
+          </h4>
         </NuxtLink>
       </div>
     </div>
@@ -20,15 +22,20 @@
 import { ref } from 'vue';
 import locationData from '/public/data.json';
 
-const searchQuery = ref(''); // Reactive variable for search input
-const locations = ref(locationData); // Original locations array
+const searchQuery = ref('');
+const locations = ref(locationData);
 
-// Computed property for filtered locations
 const filteredLocations = computed(() => {
-  if (!searchQuery.value) {
-    return locations.value; // Return all locations if searchQuery is empty
+  if (!searchQuery.value.trim()) {
+    return locations.value;
   }
-  return locations.value.filter((location) => location.name.toLowerCase().includes(searchQuery.value.toLowerCase()));
+  const queryLower = searchQuery.value.toLowerCase().trim();
+  return locations.value.filter((location) => {
+    const nameMatch = location.name && typeof location.name === 'string' && location.name.toLowerCase().includes(queryLower);
+    const countryMatch = location.country && typeof location.country === 'string' && location.country.toLowerCase().includes(queryLower);
+    const slugMatch = location.slug && typeof location.slug === 'string' && location.slug.toLowerCase().includes(queryLower);
+    return nameMatch || countryMatch || slugMatch;
+  });
 });
 
 useHead({
