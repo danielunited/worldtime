@@ -8,7 +8,7 @@
     "slug": "bangkok"
   },
   {
-    "name": "תל אביב",
+    "name": "תל אביב-יפו",
     "type": "city",
     "country": "ישראל",
     "timezone": "Asia/Jerusalem",
@@ -144,7 +144,7 @@
     "slug": "toronto"
   },
   {
-    "name": "שנחאי",
+    "name": "שאנגחאי",
     "type": "city",
     "country": "סין",
     "timezone": "Asia/Shanghai",

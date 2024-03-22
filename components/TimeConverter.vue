@@ -42,6 +42,9 @@
           :aria-label="'מחוון זמן ל' + entityName"
         />
       </div>
+      <div v-if="description" class="description">
+        {{ description }}
+      </div>
     </div>
   </div>
 </template>
@@ -64,6 +67,7 @@ const formattedOtherTime = ref('');
 
 // fetchTimezoneData
 const { data } = await useFetch('https://worldtimeapi.org/api/ip');
+
 const localTimezone = computed(() => data.value.timezone);
 
 const isUserInIsrael = computed(() => {
@@ -189,11 +193,50 @@ watch([localTimezone, otherTimezone], () => {
   updateTimes(localHour.value, 'local');
 });
 
+const { data: description } = await useAsyncData('description', () => fetchDescription(entityName.value));
+
+async function fetchDescription(entityName) {
+  const baseUrl = 'https://he.wikivoyage.org/w/api.php';
+  const params = new URLSearchParams({
+    action: 'parse',
+    page: entityName,
+    format: 'json',
+    prop: 'text',
+    section: 0,
+    origin: '*',
+  });
+
+  try {
+    const response = await fetch(`${baseUrl}?${params}`);
+    const data = await response.json();
+    const text = data.parse.text['*'];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'text/html');
+    const paragraphs = doc.querySelectorAll('p');
+    let description = '';
+    for (let i = 0; i < paragraphs.length && i < 3; i++) {
+      description += paragraphs[i].textContent + '\n';
+    }
+    return description.trim();
+  } catch (error) {
+    console.error('Failed to fetch description:', error);
+    return '';
+  }
+}
+
+watch(
+  entityName,
+  async (newName) => {
+    description.value = await fetchDescription(newName);
+  },
+  { immediate: true }
+);
+
 // SEO metadata
 watch(
   entityName,
   (entityName) => {
-    const optimizedImageUrl = image.value.replace('w=2000', 'w=1200');
+    const optimizedImageUrl = image.value?.replace('w=2000', 'w=1200');
     const titleAndContentSuffix = entityInfo.country ? `${entityName}, ${entityInfo.country}` : `ב${entityName}`;
 
     useHead({
