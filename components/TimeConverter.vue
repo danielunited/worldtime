@@ -46,6 +46,15 @@
         <p v-if="description" class="description">{{ description }}</p>
         <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
       </Accordion>
+      <Accordion :title="'תחזית מזג האוויר'">
+        <div class="weather-forecast" v-if="forecasts.length">
+          <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
+            <p class="description">{{ forecast.date }}</p>
+            <p>{{ forecast.temp }}°C</p>
+            <p class="description">{{ forecast.description }}</p>
+          </div>
+        </div>
+      </Accordion>
     </div>
   </div>
 </template>
@@ -65,6 +74,7 @@ const localHour = ref(DateTime.local().hour);
 const otherHour = ref(DateTime.local().hour);
 const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
+const forecasts = ref([]); // Initialize forecasts as an empty array
 
 // fetchTimezoneData
 const { data } = await useFetch('https://worldtimeapi.org/api/ip');
@@ -188,6 +198,7 @@ onMounted(async () => {
   const otherNow = now.setZone(otherTimezone.value);
   otherHour.value = otherNow.hour * 2 + (otherNow.minute >= 30 ? 1 : 0);
   formattedOtherTime.value = otherNow.toFormat('HH:mm');
+  await fetchWeatherData(entityName.value);
 });
 
 watch([localTimezone, otherTimezone], () => {
@@ -222,6 +233,34 @@ async function fetchDescription(entityName) {
   } catch (error) {
     console.error('Failed to fetch description:', error);
     return '';
+  }
+}
+
+const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+
+watch(
+  entityName,
+  async (newName) => {
+    await fetchWeatherData(newName);
+  },
+  { immediate: true }
+);
+
+async function fetchWeatherData(cityName) {
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=metric&lang=he`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    forecasts.value = data.list
+      .map((item) => ({
+        date: new Date(item.dt * 1000).toLocaleDateString('he-IL', { weekday: 'long', month: 'long', day: 'numeric' }),
+        temp: Math.round(item.main.temp),
+        description: item.weather[0].description,
+      }))
+      .slice(0, 4);
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    forecasts.value = [];
   }
 }
 

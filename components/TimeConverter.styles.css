@@ -92,3 +92,17 @@ textarea,
 button {
   text-align: right;
 }
+
+.weather-forecast {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.forecast {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 25%;
+  padding-left: 12px;
+}
