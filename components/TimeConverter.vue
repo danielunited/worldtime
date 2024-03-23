@@ -42,9 +42,10 @@
           :aria-label="'מחוון זמן ל' + entityName"
         />
       </div>
-      <div v-if="description" class="description">
-        {{ description }}
-      </div>
+      <Accordion :title="`מדריך למטייל ב${entityName}`">
+        <p v-if="description" class="description">{{ description }}</p>
+        <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
+      </Accordion>
     </div>
   </div>
 </template>
