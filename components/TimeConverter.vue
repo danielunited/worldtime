@@ -2,71 +2,40 @@
   <div class="time-converter rtl" :style="backgroundStyle">
     <div class="card">
       <div class="time-difference">{{ timeDifferenceMessage }}</div>
-      <div class="location-row">
-        <div class="location-info">
-          <div class="location-text">
-            <h3 class="location-title">{{ isUserInIsrael ? 'ישראל' : 'זמן מקומי' }}</h3>
-            <p class="timezone-label">{{ localOffset }}</p>
-          </div>
-          <p class="location-time">{{ formattedLocalTime }}</p>
-        </div>
-        <input
-          type="range"
-          min="0"
-          max="47"
-          step="1"
-          class="slider"
-          v-model="localHour"
-          @input="updateTimes(localHour, 'local')"
-          :style="{ background: meetingTimeGradient }"
-          aria-label="מחוון זמן מקומי"
-        />
-      </div>
-      <div class="location-row">
-        <div class="location-info">
-          <div class="location-text">
-            <h3 class="location-title">{{ entityName }}</h3>
-            <p class="timezone-label">{{ otherOffset }}</p>
-          </div>
-          <p class="location-time">{{ formattedOtherTime }}</p>
-        </div>
-        <input
-          type="range"
-          min="0"
-          max="47"
-          step="1"
-          class="slider"
-          v-model="otherHour"
-          @input="updateTimes(otherHour, 'other')"
-          :style="{ background: meetingTimeGradient }"
-          :aria-label="'מחוון זמן ל' + entityName"
-        />
-      </div>
+      <LocationRow
+        :title="isUserInIsrael ? 'ישראל' : 'זמן מקומי'"
+        :offset="localOffset"
+        :formattedTime="formattedLocalTime"
+        :sliderValue="localHour"
+        :updateTimes="updateTimes"
+        :isLocal="true"
+      />
+      <LocationRow
+        :title="entityName"
+        :offset="otherOffset"
+        :formattedTime="formattedOtherTime"
+        :sliderValue="otherHour"
+        :updateTimes="updateTimes"
+        :isLocal="false"
+      />
       <Accordion :title="`מדריך למטייל ב${entityName}`">
         <p v-if="description" class="description">{{ description }}</p>
         <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
       </Accordion>
       <hr />
-      <Accordion :title="accordionTitle">
-        <div class="weather-forecast" v-if="forecasts.length">
-          <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
-            <p class="description">{{ forecast.dayOfWeek }}</p>
-            <div class="temperature">
-              <img :src="forecast.icon" alt="weather-icon" class="weather-icon" />
-              <p>{{ forecast.temp }}°</p>
-            </div>
-            <p class="description timezone-label">{{ forecast.description }}</p>
-          </div>
-        </div>
-      </Accordion>
+      <WeatherForecast :forecasts="forecasts" :title="accordionTitle" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { DateTime } from 'luxon';
 import { computed, defineProps, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { formatOffset } from '~/utils/timeUtils';
+import { fetchDescription } from '~/utils/descriptionUtils';
+import { fetchCurrentWeather } from '~/utils/weatherData';
+import LocationRow from '~/components/LocationRow.vue';
+import WeatherForecast from '~/components/WeatherForecast.vue';
 import { default as locationData } from '../public/data.json';
 
 const props = defineProps({
@@ -123,11 +92,6 @@ const updateTimes = (sliderValue, origin) => {
   }
 };
 
-const formatOffset = (offset) => {
-  const hours = offset / 60;
-  const sign = hours >= 0 ? '+' : '-';
-  return `UTC ${sign}${Math.abs(hours).toString().padStart(2, '0')}:00`;
-};
 
 const localOffset = computed(() => formatOffset(DateTime.now().setZone(localTimezone.value).offset));
 const otherOffset = computed(() => formatOffset(DateTime.now().setZone(otherTimezone.value).offset));
@@ -211,56 +175,11 @@ watch([localTimezone, otherTimezone], () => {
 
 const { data: description } = await useAsyncData('description', () => fetchDescription(entityName.value));
 
-async function fetchDescription(entityName) {
-  const baseUrl = 'https://he.wikivoyage.org/w/api.php';
-  const params = new URLSearchParams({
-    action: 'parse',
-    page: entityName,
-    format: 'json',
-    prop: 'text',
-    section: 0,
-    origin: '*',
-  });
-
-  try {
-    const response = await fetch(`${baseUrl}?${params}`);
-    const data = await response.json();
-    const text = data.parse.text['*'];
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, 'text/html');
-    const paragraphs = doc.querySelectorAll('p');
-    let description = '';
-    for (let i = 0; i < paragraphs.length && i < 3; i++) {
-      description += paragraphs[i].textContent + '\n';
-    }
-    return description.trim();
-  } catch (error) {
-    console.error('Failed to fetch description:', error);
-    return '';
-  }
-}
 
 accordionTitle.value = `תחזית מזג האוויר ל${entityName.value}`;
 
 const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 
-async function fetchWeatherData(lat, lon) {
-  const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&lang=he&appid=${apiKey}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    forecasts.value = data.daily.slice(0, 4).map((day) => ({
-      dayOfWeek: new Date(day.dt * 1000).toLocaleDateString('he-IL', { weekday: 'long' }),
-      temp: Math.round(day.temp.day),
-      description: day.weather[0].description,
-      icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}.png`,
-    }));
-  } catch (error) {
-    console.error('Error fetching weather data:', error);
-  }
-}
 
 onMounted(() => {
   if (entityInfo.lat && entityInfo.lon) {
