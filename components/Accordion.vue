@@ -7,13 +7,15 @@
       </div>
       <img src="/assets/chevron-down.svg" class="chevron" :class="{ 'is-open': isOpen }" />
     </div>
-    <div class="accordion-content" v-if="isOpen">
+    <div class="accordion-content" v-show="isOpen">
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script setup>
+import { defineProps, ref } from 'vue';
+
 const props = defineProps({
   title: String,
   icon: String,
@@ -21,7 +23,10 @@ const props = defineProps({
 
 const isOpen = ref(false);
 
+const emit = defineEmits(['update:isOpen']);
+
 function toggle() {
+  emit('update:isOpen', !isOpen.value);
   isOpen.value = !isOpen.value;
 }
 </script>
