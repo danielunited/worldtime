@@ -203,7 +203,6 @@ onMounted(async () => {
   const otherNow = now.setZone(otherTimezone.value);
   otherHour.value = otherNow.hour * 2 + (otherNow.minute >= 30 ? 1 : 0);
   formattedOtherTime.value = otherNow.toFormat('HH:mm');
-  await fetchWeatherData(entityName.value);
 });
 
 watch([localTimezone, otherTimezone], () => {
