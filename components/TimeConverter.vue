@@ -55,7 +55,7 @@
               <img :src="forecast.icon" alt="weather-icon" class="weather-icon" />
               <p>{{ forecast.temp }}°</p>
             </div>
-            <!-- <p class="description">{{ forecast.description }}</p> -->
+            <p class="description timezone-label">{{ forecast.description }}</p>
           </div>
         </div>
       </Accordion>
