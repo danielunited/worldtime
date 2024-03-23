@@ -42,6 +42,23 @@
           :aria-label="'מחוון זמן ל' + entityName"
         />
       </div>
+      <Accordion :title="`מדריך למטייל ב${entityName}`">
+        <p v-if="description" class="description">{{ description }}</p>
+        <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
+      </Accordion>
+      <hr />
+      <Accordion :title="accordionTitle">
+        <div class="weather-forecast" v-if="forecasts.length">
+          <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
+            <p class="description">{{ forecast.dayOfWeek }}</p>
+            <div class="temperature">
+              <img :src="forecast.icon" alt="weather-icon" class="weather-icon" />
+              <p>{{ forecast.temp }}°</p>
+            </div>
+            <p class="description timezone-label">{{ forecast.description }}</p>
+          </div>
+        </div>
+      </Accordion>
     </div>
   </div>
 </template>
@@ -61,9 +78,12 @@ const localHour = ref(DateTime.local().hour);
 const otherHour = ref(DateTime.local().hour);
 const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
+const forecasts = ref([]);
+const accordionTitle = ref('');
 
 // fetchTimezoneData
 const { data } = await useFetch('https://worldtimeapi.org/api/ip');
+
 const localTimezone = computed(() => data.value.timezone);
 
 const isUserInIsrael = computed(() => {
@@ -183,11 +203,81 @@ onMounted(async () => {
   const otherNow = now.setZone(otherTimezone.value);
   otherHour.value = otherNow.hour * 2 + (otherNow.minute >= 30 ? 1 : 0);
   formattedOtherTime.value = otherNow.toFormat('HH:mm');
+  await fetchWeatherData(entityName.value);
 });
 
 watch([localTimezone, otherTimezone], () => {
   updateTimes(localHour.value, 'local');
 });
+
+const { data: description } = await useAsyncData('description', () => fetchDescription(entityName.value));
+
+async function fetchDescription(entityName) {
+  const baseUrl = 'https://he.wikivoyage.org/w/api.php';
+  const params = new URLSearchParams({
+    action: 'parse',
+    page: entityName,
+    format: 'json',
+    prop: 'text',
+    section: 0,
+    origin: '*',
+  });
+
+  try {
+    const response = await fetch(`${baseUrl}?${params}`);
+    const data = await response.json();
+    const text = data.parse.text['*'];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'text/html');
+    const paragraphs = doc.querySelectorAll('p');
+    let description = '';
+    for (let i = 0; i < paragraphs.length && i < 3; i++) {
+      description += paragraphs[i].textContent + '\n';
+    }
+    return description.trim();
+  } catch (error) {
+    console.error('Failed to fetch description:', error);
+    return '';
+  }
+}
+
+accordionTitle.value = `תחזית מזג האוויר ל${entityName.value}`;
+
+const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+
+async function fetchWeatherData(lat, lon) {
+  const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&lang=he&appid=${apiKey}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    forecasts.value = data.daily.slice(0, 4).map((day) => ({
+      dayOfWeek: new Date(day.dt * 1000).toLocaleDateString('he-IL', { weekday: 'long' }),
+      temp: Math.round(day.temp.day),
+      description: day.weather[0].description,
+      icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}.png`,
+    }));
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+  }
+}
+
+onMounted(() => {
+  if (entityInfo.lat && entityInfo.lon) {
+    fetchWeatherData(entityInfo.lat, entityInfo.lon);
+  } else {
+    console.error('Latitude or longitude is undefined');
+  }
+});
+
+watch(
+  entityName,
+  async (newName) => {
+    description.value = await fetchDescription(newName);
+  },
+  { immediate: true }
+);
 
 // SEO metadata
 watch(
@@ -229,4 +319,4 @@ watch(
 );
 </script>
 
-<style scoped src="./TimeConverter.styles.css" />
+<style scoped src="./TimeConverter.styles.scss" />
