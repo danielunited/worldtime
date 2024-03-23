@@ -46,17 +46,16 @@
         <p v-if="description" class="description">{{ description }}</p>
         <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
       </Accordion>
+      <hr />
       <Accordion :title="accordionTitle">
         <div class="weather-forecast" v-if="forecasts.length">
           <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
-            <p class="dayOfWeek">{{ forecast.dayOfWeek }}</p>
-            <!-- Display day of the week -->
+            <p class="description">{{ forecast.dayOfWeek }}</p>
             <div class="temperature">
-              <img :src="forecast.icon" alt="Weather icon" class="weather-icon" />
-              <p>{{ forecast.temp }}°C</p>
-              <!-- Display temperature -->
+              <img :src="forecast.icon" alt="weather-icon" class="weather-icon" />
+              <p>{{ forecast.temp }}°</p>
             </div>
-            <p class="description">{{ forecast.description }}</p>
+            <!-- <p class="description">{{ forecast.description }}</p> -->
           </div>
         </div>
       </Accordion>
