@@ -144,14 +144,6 @@
     "slug": "toronto"
   },
   {
-    "name": "שאנגחאי",
-    "type": "city",
-    "country": "סין",
-    "timezone": "Asia/Shanghai",
-    "image": "https://images.unsplash.com/photo-1538428494232-9c0d8a3ab403?q=80&w=2000&auto=format&fit=crop",
-    "slug": "shanghai"
-  },
-  {
     "name": "קהיר",
     "type": "city",
     "country": "מצרים",
@@ -244,20 +236,15 @@
     "type": "city",
     "country": "ארגנטינה",
     "timezone": "America/Argentina/Buenos_Aires",
+    "image": "https://images.unsplash.com/photo-1612294037637-ec328d0e075e?q=80&w=2000&auto=format&fit=crop",
     "slug": "buenos-aires"
-  },
-  {
-    "name": "בנגלור",
-    "type": "city",
-    "country": "הודו",
-    "timezone": "Asia/Kolkata",
-    "slug": "bangalore"
   },
   {
     "name": "פראג",
     "type": "city",
     "country": "צ'כיה",
     "timezone": "Europe/Prague",
+    "image": "https://images.unsplash.com/photo-1605862818886-687d0344b62e?q=80&w=2000&auto=format&fit=crop",
     "slug": "prague"
   },
   {
@@ -265,6 +252,7 @@
     "type": "city",
     "country": "יפן",
     "timezone": "Asia/Tokyo",
+    "image": "https://images.unsplash.com/photo-1589452271712-64b8a66c7b71?q=80&w=2000&auto=format&fit=cro",
     "slug": "osaka"
   },
   {
@@ -272,6 +260,7 @@
     "type": "city",
     "country": "אוסטריה",
     "timezone": "Europe/Vienna",
+    "image": "https://images.unsplash.com/photo-1639132055421-6d6727b7678f?q=80&w=2000&auto=format&fit=crop",
     "slug": "vienna"
   },
   {
@@ -354,5 +343,35 @@
     "timezone": "Asia/Bangkok",
     "image": "https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=2000&auto=format&fit=crop",
     "slug": "thailand"
+  },
+  {
+    "name": "איטליה",
+    "type": "country",
+    "timezone": "Europe/Rome",
+    "image": "https://images.unsplash.com/photo-1515859005217-8a1f08870f59?q=80&w=2000&auto=format&fit=crop",
+
+    "slug": "italy"
+  },
+  {
+    "name": "צרפת",
+    "type": "country",
+    "timezone": "Europe/Paris",
+    "image": "https://images.unsplash.com/photo-1431274172761-fca41d930114?q=80&w=2000&auto=format&fit=crop",
+
+    "slug": "france"
+  },
+  {
+    "name": "ספרד",
+    "type": "country",
+    "timezone": "Europe/Madrid",
+    "image": "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?q=80&w=2000&auto=format&fit=crop",
+    "slug": "spain"
+  },
+  {
+    "name": "גרמניה",
+    "type": "country",
+    "timezone": "Europe/Berlin",
+    "image": "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=2000&auto=format&fit=crop",
+    "slug": "germany"
   }
 ]
