@@ -46,11 +46,16 @@
         <p v-if="description" class="description">{{ description }}</p>
         <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
       </Accordion>
-      <Accordion :title="'תחזית מזג האוויר'">
+      <Accordion :title="accordionTitle">
         <div class="weather-forecast" v-if="forecasts.length">
           <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
-            <p class="description">{{ forecast.date }}</p>
-            <p>{{ forecast.temp }}°C</p>
+            <p class="dayOfWeek">{{ forecast.dayOfWeek }}</p>
+            <!-- Display day of the week -->
+            <div class="temperature">
+              <img :src="forecast.icon" alt="Weather icon" class="weather-icon" />
+              <p>{{ forecast.temp }}°C</p>
+              <!-- Display temperature -->
+            </div>
             <p class="description">{{ forecast.description }}</p>
           </div>
         </div>
@@ -74,7 +79,8 @@ const localHour = ref(DateTime.local().hour);
 const otherHour = ref(DateTime.local().hour);
 const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
-const forecasts = ref([]); // Initialize forecasts as an empty array
+const forecasts = ref([]);
+const accordionTitle = ref('');
 
 // fetchTimezoneData
 const { data } = await useFetch('https://worldtimeapi.org/api/ip');
@@ -236,33 +242,35 @@ async function fetchDescription(entityName) {
   }
 }
 
+accordionTitle.value = `תחזית מזג האוויר ל${entityName.value}`;
+
 const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 
-watch(
-  entityName,
-  async (newName) => {
-    await fetchWeatherData(newName);
-  },
-  { immediate: true }
-);
+async function fetchWeatherData(lat, lon) {
+  const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&lang=he&appid=${apiKey}`;
 
-async function fetchWeatherData(cityName) {
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=metric&lang=he`;
   try {
     const response = await fetch(url);
     const data = await response.json();
-    forecasts.value = data.list
-      .map((item) => ({
-        date: new Date(item.dt * 1000).toLocaleDateString('he-IL', { weekday: 'long', month: 'long', day: 'numeric' }),
-        temp: Math.round(item.main.temp),
-        description: item.weather[0].description,
-      }))
-      .slice(0, 4);
+
+    forecasts.value = data.daily.slice(0, 4).map((day) => ({
+      dayOfWeek: new Date(day.dt * 1000).toLocaleDateString('he-IL', { weekday: 'long' }),
+      temp: Math.round(day.temp.day),
+      description: day.weather[0].description,
+      icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}.png`,
+    }));
   } catch (error) {
     console.error('Error fetching weather data:', error);
-    forecasts.value = [];
   }
 }
+
+onMounted(() => {
+  if (entityInfo.lat && entityInfo.lon) {
+    fetchWeatherData(entityInfo.lat, entityInfo.lon);
+  } else {
+    console.error('Latitude or longitude is undefined');
+  }
+});
 
 watch(
   entityName,
@@ -312,4 +320,4 @@ watch(
 );
 </script>
 
-<style scoped src="./TimeConverter.styles.css" />
+<style scoped src="./TimeConverter.styles.scss" />

@@ -52,7 +52,7 @@ function toggle() {
 }
 
 .accordion-content {
-  padding: 10px;
+  padding-top: 10px;
 }
 
 .accordion-content > *:first-child {
