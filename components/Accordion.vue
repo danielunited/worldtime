@@ -3,7 +3,7 @@
     <div class="accordion-title" @click="toggle">
       <div class="title-container">
         <img v-if="icon" :src="icon" class="icon" />
-        <div>{{ title }}</div>
+        <h2>{{ title }}</h2>
       </div>
       <img src="/assets/chevron-down.svg" class="chevron" :class="{ 'is-open': isOpen }" />
     </div>

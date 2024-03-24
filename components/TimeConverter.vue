@@ -1,7 +1,7 @@
 <template>
   <div class="time-converter rtl" :style="backgroundStyle">
     <div class="card">
-      <div class="time-difference">{{ timeDifferenceMessage }}</div>
+      <h1 class="time-difference">{{ timeDifferenceMessage }}</h1>
       <div class="location-row">
         <div class="location-info">
           <div class="location-text">
