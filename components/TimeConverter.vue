@@ -79,7 +79,6 @@ const otherHour = ref(DateTime.local().hour);
 const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
 const forecasts = ref([]);
-const accordionTitle = ref('');
 
 // fetchTimezoneData
 const { data } = await useFetch('https://worldtimeapi.org/api/ip');
@@ -240,7 +239,10 @@ async function fetchDescription(entityName) {
   }
 }
 
-accordionTitle.value = `תחזית מזג האוויר ל${entityName.value}`;
+const accordionTitle = computed(() => {
+  const title = entityInfo.capital ? `מזג האוויר ב${entityInfo.capital}, ${entityName.value}` : `מזג האוויר ב${entityName.value}`;
+  return title;
+});
 
 const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 
