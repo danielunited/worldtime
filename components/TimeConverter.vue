@@ -285,7 +285,7 @@ watch(
   entityName,
   (entityName) => {
     const optimizedImageUrl = image.value?.replace('w=2000', 'w=1200');
-    const titleAndContentSuffix = entityInfo.country ? `${entityName}, ${entityInfo.country}` : `ב${entityName}`;
+    const titleAndContentSuffix = entityInfo.country ? `${entityName}, ${entityInfo.country}` : `${entityName}`;
 
     useHead({
       htmlAttrs: {
