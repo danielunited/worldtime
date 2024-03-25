@@ -284,7 +284,7 @@
     "type": "city",
     "country": "ספרד",
     "timezone": "Europe/Madrid",
-    "image": "https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=2000&auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1558370781-d6196949e317?q=80&w=2000&auto=format&fit=crop",
     "slug": "madrid",
     "lat": 40.4168,
     "lon": -3.7038
@@ -463,7 +463,7 @@
     "name": "ספרד",
     "type": "country",
     "timezone": "Europe/Madrid",
-    "image": "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?q=80&w=2000&auto=format&fit=crop",
+    "image": "https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=2000&auto=format&fit=crop",
     "slug": "spain",
     "lat": 40.4168,
     "lon": -3.7038,
@@ -478,5 +478,85 @@
     "lat": 52.52,
     "lon": 13.405,
     "capital": "ברלין"
+  },
+  {
+    "name": "בודפשט",
+    "type": "city",
+    "country": "הונגריה",
+    "timezone": "Europe/Budapest",
+    "image": "https://images.unsplash.com/photo-1602963525213-3c5e18ef059f?q=80&w=2000&auto=format&fit=crop",
+    "slug": "budapest",
+    "lat": 47.4979,
+    "lon": 19.0402
+  },
+  {
+    "name": "ברצלונה",
+    "type": "city",
+    "country": "ספרד",
+    "timezone": "Europe/Madrid",
+    "image": "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?q=80&w=2000&auto=format&fit=crop",
+    "slug": "barcelona",
+    "lat": 41.3851,
+    "lon": 2.1734
+  },
+  {
+    "name": "זנזיבר",
+    "type": "city",
+    "country": "טנזניה",
+    "timezone": "Africa/Dar_es_Salaam",
+    "image": "https://images.unsplash.com/photo-1646668072507-b2215b873c70?q=80&w=2000&auto=format&fit=crop",
+    "slug": "zanzibar",
+    "lat": -6.1659,
+    "lon": 39.2026
+  },
+  {
+    "name": "זקינתוס",
+    "type": "city",
+    "country": "יוון",
+    "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1570015329194-675ae0cf2516?q=80&w=2000&auto=format&fit=crop",
+    "slug": "zakynthos",
+    "lat": 37.787,
+    "lon": 20.8992
+  },
+  {
+    "name": "קופנהגן",
+    "type": "city",
+    "country": "דנמרק",
+    "timezone": "Europe/Copenhagen",
+    "image": "https://images.unsplash.com/photo-1583354009936-42ef436d5f24?q=80&w=2000&auto=format&fit=crop",
+    "slug": "copenhagen",
+    "lat": 55.6761,
+    "lon": 12.5683
+  },
+  {
+    "name": "פוקט",
+    "type": "city",
+    "country": "תאילנד",
+    "timezone": "Asia/Bangkok",
+    "image": "https://images.unsplash.com/photo-1708656705549-14bcdf9b4921?q=80&w=2000&auto=format&fit=crop",
+    "slug": "phuket",
+    "lat": 7.8804,
+    "lon": 98.3923
+  },
+  {
+    "name": "מרקש",
+    "type": "city",
+    "country": "מרוקו",
+    "timezone": "Africa/Casablanca",
+    "image": "https://images.unsplash.com/photo-1529143503127-c95bdeee219a?q=80&w=2000&auto=format&fit=crop",
+    "slug": "marrakesh",
+    "lat": 31.6295,
+    "lon": -7.9811
+  },
+  {
+    "name": "קוסטה ריקה",
+    "type": "country",
+    "timezone": "America/Costa_Rica",
+    "image": "https://images.unsplash.com/photo-1611223157502-18a03c59a4d9?q=80&w=2000&auto=format&fit=crop",
+    "slug": "costa-rica",
+    "lat": 9.7489,
+    "lon": -83.7534,
+    "capital": "סן חוסה"
   }
 ]

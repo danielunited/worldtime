@@ -27,14 +27,26 @@ const locations = ref(locationData);
 
 const filteredLocations = computed(() => {
   if (!searchQuery.value.trim()) {
-    return locations.value;
+    return locations.value.sort((a, b) => {
+      if (a.type === b.type) {
+        return a.name.localeCompare(b.name, 'he');
+      }
+      return a.type === 'country' ? -1 : 1;
+    });
   }
   const queryLower = searchQuery.value.toLowerCase().trim();
-  return locations.value.filter((location) => {
+  const filtered = locations.value.filter((location) => {
     const nameMatch = location.name && typeof location.name === 'string' && location.name.toLowerCase().includes(queryLower);
     const countryMatch = location.country && typeof location.country === 'string' && location.country.toLowerCase().includes(queryLower);
     const slugMatch = location.slug && typeof location.slug === 'string' && location.slug.toLowerCase().includes(queryLower);
     return nameMatch || countryMatch || slugMatch;
+  });
+
+  return filtered.sort((a, b) => {
+    if (a.type === b.type) {
+      return a.name.localeCompare(b.name, 'he');
+    }
+    return a.type === 'country' ? -1 : 1;
   });
 });
 
