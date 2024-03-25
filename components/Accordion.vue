@@ -1,6 +1,6 @@
 <template>
   <div class="accordion">
-    <div class="accordion-title" @click="toggle">
+    <div class="accordion-title" @click="toggle" tabindex="0" @keyup.enter="toggle" @keyup.space.prevent="toggle">
       <div class="title-container">
         <img v-if="icon" :src="icon" class="icon" />
         <h2>{{ title }}</h2>
