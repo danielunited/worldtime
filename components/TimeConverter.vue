@@ -1,64 +1,75 @@
 <template>
   <div class="time-converter rtl" :style="backgroundStyle">
-    <div class="card">
-      <h1 class="time-difference">{{ timeDifferenceMessage }}</h1>
-      <div class="location-row">
-        <div class="location-info">
-          <div class="location-text">
-            <h3 class="location-title">{{ isUserInIsrael ? 'ישראל' : 'זמן מקומי' }}</h3>
-            <p class="timezone-label">{{ localOffset }}</p>
-          </div>
-          <p class="location-time">{{ formattedLocalTime }}</p>
-        </div>
-        <input
-          type="range"
-          min="0"
-          max="47"
-          step="1"
-          class="slider"
-          v-model="localHour"
-          @input="updateTimes(localHour, 'local')"
-          :style="{ background: meetingTimeGradient }"
-          aria-label="מחוון זמן מקומי"
-        />
-      </div>
-      <div class="location-row">
-        <div class="location-info">
-          <div class="location-text">
-            <h3 class="location-title">{{ entityName }}</h3>
-            <p class="timezone-label">{{ otherOffset }}</p>
-          </div>
-          <p class="location-time">{{ formattedOtherTime }}</p>
-        </div>
-        <input
-          type="range"
-          min="0"
-          max="47"
-          step="1"
-          class="slider"
-          v-model="otherHour"
-          @input="updateTimes(otherHour, 'other')"
-          :style="{ background: meetingTimeGradient }"
-          :aria-label="'מחוון זמן ל' + entityName"
-        />
-      </div>
-      <Accordion :title="`מדריך למטייל ב${entityName}`">
-        <p v-if="description" class="description">{{ description }}</p>
-        <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
-      </Accordion>
-      <hr />
-      <Accordion :title="accordionTitle">
-        <div class="weather-forecast" v-if="forecasts.length">
-          <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
-            <p class="description">{{ forecast.dayOfWeek }}</p>
-            <div class="temperature">
-              <img :src="forecast.icon" alt="weather-icon" class="weather-icon" />
-              <p>{{ forecast.temp }}°</p>
+    <div class="card-container">
+      <div class="card">
+        <h1 class="time-difference">{{ timeDifferenceMessage }}</h1>
+        <div class="location-row">
+          <div class="location-info">
+            <div class="location-text">
+              <h3 class="location-title">{{ isUserInIsrael ? 'ישראל' : 'זמן מקומי' }}</h3>
+              <p class="timezone-label">{{ localOffset }}</p>
             </div>
-            <p class="description timezone-label">{{ forecast.description }}</p>
+            <p class="location-time">{{ formattedLocalTime }}</p>
           </div>
+          <input
+            type="range"
+            min="0"
+            max="47"
+            step="1"
+            class="slider"
+            v-model="localHour"
+            @input="updateTimes(localHour, 'local')"
+            :style="{ background: meetingTimeGradient }"
+            aria-label="מחוון זמן מקומי"
+          />
         </div>
-      </Accordion>
+        <div class="location-row">
+          <div class="location-info">
+            <div class="location-text">
+              <h3 class="location-title">{{ entityName }}</h3>
+              <p class="timezone-label">{{ otherOffset }}</p>
+            </div>
+            <p class="location-time">{{ formattedOtherTime }}</p>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="47"
+            step="1"
+            class="slider"
+            v-model="otherHour"
+            @input="updateTimes(otherHour, 'other')"
+            :style="{ background: meetingTimeGradient }"
+            :aria-label="'מחוון זמן ל' + entityName"
+          />
+        </div>
+        <Accordion :title="`מדריך למטייל ב${entityName}`">
+          <p v-if="description" class="description">{{ description }}</p>
+          <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
+        </Accordion>
+        <hr />
+        <Accordion :title="accordionTitle">
+          <div class="weather-forecast" v-if="forecasts.length">
+            <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
+              <p class="description">{{ forecast.dayOfWeek }}</p>
+              <div class="temperature">
+                <img :src="forecast.icon" alt="weather-icon" class="weather-icon" />
+                <p>{{ forecast.temp }}°</p>
+              </div>
+              <p class="description timezone-label">{{ forecast.description }}</p>
+            </div>
+          </div>
+        </Accordion>
+      </div>
+    </div>
+
+    <div class="related-locations-bar">
+      <h2>ייעדים קרובים</h2>
+      <ul class="related-locations-container">
+        <li v-for="location in relatedLocations" :key="location.slug" class="related-location-item">
+          <NuxtLink :to="`/${location.type === 'city' ? 'city' : 'country'}/${location.slug}`"> {{ location.name }} - {{ location.distance }} ק״מ </NuxtLink>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -262,6 +273,35 @@ async function fetchWeatherData(lat, lon) {
   } catch (error) {
     console.error('Error fetching weather data:', error);
   }
+}
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius of the earth in km
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c; // Distance in km
+  return distance;
+}
+
+const { data: relatedLocations } = useAsyncData('relatedLocations', () => findRelatedLocations(props.entitySlug, props.entityType));
+
+async function findRelatedLocations(entitySlug, entityType) {
+  const entityInfo = locationData.find((c) => c.slug === entitySlug && c.type === entityType);
+
+  if (!entityInfo || !entityInfo.lat || !entityInfo.lon) {
+    return [];
+  }
+
+  return locationData
+    .filter((c) => c.slug !== entitySlug)
+    .map((location) => {
+      const distance = calculateDistance(entityInfo.lat, entityInfo.lon, location.lat, location.lon);
+      return { ...location, distance: Math.round(distance) };
+    })
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 10);
 }
 
 onMounted(() => {
