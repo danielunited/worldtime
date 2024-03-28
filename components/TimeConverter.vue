@@ -48,6 +48,19 @@
           <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
         </Accordion>
         <hr />
+        <Accordion :title="'זמני כניסת ויציאת שבת'">
+          <div v-if="shabbatTimes" class="description">
+            <p>{{ shabbatTimes.dateGregorian }}</p>
+            <!-- <p>{{ shabbatTimes.dateHebrew }}</p> -->
+            <p>{{ shabbatTimes.start }}</p>
+            <p>{{ shabbatTimes.end }}</p>
+            <p>{{ shabbatTimes.torahPortion }}</p>
+          </div>
+          <p v-else>מידע על זמני שבת ופרשת השבוע לא זמין כעת</p>
+          <p v-else>זמני שבת ופרשת השבוע לא זמינים</p>
+        </Accordion>
+
+        <hr />
         <Accordion :title="accordionTitle">
           <div class="weather-forecast" v-if="forecasts.length">
             <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
@@ -209,6 +222,43 @@ const meetingTimeGradient = computed(() => {
       ${nightColor} 100%)`;
 });
 
+const shabbatTimes = ref(null);
+
+async function fetchShabbatTimes(lat, lon, timezone) {
+  const hebcalUrl = `https://www.hebcal.com/shabbat/?cfg=json&latitude=${lat}&longitude=${lon}&tzid=${timezone}`;
+
+  try {
+    const response = await fetch(hebcalUrl);
+    const data = await response.json();
+    if (data.items) {
+      // Find Candle lighting and Havdalah times
+      const shabbatStart = data.items.find((item) => item.category === 'candles');
+      const shabbatEnd = data.items.find((item) => item.category === 'havdalah');
+
+      // Find Parashat and extract Hebrew date from it
+      const parashah = data.items.find((item) => item.category === 'parashat');
+      const hebrewDate = parashah ? parashah.hdate : 'N/A';
+
+      // Format Shabbat start and end times
+      const formattedShabbatStart = DateTime.fromISO(shabbatStart.date, { zone: entityInfo.timezone }).toFormat('HH:mm');
+      const formattedShabbatEnd = DateTime.fromISO(shabbatEnd.date, { zone: entityInfo.timezone }).toFormat('HH:mm');
+
+      // Format the Gregorian date for Shabbat
+      const shabbatDateGregorian = shabbatStart ? DateTime.fromISO(shabbatStart.date).toFormat('dd.MM.yyyy') : 'N/A';
+
+      shabbatTimes.value = {
+        dateGregorian: `תאריך: ${shabbatDateGregorian}`,
+        dateHebrew: `תאריך עברי: ${hebrewDate}`,
+        start: `כניסת שבת: ${formattedShabbatStart}`,
+        end: `יציאת שבת: ${formattedShabbatEnd}`,
+        torahPortion: `פרשת השבוע: ${parashah ? parashah.hebrew : 'N/A'}`,
+      };
+    }
+  } catch (error) {
+    console.error('Error fetching Shabbat times:', error);
+  }
+}
+
 const route = useRoute();
 
 onMounted(async () => {
@@ -313,8 +363,15 @@ async function findRelatedLocations(entitySlug, entityType) {
 onMounted(() => {
   if (entityInfo.lat && entityInfo.lon) {
     fetchWeatherData(entityInfo.lat, entityInfo.lon);
+    fetchShabbatTimes(entityInfo.lat, entityInfo.lon, entityInfo.timezone);
   } else {
-    console.error('Latitude or longitude is undefined');
+    console.error('Latitude or longitude is undefined for Shabbat times');
+  }
+});
+
+watch(entityName, () => {
+  if (entityInfo.lat && entityInfo.lon) {
+    fetchShabbatTimes(entityInfo.lat, entityInfo.lon);
   }
 });
 
