@@ -48,20 +48,7 @@
           <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
         </Accordion>
         <hr />
-        <Accordion :title="`זמני כניסת ויציאת שבת ב${entityName}`">
-          <div v-if="shabbatTimes" class="description">
-            <p>{{ shabbatTimes.dateGregorian }}</p>
-            <!-- <p>{{ shabbatTimes.dateHebrew }}</p> -->
-            <p>{{ shabbatTimes.start }}</p>
-            <p>{{ shabbatTimes.end }}</p>
-            <p>{{ shabbatTimes.torahPortion }}</p>
-          </div>
-          <p v-else>מידע על זמני שבת ופרשת השבוע לא זמין כעת</p>
-          <p v-else>זמני שבת ופרשת השבוע לא זמינים</p>
-        </Accordion>
-
-        <hr />
-        <Accordion :title="accordionTitle">
+        <Accordion :title="weatherTitle">
           <div class="weather-forecast" v-if="forecasts.length">
             <div v-for="(forecast, index) in forecasts" :key="index" class="forecast">
               <p class="description">{{ forecast.dayOfWeek }}</p>
@@ -72,6 +59,16 @@
               <p class="description timezone-label">{{ forecast.description }}</p>
             </div>
           </div>
+        </Accordion>
+        <hr />
+        <Accordion :title="shabbatTitle">
+          <div v-if="shabbatTimes" class="description">
+            <p>{{ shabbatTimes.dateGregorian }}</p>
+            <p>{{ shabbatTimes.start }}</p>
+            <p>{{ shabbatTimes.end }}</p>
+            <p>{{ shabbatTimes.torahPortion }}</p>
+          </div>
+          <p v-else>זמני שבת ופרשת השבוע אינם זמינים כעת.</p>
         </Accordion>
       </div>
     </div>
@@ -300,9 +297,16 @@ async function fetchDescription(entityName) {
   }
 }
 
-const accordionTitle = computed(() => {
+const weatherTitle = computed(() => {
   const title = entityInfo.capital ? `מזג האוויר ב${entityInfo.capital}, ${entityName.value}` : `מזג האוויר ב${entityName.value}`;
   return title;
+});
+
+const shabbatTitle = computed(() => {
+  if (props.entityType === 'country' && entityInfo.capital) {
+    return `זמני כניסת ויציאת שבת ב${entityInfo.capital}, ${entityName.value}`;
+  }
+  return `זמני כניסת ויציאת שבת ב${entityName.value}`;
 });
 
 const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
