@@ -48,7 +48,7 @@
           <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
         </Accordion>
         <hr />
-        <Accordion :title="'זמני כניסת ויציאת שבת'">
+        <Accordion :title="`זמני כניסת ויציאת שבת ב${entityName}`">
           <div v-if="shabbatTimes" class="description">
             <p>{{ shabbatTimes.dateGregorian }}</p>
             <!-- <p>{{ shabbatTimes.dateHebrew }}</p> -->
@@ -230,30 +230,24 @@ async function fetchShabbatTimes(lat, lon, timezone) {
   try {
     const response = await fetch(hebcalUrl);
     const data = await response.json();
-    if (data.items) {
-      // Find Candle lighting and Havdalah times
-      const shabbatStart = data.items.find((item) => item.category === 'candles');
-      const shabbatEnd = data.items.find((item) => item.category === 'havdalah');
+    const startDate = DateTime.fromISO(data.range.start, { zone: timezone });
+    const endDate = DateTime.fromISO(data.range.end, { zone: timezone });
 
-      // Find Parashat and extract Hebrew date from it
-      const parashah = data.items.find((item) => item.category === 'parashat');
-      const hebrewDate = parashah ? parashah.hdate : 'N/A';
+    const formattedStartDate = startDate.toFormat('d לMMMM, yyyy', { locale: 'he' });
+    const formattedEndDate = endDate.toFormat('d לMMMM, yyyy', { locale: 'he' });
 
-      // Format Shabbat start and end times
-      const formattedShabbatStart = DateTime.fromISO(shabbatStart.date, { zone: entityInfo.timezone }).toFormat('HH:mm');
-      const formattedShabbatEnd = DateTime.fromISO(shabbatEnd.date, { zone: entityInfo.timezone }).toFormat('HH:mm');
+    const shabbatStart = data.items.find((item) => item.category === 'candles');
+    const shabbatEnd = data.items.find((item) => item.category === 'havdalah');
+    const parashah = data.items.find((item) => item.category === 'parashat');
 
-      // Format the Gregorian date for Shabbat
-      const shabbatDateGregorian = shabbatStart ? DateTime.fromISO(shabbatStart.date).toFormat('dd.MM.yyyy') : 'N/A';
+    const formattedShabbatStart = DateTime.fromISO(shabbatStart.date, { zone: timezone }).toFormat('HH:mm');
+    const formattedShabbatEnd = DateTime.fromISO(shabbatEnd.date, { zone: timezone }).toFormat('HH:mm');
 
-      shabbatTimes.value = {
-        dateGregorian: `תאריך: ${shabbatDateGregorian}`,
-        dateHebrew: `תאריך עברי: ${hebrewDate}`,
-        start: `כניסת שבת: ${formattedShabbatStart}`,
-        end: `יציאת שבת: ${formattedShabbatEnd}`,
-        torahPortion: `פרשת השבוע: ${parashah ? parashah.hebrew : 'N/A'}`,
-      };
-    }
+    shabbatTimes.value = {
+      start: `כניסת שבת: ${formattedShabbatStart} (${formattedStartDate})`,
+      end: `יציאת שבת: ${formattedShabbatEnd} (${formattedEndDate})`,
+      torahPortion: `פרשת השבוע: ${parashah ? parashah.hebrew : 'N/A'}`,
+    };
   } catch (error) {
     console.error('Error fetching Shabbat times:', error);
   }
