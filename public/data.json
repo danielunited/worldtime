@@ -91,8 +91,7 @@
   },
   {
     "name": "סינגפור",
-    "type": "city",
-    "country": "סינגפור",
+    "type": "country",
     "timezone": "Asia/Singapore",
     "image": "https://images.unsplash.com/photo-1542114740389-9b46fb1e5be7?q=80&w=2000&auto=format&fit=crop",
     "slug": "singapore",
@@ -118,6 +117,86 @@
     "slug": "berlin",
     "lat": 52.52,
     "lon": 13.405
+  },
+  {
+    "name": "אייה נאפה",
+    "type": "city",
+    "country": "קפריסין",
+    "timezone": "Asia/Nicosia",
+    "image": "https://images.unsplash.com/photo-1617870544224-039877fd68fa?q=80&w=2000&auto=format&fit=crop",
+    "slug": "ayia-napa",
+    "lat": 34.9923,
+    "lon": 34.014
+  },
+  {
+    "name": "פפוס",
+    "type": "city",
+    "country": "קפריסין",
+    "timezone": "Asia/Nicosia",
+    "image": "https://images.unsplash.com/photo-1622615820991-1075551c86f8?q=80&w=2000&auto=format&fit=crop",
+    "slug": "paphos",
+    "lat": 34.772,
+    "lon": 32.4297
+  },
+  {
+    "name": "לימסול",
+    "type": "city",
+    "country": "קפריסין",
+    "timezone": "Asia/Nicosia",
+    "image": "https://images.unsplash.com/photo-1468649437954-f86751c119b6?q=80&w=2000&auto=format&fit=crop",
+    "slug": "limassol",
+    "lat": 34.7071,
+    "lon": 33.0226
+  },
+  {
+    "name": "ולנסיה",
+    "type": "city",
+    "country": "ספרד",
+    "timezone": "Europe/Madrid",
+    "image": "https://images.unsplash.com/photo-1508918562537-7e98d1d2ba59?q=80&w=2000&auto=format&fit=crop",
+    "slug": "valencia",
+    "lat": 39.4699,
+    "lon": -0.3763
+  },
+  {
+    "name": "קרקוב",
+    "type": "city",
+    "country": "פולין",
+    "timezone": "Europe/Warsaw",
+    "image": "https://images.unsplash.com/photo-1562766077-4cd48771b57c?q=80&w=2000&auto=format&fit=crop",
+    "slug": "krakow",
+    "lat": 50.0647,
+    "lon": 19.945
+  },
+  {
+    "name": "לאס וגאס",
+    "type": "city",
+    "country": "נבדה, ארה״ב",
+    "timezone": "America/Los_Angeles",
+    "image": "https://images.unsplash.com/photo-1583207884889-d79abf0d0aa3?q=80&w=2000&auto=format&fit=crop",
+    "slug": "las-vegas",
+    "lat": 36.1699,
+    "lon": -115.1398
+  },
+  {
+    "name": "רודוס",
+    "type": "city",
+    "country": "יוון",
+    "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1629050710949-ca11a747c9f5?q=80&w=2000&auto=format&fit=crop",
+    "slug": "rhodes",
+    "lat": 36.4341,
+    "lon": 28.2176
+  },
+  {
+    "name": "מיקונוס",
+    "type": "city",
+    "country": "יוון",
+    "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1598395927056-8d895e701c3b?q=80&w=2000&auto=format&fit=crop",
+    "slug": "mykonos",
+    "lat": 37.4467,
+    "lon": 25.3289
   },
   {
     "name": "מומבאי",
@@ -180,14 +259,14 @@
     "lon": -79.347015
   },
   {
-    "name": "קהיר",
+    "name": "סיני",
     "type": "city",
     "country": "מצרים",
     "timezone": "Africa/Cairo",
-    "image": "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?q=80&w=2000&auto=format&fit=crop",
-    "slug": "cairo",
-    "lat": 30.0444,
-    "lon": 31.2357
+    "image": "https://images.unsplash.com/photo-1556657824-d56f1ebab7f4?q=80&w=2000&auto=format&fit=crop",
+    "slug": "sinai",
+    "lat": 28.2364,
+    "lon": 33.6254
   },
   {
     "name": "מוסקבה",

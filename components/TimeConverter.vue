@@ -175,9 +175,15 @@ const timeDifferenceMessage = computed(() => {
   return `${displayName} ${diffMessage}`;
 });
 
-const backgroundStyle = computed(() => ({
-  backgroundImage: `url(${image.value})`,
-}));
+const backgroundStyle = computed(() => {
+  if (image.value) {
+    return {
+      backgroundImage: `url(${image.value})`,
+    };
+  } else {
+    return {};
+  }
+});
 
 const meetingTimeGradient = computed(() => {
   const morningStartPct = (6 / 24) * 100;
