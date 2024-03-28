@@ -16,12 +16,12 @@ $background_color_1: #f3f5f9;
 }
 
 .time-converter {
-  background: url('your-background-image-path');
+  background-color: white;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
-  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
   font-family: $font_family_1;
   @include flex-center;
   flex-direction: column;
