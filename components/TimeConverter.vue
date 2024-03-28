@@ -64,10 +64,10 @@
     </div>
 
     <div class="related-locations-bar">
-      <h2>ייעדים קרובים</h2>
+      <span class="related-locations-span">ייעדים קרובים:</span>
       <ul class="related-locations-container">
         <li v-for="location in relatedLocations" :key="location.slug" class="related-location-item">
-          <NuxtLink :to="`/${location.type === 'city' ? 'city' : 'country'}/${location.slug}`"> {{ location.name }} - {{ location.distance }} ק״מ </NuxtLink>
+          <NuxtLink :to="`/${location.type === 'city' ? 'city' : 'country'}/${location.slug}`"> {{ location.name }} </NuxtLink>
         </li>
       </ul>
     </div>
@@ -301,7 +301,7 @@ async function findRelatedLocations(entitySlug, entityType) {
       return { ...location, distance: Math.round(distance) };
     })
     .sort((a, b) => a.distance - b.distance)
-    .slice(0, 10);
+    .slice(0, 15);
 }
 
 onMounted(() => {
