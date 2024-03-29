@@ -99,7 +99,7 @@ const props = defineProps({
 let data = ref(null);
 
 onBeforeMount(async() => {
-  data.value = fetch('https://worldtimeapi.org/api/ip')
+  data.value = await fetch('https://worldtimeapi.org/api/ip')
     .then((response) => response.json());
 });
 
