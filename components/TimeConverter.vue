@@ -86,7 +86,7 @@
 
 <script setup>
 import { DateTime } from 'luxon';
-import { computed, defineProps, onMounted, ref, watch } from 'vue';
+import { computed, defineProps, onMounted, ref, watch, useNuxtApp } from 'vue';
 import { useRoute } from 'vue-router';
 import { default as locationData } from '../public/data.json';
 
@@ -96,11 +96,16 @@ const props = defineProps({
 });
 
 // fetchTimezoneData
-let { data, error, refresh } = await useAsyncData('userTimezone', () => {
-  return fetch('https://worldtimeapi.org/api/ip')
-    .then((response) => response.json())
-    .catch((err) => console.error(err));
-});
+let { data, error } = useNuxtApp().$nuxt.context.ssrContext.req.timezoneData;
+if (!data) {
+  let { data: fetchData, error: fetchError, refresh } = await useAsyncData('userTimezone', () => {
+    return fetch('https://worldtimeapi.org/api/ip')
+      .then((response) => response.json())
+      .catch((err) => console.error(err));
+  });
+  data = fetchData;
+  error = fetchError;
+}
 
 onMounted(() => {
   if (!data.value || error.value) {
