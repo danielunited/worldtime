@@ -95,19 +95,25 @@ const props = defineProps({
   entityType: String,
 });
 
+// fetchTimezoneData
+let { data, error } = await useFetch('https://worldtimeapi.org/api/ip');
+
+if (error.value) {
+  console.error('Failed to fetch data:', error.value);
+}
+
+onMounted(async () => {
+  if (!data.value) {
+    ({ data, error } = await useFetch('https://worldtimeapi.org/api/ip'));
+  }
+});
+
 const localHour = ref(DateTime.local().hour);
 const otherHour = ref(DateTime.local().hour);
 const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
 const forecasts = ref([]);
 
-// fetchTimezoneData
-let data;
-try {
-  ({ data } = await useFetch('https://worldtimeapi.org/api/ip'));
-} catch (error) {
-  console.error('Failed to fetch data:', error);
-}
 const localTimezone = computed(() => data.value.timezone);
 
 const isUserInIsrael = computed(() => {
