@@ -26,8 +26,7 @@ const weatherTitle = computed(() => {
   return entityInfo.capital ? `מזג האוויר ב${entityInfo.capital}, ${entityInfo.name}` : `מזג האוויר ב${entityInfo.name}`;
 });
 
-const apiKey = '5647cf2f6f1bb3b1935afd19352bb579';
-// const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
 
 async function fetchWeatherData(lat, lon) {
   const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&lang=he&appid=${apiKey}`;
