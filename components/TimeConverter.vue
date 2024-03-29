@@ -86,7 +86,7 @@
 
 <script setup>
 import { DateTime } from 'luxon';
-import { computed, defineProps, onMounted, ref, watch } from 'vue';
+import {computed, defineProps, onBeforeMount, onMounted, ref, watch} from 'vue';
 import { useRoute } from 'vue-router';
 import { default as locationData } from '../public/data.json';
 
@@ -96,16 +96,11 @@ const props = defineProps({
 });
 
 // fetchTimezoneData
-let { data, error, refresh } = await useAsyncData('userTimezone', () => {
-  return fetch('https://worldtimeapi.org/api/ip')
-    .then((response) => response.json())
-    .catch((err) => console.error(err));
-});
+let data = ref(null);
 
-onMounted(() => {
-  if (!data.value || error.value) {
-    refresh();
-  }
+onBeforeMount(async() => {
+  data.value = fetch('https://worldtimeapi.org/api/ip')
+    .then((response) => response.json());
 });
 
 const localHour = ref(DateTime.local().hour);
@@ -114,7 +109,7 @@ const formattedLocalTime = ref('');
 const formattedOtherTime = ref('');
 const forecasts = ref([]);
 
-const localTimezone = computed(() => data.value.timezone);
+const localTimezone = computed(() => data.value?.timezone || 'Asia/Jerusalem');
 
 const isUserInIsrael = computed(() => {
   return localTimezone.value === 'Asia/Jerusalem';
@@ -368,7 +363,7 @@ async function findRelatedLocations(entitySlug, entityType) {
     .slice(0, 15);
 }
 
-onMounted(() => {
+onBeforeMount(() => {
   if (entityInfo.lat && entityInfo.lon) {
     fetchWeatherData(entityInfo.lat, entityInfo.lon);
     fetchShabbatTimes(entityInfo.lat, entityInfo.lon, entityInfo.timezone);
