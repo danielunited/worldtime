@@ -96,15 +96,15 @@ const props = defineProps({
 });
 
 // fetchTimezoneData
-let { data, error } = await useFetch('https://worldtimeapi.org/api/ip');
+let { data, error, refresh } = await useAsyncData('userTimezone', () => {
+  return fetch('https://worldtimeapi.org/api/ip')
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+});
 
-if (error.value) {
-  console.error('Failed to fetch data:', error.value);
-}
-
-onMounted(async () => {
-  if (!data.value) {
-    ({ data, error } = await useFetch('https://worldtimeapi.org/api/ip'));
+onMounted(() => {
+  if (!data.value || error.value) {
+    refresh();
   }
 });
 
