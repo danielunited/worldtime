@@ -102,8 +102,12 @@ const formattedOtherTime = ref('');
 const forecasts = ref([]);
 
 // fetchTimezoneData
-const { data } = await useFetch('https://worldtimeapi.org/api/ip');
-
+let data;
+try {
+  ({ data } = await useFetch('https://worldtimeapi.org/api/ip'));
+} catch (error) {
+  console.error('Failed to fetch data:', error);
+}
 const localTimezone = computed(() => data.value.timezone);
 
 const isUserInIsrael = computed(() => {
