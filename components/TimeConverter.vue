@@ -6,7 +6,7 @@
         <location-row
           type="local"
           :title="isUserInIsrael ? 'ישראל' : 'זמן מקומי'"
-          :timezone="localTimezone"
+          :timezone="timezone"
           :time="localDateTime"
           @change="updateTimes"
         />
@@ -45,27 +45,24 @@ import { useRoute } from 'vue-router';
 import { default as locationData } from '../public/data.json';
 import ShabbatTimes from '~/components/shabbat-times/ShabbatTimes.vue';
 import WeatherForecast from '~/components/weather-forecast/WeatherForecast.vue';
+import {getLocationTime, getUserTimezone} from '~/utils/timeUtils.js';
 
 const props = defineProps({
   entitySlug: String,
   entityType: String,
 });
 
-// fetchTimezoneData
-let data = ref(null);
+let timezone = ref('Asia/Jerusalem');
 
 onBeforeMount(async() => {
-  data.value = await fetch('https://worldtimeapi.org/api/ip')
-    .then((response) => response.json());
+  timezone.value = await getUserTimezone();
 });
 
 const localDateTime = ref(DateTime.now());
 const otherDateTime = ref(DateTime.now());
 
-const localTimezone = computed(() => data.value?.timezone || 'Asia/Jerusalem');
-
 const isUserInIsrael = computed(() => {
-  return localTimezone.value === 'Asia/Jerusalem';
+  return timezone.value === 'Asia/Jerusalem';
 });
 
 const entityInfo = locationData.find((c) => c.slug === props.entitySlug && c.type === props.entityType);
@@ -76,21 +73,17 @@ const image = computed(() => entityInfo.image);
 const updateTimes = (sliderValue, origin) => {
   const isLocal = origin === 'local';
 
-  // Calculate the hour and minute based on the slider value
-  const hour = Math.floor(sliderValue / 2);
-  const minute = (sliderValue % 2) * 30;
-
   if (isLocal) {
-    localDateTime.value = DateTime.now().setZone(localTimezone.value).set({ hour, minute });
+    localDateTime.value = getLocationTime(timezone.value, sliderValue);
     otherDateTime.value = localDateTime.value.setZone(otherTimezone.value);
   } else {
-    otherDateTime.value = DateTime.now().setZone(otherTimezone.value).set({ hour, minute });
-    localDateTime.value = otherDateTime.value.setZone(localTimezone.value);
+    otherDateTime.value = getLocationTime(otherTimezone.value, sliderValue);
+    localDateTime.value = otherDateTime.value.setZone(timezone.value);
   }
 };
 
 const timeDifferenceMessage = computed(() => {
-  const localDateTime = DateTime.now().setZone(localTimezone.value);
+  const localDateTime = DateTime.now().setZone(timezone.value);
   const otherDateTime = DateTime.now().setZone(otherTimezone.value);
   const differenceInHours = Math.abs(otherDateTime.offset / 60 - localDateTime.offset / 60);
   let diffMessage;
