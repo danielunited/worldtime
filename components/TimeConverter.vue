@@ -3,49 +3,31 @@
     <div class="card-container">
       <div class="card">
         <h1 class="time-difference">{{ timeDifferenceMessage }}</h1>
-        <location-row
-          type="local"
-          :title="isUserInIsrael ? 'ישראל' : 'זמן מקומי'"
-          :timezone="timezone"
-          :time="localDateTime"
-          @change="updateTimes"
-        />
-        <location-row
-          type="other"
-          :title="entityName"
-          :timezone="otherTimezone"
-          :time="otherDateTime"
-          @change="updateTimes"
-        />
+        <location-row type="local" :title="isUserInIsrael ? 'ישראל' : 'זמן מקומי'" :timezone="timezone" :time="localDateTime" @change="updateTimes" />
+        <location-row type="other" :title="entityName" :timezone="otherTimezone" :time="otherDateTime" @change="updateTimes" />
         <Accordion :title="`מדריך למטייל ב${entityName}`">
-          <p v-if="description" class="description">{{ description }}</p>
-          <p v-else class="description">המידע אינו זמין כעת. נסו שוב מאוחר יותר</p>
+          <div v-if="description" class="description tour-guide" v-html="description"></div>
+          <p v-else class="description">המידע בטעינה...</p>
         </Accordion>
         <hr />
         <weather-forecast :entity-info="entityInfo" />
         <hr />
-        <shabbat-times
-          :entity-info="entityInfo"
-          :entity-type="props.entityType"
-        />
+        <shabbat-times :entity-info="entityInfo" :entity-type="props.entityType" />
       </div>
     </div>
 
-    <related-locations
-      :entity-slug="props.entitySlug"
-      :entity-type="props.entityType"
-    />
+    <related-locations :entity-slug="props.entitySlug" :entity-type="props.entityType" />
   </div>
 </template>
 
 <script setup>
 import { DateTime } from 'luxon';
-import {computed, defineProps, onBeforeMount, onMounted, ref, watch} from 'vue';
+import { computed, defineProps, onBeforeMount, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { default as locationData } from '../public/data.json';
 import ShabbatTimes from '~/components/shabbat-times/ShabbatTimes.vue';
 import WeatherForecast from '~/components/weather-forecast/WeatherForecast.vue';
-import {getLocationTime, getUserTimezone} from '~/utils/timeUtils.js';
+import { getLocationTime, getUserTimezone } from '~/utils/timeUtils.js';
 
 const props = defineProps({
   entitySlug: String,
@@ -54,7 +36,7 @@ const props = defineProps({
 
 let timezone = ref('Asia/Jerusalem');
 
-onBeforeMount(async() => {
+onBeforeMount(async () => {
   timezone.value = await getUserTimezone();
 });
 
@@ -135,6 +117,9 @@ onMounted(async () => {
 const { data: description } = await useAsyncData('description', () => fetchDescription(entityName.value));
 
 async function fetchDescription(entityName) {
+  if (typeof window === 'undefined' || typeof DOMParser === 'undefined') {
+    return '';
+  }
   const baseUrl = 'https://he.wikivoyage.org/w/api.php';
   const params = new URLSearchParams({
     action: 'parse',
@@ -152,11 +137,17 @@ async function fetchDescription(entityName) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(text, 'text/html');
     const paragraphs = doc.querySelectorAll('p');
-    let description = '';
-    for (let i = 0; i < paragraphs.length && i < 3; i++) {
-      description += paragraphs[i].textContent + '\n';
+    let descriptionHtml = '';
+    let valuableParagraphsIncluded = 0;
+    for (let i = 0; i < paragraphs.length; i++) {
+      // Check if the paragraph is likely to be informative
+      if (paragraphs[i].textContent.trim().length > 50 || (paragraphs[i].querySelector('a') && paragraphs[i].textContent.trim().length > 30)) {
+        descriptionHtml += paragraphs[i].outerHTML; // Include this paragraph
+        valuableParagraphsIncluded++;
+        if (valuableParagraphsIncluded === 3) break;
+      }
     }
-    return description.trim();
+    return descriptionHtml; // Returns filtered and formatted HTML content
   } catch (error) {
     console.error('Failed to fetch description:', error);
     return '';
