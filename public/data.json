@@ -639,7 +639,7 @@
     "capital": "סן חוסה"
   },
   {
-    "name": "הפיליפינים",
+    "name": "פיליפינים",
     "type": "country",
     "timezone": "Asia/Manila",
     "image": "https://images.unsplash.com/photo-1590077211339-724573dc4121?q=80&w=2000&auto=format&fit=crop",
@@ -677,5 +677,85 @@
     "lat": 20.5937,
     "lon": 78.9629,
     "capital": "ניו דלהי"
+  },
+  {
+    "name": "אוסטריה",
+    "type": "country",
+    "timezone": "Europe/Vienna",
+    "image": "https://images.unsplash.com/photo-1597086831879-756db15e81d3?q=80&w=2000&auto=format&fit=crop",
+    "lat": 48.2082,
+    "lon": 16.3738,
+    "capital": "וינה",
+    "slug": "austria"
+  },
+  {
+    "name": "צ'כיה",
+    "type": "country",
+    "timezone": "Europe/Prague",
+    "image": "https://images.unsplash.com/photo-1545424436-c9982f7578a3?q=80&w=2000&auto=format&fit=crop",
+    "lat": 50.0755,
+    "lon": 14.4378,
+    "capital": "פראג",
+    "slug": "czech-republic"
+  },
+  {
+    "name": "שווייץ",
+    "type": "country",
+    "timezone": "Europe/Zurich",
+    "image": "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=2000&auto=format&fit=crop",
+    "lat": 46.948,
+    "lon": 7.4474,
+    "capital": "ברן",
+    "slug": "switzerland"
+  },
+  {
+    "name": "פולין",
+    "type": "country",
+    "timezone": "Europe/Warsaw",
+    "image": "https://images.unsplash.com/photo-1626368373312-07ac5d210915?q=80&w=2000&auto=format&fit=crop",
+    "lat": 52.2297,
+    "lon": 21.0122,
+    "capital": "ורשה",
+    "slug": "poland"
+  },
+  {
+    "name": "רומניה",
+    "type": "country",
+    "timezone": "Europe/Bucharest",
+    "image": "https://images.unsplash.com/photo-1534371020656-6b85825f2b1a?q=80&w=2000&auto=format&fit=crop",
+    "lat": 44.4268,
+    "lon": 26.1025,
+    "capital": "בוקרשט",
+    "slug": "romania"
+  },
+  {
+    "name": "הונגריה",
+    "type": "country",
+    "timezone": "Europe/Budapest",
+    "image": "https://images.unsplash.com/photo-1588587241646-b61469b8c950?q=80&w=2000&auto=format&fit=crop",
+    "lat": 47.4979,
+    "lon": 19.0402,
+    "capital": "בודפשט",
+    "slug": "hungary"
+  },
+  {
+    "name": "שוודיה",
+    "type": "country",
+    "timezone": "Europe/Stockholm",
+    "image": "https://images.unsplash.com/photo-1509356843151-3e7d96241e11?q=80&w=2000&auto=format&fit=crop",
+    "lat": 59.3293,
+    "lon": 18.0686,
+    "capital": "סטוקהולם",
+    "slug": "sweden"
+  },
+  {
+    "name": "דנמרק",
+    "type": "country",
+    "timezone": "Europe/Copenhagen",
+    "image": "https://images.unsplash.com/photo-1559070169-a3077159ee16?q=80&w=2000&auto=format&fit=crop",
+    "lat": 55.6761,
+    "lon": 12.5683,
+    "capital": "קופנהגן",
+    "slug": "denmark"
   }
 ]
