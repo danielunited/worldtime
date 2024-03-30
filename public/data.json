@@ -637,5 +637,45 @@
     "lat": 9.7489,
     "lon": -83.7534,
     "capital": "סן חוסה"
+  },
+  {
+    "name": "הפיליפינים",
+    "type": "country",
+    "timezone": "Asia/Manila",
+    "image": "https://images.unsplash.com/photo-1590077211339-724573dc4121?q=80&w=2000&auto=format&fit=crop",
+    "slug": "philippines",
+    "lat": 12.8797,
+    "lon": 121.774,
+    "capital": "מנילה"
+  },
+  {
+    "name": "וייטנאם",
+    "type": "country",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?q=80&w=2000&auto=format&fit=crop",
+    "slug": "vietnam",
+    "lat": 14.0583,
+    "lon": 108.2772,
+    "capital": "האנוי"
+  },
+  {
+    "name": "פרו",
+    "type": "country",
+    "timezone": "America/Lima",
+    "image": "https://images.unsplash.com/photo-1584031752283-59849645c0e9?q=80&w=2000&auto=format&fit=crop",
+    "slug": "peru",
+    "lat": -9.19,
+    "lon": -75.0152,
+    "capital": "לימה"
+  },
+  {
+    "name": "הודו",
+    "type": "country",
+    "timezone": "Asia/Kolkata",
+    "image": "https://images.unsplash.com/photo-1610902553948-65841a215f8c?q=80&w=2000&auto=format&fit=crop",
+    "slug": "india",
+    "lat": 20.5937,
+    "lon": 78.9629,
+    "capital": "ניו דלהי"
   }
 ]
