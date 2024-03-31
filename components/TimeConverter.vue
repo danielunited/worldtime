@@ -1,5 +1,9 @@
 <template>
   <div class="time-converter rtl" :style="backgroundStyle">
+    <!-- <div class="top-bar">
+      <NuxtLink to="/">השעה ברחבי העולם</NuxtLink>
+      שיתוף
+    </div> -->
     <div class="card-container">
       <div class="card">
         <h1 class="time-difference">{{ timeDifferenceMessage }}</h1>
@@ -15,7 +19,6 @@
         <shabbat-times :entity-info="entityInfo" :entity-type="props.entityType" />
       </div>
     </div>
-
     <related-locations :entity-slug="props.entitySlug" :entity-type="props.entityType" />
   </div>
 </template>
@@ -25,6 +28,7 @@ import { DateTime } from 'luxon';
 import { computed, defineProps, onBeforeMount, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { default as locationData } from '../public/data.json';
+import emojis from '../public/emoji.json';
 import ShabbatTimes from '~/components/shabbat-times/ShabbatTimes.vue';
 import WeatherForecast from '~/components/weather-forecast/WeatherForecast.vue';
 import { getLocationTime, getUserTimezone } from '~/utils/timeUtils.js';
@@ -154,6 +158,10 @@ async function fetchDescription(entityName) {
   }
 }
 
+const entityTimezoneEmoji = computed(() => {
+  return emojis[otherTimezone.value] || ''; // Fallback to empty string if not found
+});
+
 watch(
   entityName,
   async (newName) => {
@@ -168,12 +176,13 @@ watch(
   (entityName) => {
     const optimizedImageUrl = image.value?.replace('w=2000', 'w=1200');
     const titleAndContentSuffix = entityInfo.country ? `${entityName}, ${entityInfo.country}` : `${entityName}`;
+    const titleEmoji = entityTimezoneEmoji.value;
 
     useHead({
       htmlAttrs: {
         lang: 'he',
       },
-      title: `מה השעה ב${titleAndContentSuffix}? הפרש השעות בין ${entityName} לישראל`,
+      title: `מה השעה ב${titleAndContentSuffix}?${titleEmoji ? ' ' + titleEmoji : ''} הפרש השעות בין ${entityName} לישראל`,
       meta: [
         {
           name: 'description',
@@ -181,7 +190,7 @@ watch(
         },
         {
           property: 'og:title',
-          content: `מה השעה ב${titleAndContentSuffix}? הפרש השעות בין ${entityName} לישראל`,
+          content: `מה השעה ב${titleAndContentSuffix}?${titleEmoji ? ' ' + titleEmoji : ''} הפרש השעות בין ${entityName} לישראל`,
         },
         {
           property: 'og:description',

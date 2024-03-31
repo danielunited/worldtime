@@ -86,3 +86,15 @@ button {
 hr {
   border-color: rgba(0, 0, 0, 0.1);
 }
+
+.top-bar {
+  width: 100%;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: variables.$background_color_1;
+  box-shadow: inset 0 -2px 8px #00000018;
+  border-bottom: 1px solid #cecece;
+  font-size: 12px;
+}
