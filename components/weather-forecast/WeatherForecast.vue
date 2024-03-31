@@ -14,9 +14,9 @@
 </template>
 
 <script setup>
-import {computed, onBeforeMount, ref} from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 
-const {entityInfo} = defineProps({
+const { entityInfo } = defineProps({
   entityInfo: Object,
 });
 
@@ -39,7 +39,7 @@ async function fetchWeatherData(lat, lon) {
       dayOfWeek: new Date(day.dt * 1000).toLocaleDateString('he-IL', { weekday: 'long' }),
       temp: Math.round(day.temp.day),
       description: day.weather[0].description,
-      icon: `http://openweathermap.org/img/wn/${day.weather[0].icon}.png`,
+      icon: `https://openweathermap.org/img/wn/${day.weather[0].icon}.png`,
     }));
   } catch (error) {
     console.error('Error fetching weather data:', error);
@@ -53,7 +53,6 @@ onBeforeMount(() => {
     console.error('Latitude or longitude is undefined for Weather data');
   }
 });
-
 </script>
 
 <style scoped src="./WeatherForecast.styles.scss" />
