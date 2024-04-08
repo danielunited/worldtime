@@ -14,7 +14,7 @@
     "@vercel/speed-insights": "^1.0.10",
     "luxon": "^3.4.4",
     "nuxt": "^3.11.1",
-    "sass": "^1.72.0",
+    "sass": "^1.74.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
