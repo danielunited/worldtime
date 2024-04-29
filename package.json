@@ -15,7 +15,7 @@
     "luxon": "^3.4.4",
     "nuxt": "^3.11.1",
     "sass": "^1.72.0",
-    "vue": "^3.4.21",
+    "vue": "^3.4.26",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
