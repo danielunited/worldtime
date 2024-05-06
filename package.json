@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@nuxtjs/robots": "^3.0.0",
-    "@nuxtjs/sitemap": "^5.1.2",
+    "@nuxtjs/sitemap": "^5.1.5",
     "@nuxtjs/tailwindcss": "^6.11.4"
   }
 }
