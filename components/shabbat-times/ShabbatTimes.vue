@@ -11,12 +11,12 @@
 </template>
 
 <script setup>
-import {computed, onBeforeMount, ref, watch} from 'vue';
-import {DateTime} from 'luxon';
+import { computed, onBeforeMount, ref, watch } from 'vue';
+import { DateTime } from 'luxon';
 
 const shabbatTimes = ref(null);
 
-const {entityInfo, entityType} = defineProps({
+const { entityInfo, entityType } = defineProps({
   entityInfo: Object,
   entityType: String,
 });
@@ -33,7 +33,7 @@ onBeforeMount(() => {
   } else {
     console.error('Latitude or longitude is undefined for Shabbat times');
   }
-})
+});
 
 const shabbatTitle = computed(() => {
   if (entityType === 'country' && entityInfo.capital) {
@@ -71,3 +71,5 @@ async function fetchShabbatTimes(lat, lon, timezone) {
   }
 }
 </script>
+
+<style scoped src="../TimeConverter.styles.scss"></style>
