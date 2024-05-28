@@ -1,32 +1,41 @@
 @use '../../scss/variables';
 
 .weather-forecast {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    padding-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding-top: 10px;
 
-    @media (max-width: 768px) {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .forecast {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: #ffffff;
+  padding: 10px;
+  border: 1px solid #e7e9ed;
+  border-radius: 8px;
+
+  .temperature {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: #ffffff;
-    padding: 10px;
-    border: 1px solid #e7e9ed;
-    border-radius: 8px;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    font-size: 18px;
+  }
 
-    .temperature {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
+  .weather-icon {
+    font-size: 28px;
+    display: inline;
+    margin-left: 2px;
+  }
 
-    .weather-icon {
-        height: 24px;
-    }
+  .weather-description {
+    font-size: 14px;
+    color: gray;
+  }
 }
