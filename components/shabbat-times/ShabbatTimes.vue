@@ -62,9 +62,9 @@ async function fetchShabbatTimes(lat, lon, timezone) {
     const formattedShabbatEnd = DateTime.fromISO(shabbatEnd.date, { zone: timezone }).toFormat('HH:mm');
 
     shabbatTimes.value = {
-      start: `כניסת שבת: ${formattedShabbatStart} (${formattedStartDate})`,
-      end: `יציאת שבת: ${formattedShabbatEnd} (${formattedEndDate})`,
-      torahPortion: `פרשת השבוע: ${parashah ? parashah.hebrew : 'N/A'}`,
+      start: `🕯️ כניסת שבת: ${formattedShabbatStart} (${formattedStartDate})`,
+      end: `🌅 יציאת שבת: ${formattedShabbatEnd} (${formattedEndDate})`,
+      torahPortion: `📜 פרשת השבוע: ${parashah ? parashah.hebrew : 'N/A'}`,
     };
   } catch (error) {
     console.error('Error fetching Shabbat times:', error);
