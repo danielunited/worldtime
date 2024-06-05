@@ -757,5 +757,45 @@
     "lon": 12.5683,
     "capital": "קופנהגן",
     "slug": "denmark"
+  },
+  {
+    "name": "פילדלפיה",
+    "type": "city",
+    "country": "ארה״ב",
+    "timezone": "America/New_York",
+    "image": "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?q=80&w=2000&auto=format&fit=crop",
+    "slug": "philadelphia",
+    "lat": 39.9526,
+    "lon": -75.1652
+  },
+  {
+    "name": "ונציה",
+    "type": "city",
+    "country": "איטליה",
+    "timezone": "Europe/Rome",
+    "image": "https://images.unsplash.com/photo-1498307833015-e7b400441eb8?q=80&w=2000&auto=format&fit=crop",
+    "slug": "venice",
+    "lat": 45.4408,
+    "lon": 12.3155
+  },
+  {
+    "name": "פלמה דה מיורקה",
+    "type": "city",
+    "country": "ספרד",
+    "timezone": "Europe/Madrid",
+    "image": "https://images.unsplash.com/photo-1610098137353-cf7a1a93ebb5?q=80&w=2000&auto=format&fit=crop",
+    "slug": "palma-de-majorca",
+    "lat": 39.5696,
+    "lon": 2.6502
+  },
+  {
+    "name": "ונקובר",
+    "type": "city",
+    "country": "קנדה",
+    "timezone": "America/Vancouver",
+    "image": "https://images.unsplash.com/photo-1502228362178-086346ac6862?q=80&w=2000&auto=format&fit=crop",
+    "slug": "vancouver",
+    "lat": 49.2827,
+    "lon": -123.1207
   }
 ]
