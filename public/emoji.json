@@ -39,6 +39,7 @@
   "Asia/Singapore": "🇸🇬",
   "Asia/Tokyo": "🇯🇵",
   "Australia/Melbourne": "🇦🇺",
+  "Australia/Sydney": "🇦🇺",
   "Europe/Amsterdam": "🇳🇱",
   "Europe/Athens": "🇬🇷",
   "Europe/Belgrade": "🇷🇸",
@@ -62,5 +63,12 @@
   "Europe/Warsaw": "🇵🇱",
   "Europe/Zurich": "🇨🇭",
   "Pacific/Auckland": "🇳🇿",
-  "Pacific/Honolulu": "🇺🇸"
+  "Pacific/Honolulu": "🇺🇸",
+  "Asia/Amman": "🇯🇴",
+  "Europe/Bucharest": "🇷🇴",
+  "Europe/Podgorica": "🇲🇪",
+  "Europe/Tirane": "🇦🇱",
+  "Europe/Sofia": "🇧🇬",
+  "Europe/Zagreb": "🇭🇷",
+  "America/Vancouver": "🇨🇦"
 }
