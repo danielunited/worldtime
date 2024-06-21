@@ -797,5 +797,45 @@
     "slug": "vancouver",
     "lat": 49.2827,
     "lon": -123.1207
+  },
+  {
+    "name": "מונטנגרו",
+    "type": "country",
+    "timezone": "Europe/Podgorica",
+    "image": "https://images.unsplash.com/photo-1502824420498-012d4c4f0c42?q=80&w=2000&auto=format&fit=crop",
+    "lat": 42.441,
+    "lon": 19.2636,
+    "capital": "פודגוריצה",
+    "slug": "montenegro"
+  },
+  {
+    "name": "אלבניה",
+    "type": "country",
+    "timezone": "Europe/Tirane",
+    "image": "https://images.unsplash.com/photo-1621945956756-3f24f0d2233b?q=80&w=2000&auto=format&fit=crop",
+    "lat": 41.3275,
+    "lon": 19.8189,
+    "capital": "טירנה",
+    "slug": "albania"
+  },
+  {
+    "name": "בולגריה",
+    "type": "country",
+    "timezone": "Europe/Sofia",
+    "image": "https://images.unsplash.com/photo-1633210181101-774c588bc997?q=80&w=2000&auto=format&fit=crop",
+    "lat": 42.6977,
+    "lon": 23.3219,
+    "capital": "סופיה",
+    "slug": "bulgaria"
+  },
+  {
+    "name": "קרואטיה",
+    "type": "country",
+    "timezone": "Europe/Zagreb",
+    "image": "https://images.unsplash.com/photo-1610104052927-ed67e7faefc3?q=80&w=2000&auto=format&fit=crop",
+    "lat": 45.815,
+    "lon": 15.9819,
+    "capital": "זאגרב",
+    "slug": "croatia"
   }
 ]
