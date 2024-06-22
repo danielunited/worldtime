@@ -957,5 +957,45 @@
     "slug": "napoli",
     "lat": 40.8518,
     "lon": 14.2681
+  },
+  {
+    "name": "האיים המלדיביים",
+    "type": "country",
+    "timezone": "Indian/Maldives",
+    "image": "https://images.unsplash.com/photo-1603477849227-705c424d1d80?q=80&w=2000&auto=format&fit=crop",
+    "slug": "maldives",
+    "lat": 3.2028,
+    "lon": 73.2207,
+    "capital": "מאל"
+  },
+  {
+    "name": "הוואי",
+    "type": "city",
+    "country": "ארה״ב",
+    "timezone": "Pacific/Honolulu",
+    "image": "https://images.unsplash.com/photo-1593993553727-3ec1b39c74f8?q=80&w=2000&auto=format&fit=crop",
+    "slug": "hawaii",
+    "lat": 21.3069,
+    "lon": -157.8583
+  },
+  {
+    "name": "מלטה",
+    "type": "country",
+    "timezone": "Europe/Malta",
+    "image": "https://images.unsplash.com/photo-1564948612967-076ea84cffc4?q=80&w=2000&auto=format&fit=crop",
+    "slug": "malta",
+    "lat": 35.9375,
+    "lon": 14.3754,
+    "capital": "ולטה"
+  },
+  {
+    "name": "סיישל",
+    "type": "country",
+    "timezone": "Indian/Mahe",
+    "image": "https://images.unsplash.com/photo-1553829176-61484f865ac3?q=80&w=2000&auto=format&fit=crop",
+    "slug": "seychelles",
+    "lat": -4.6796,
+    "lon": 55.492,
+    "capital": "ויקטוריה"
   }
 ]
