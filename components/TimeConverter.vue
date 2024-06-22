@@ -1,9 +1,5 @@
 <template>
   <div class="time-converter rtl" :style="backgroundStyle">
-    <!-- <div class="top-bar">
-      <NuxtLink to="/">השעה ברחבי העולם</NuxtLink>
-      שיתוף
-    </div> -->
     <div class="card-container">
       <div class="card">
         <h1 class="time-difference">{{ timeDifferenceMessage }}</h1>
@@ -17,6 +13,8 @@
         <weather-forecast :entity-info="entityInfo" />
         <hr />
         <shabbat-times :entity-info="entityInfo" :entity-type="props.entityType" />
+        <hr />
+        <Accordion title="מחשבון המרת זמן | Worldtime" isLink />
       </div>
     </div>
     <related-locations :entity-slug="props.entitySlug" :entity-type="props.entityType" />
