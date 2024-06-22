@@ -970,13 +970,14 @@
   },
   {
     "name": "הוואי",
-    "type": "city",
+    "type": "country",
     "country": "ארה״ב",
     "timezone": "Pacific/Honolulu",
     "image": "https://images.unsplash.com/photo-1593993553727-3ec1b39c74f8?q=80&w=2000&auto=format&fit=crop",
     "slug": "hawaii",
     "lat": 21.3069,
-    "lon": -157.8583
+    "lon": -157.8583,
+    "capital": "הונולולו"
   },
   {
     "name": "מלטה",
