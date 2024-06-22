@@ -837,5 +837,125 @@
     "lon": 15.9819,
     "capital": "זאגרב",
     "slug": "croatia"
+  },
+  {
+    "name": "אתונה",
+    "type": "city",
+    "country": "יוון",
+    "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?q=80&w=2000&auto=format&fit=crop",
+    "slug": "athens",
+    "lat": 37.9838,
+    "lon": 23.7275
+  },
+  {
+    "name": "לרנקה",
+    "type": "city",
+    "country": "קפריסין",
+    "timezone": "Asia/Nicosia",
+    "image": "https://images.unsplash.com/photo-1602523362426-69a3f58d777e?q=80&w=2000&auto=format&fit=crop",
+    "slug": "larnaca",
+    "lat": 34.9183,
+    "lon": 33.6232
+  },
+  {
+    "name": "טביליסי",
+    "type": "city",
+    "country": "גאורגיה",
+    "timezone": "Asia/Tbilisi",
+    "image": "https://images.unsplash.com/photo-1591039770459-438aff898c4d?q=80&w=2000&auto=format&fit=crop",
+    "slug": "tbilisi",
+    "lat": 41.7151,
+    "lon": 44.8271
+  },
+  {
+    "name": "גאורגיה",
+    "type": "country",
+    "timezone": "Asia/Tbilisi",
+    "image": "https://images.unsplash.com/photo-1690980708431-8a5ccd2cc2fe?q=80&w=2000&auto=format&fit=crop",
+    "slug": "georgia",
+    "lat": 42.3154,
+    "lon": 43.3569,
+    "capital": "טביליסי"
+  },
+  {
+    "name": "קפלוניה",
+    "type": "city",
+    "country": "יוון",
+    "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1610119622695-d21b699d1300?q=80&w=2000&auto=format&fit=crop",
+    "slug": "kefalonia",
+    "lat": 38.1754,
+    "lon": 20.597
+  },
+  {
+    "name": "סלוניקי",
+    "type": "city",
+    "country": "יוון",
+    "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1601571074674-b354965820ee?q=80&w=2000&auto=format&fit=crop",
+    "slug": "thessaloniki",
+    "lat": 40.6401,
+    "lon": 22.9444
+  },
+  {
+    "name": "כרתים",
+    "type": "city",
+    "country": "יוון",
+    "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1571678281938-94d1d44f922d?q=80&w=2000&auto=format&fit=crop",
+    "slug": "crete",
+    "lat": 35.2401,
+    "lon": 24.8093
+  },
+  {
+    "name": "בתומי",
+    "type": "city",
+    "country": "גאורגיה",
+    "timezone": "Asia/Tbilisi",
+    "image": "https://images.unsplash.com/photo-1588070089061-2c26a2bdf516?q=80&w=2000&auto=format&fit=crop",
+    "slug": "batumi",
+    "lat": 41.6168,
+    "lon": 41.6367
+  },
+  {
+    "name": "פרנקפורט",
+    "type": "city",
+    "country": "גרמניה",
+    "timezone": "Europe/Berlin",
+    "image": "https://images.unsplash.com/photo-1607879344639-d5f8dec22a60?q=80&w=2000&auto=format&fit=crop",
+    "slug": "frankfurt",
+    "lat": 50.1109,
+    "lon": 8.6821
+  },
+  {
+    "name": "ניס",
+    "type": "city",
+    "country": "צרפת",
+    "timezone": "Europe/Paris",
+    "image": "https://images.unsplash.com/photo-1585414298822-bcfc1e276cc8?q=80&w=2000&auto=format&fit=crop",
+    "slug": "nice",
+    "lat": 43.7102,
+    "lon": 7.262
+  },
+  {
+    "name": "סנטוריני",
+    "type": "city",
+    "country": "יוון",
+    "timezone": "Europe/Athens",
+    "image": "https://images.unsplash.com/photo-1604145195376-e2c8195adf29?q=80&w=2000&auto=format&fit=crop",
+    "slug": "santorini",
+    "lat": 36.3932,
+    "lon": 25.4615
+  },
+  {
+    "name": "נאפולי",
+    "type": "city",
+    "country": "איטליה",
+    "timezone": "Europe/Rome",
+    "image": "https://images.unsplash.com/photo-1636795756289-ff9f951940b8?q=80&w=2000&auto=format&fit=crop",
+    "slug": "napoli",
+    "lat": 40.8518,
+    "lon": 14.2681
   }
 ]
