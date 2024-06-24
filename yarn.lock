@@ -10932,6 +10932,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-router@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "vue-router@npm:4.4.0"
+  dependencies:
+    "@vue/devtools-api": "npm:^6.5.1"
+  peerDependencies:
+    vue: ^3.2.0
+  checksum: 10/cf3f31b21c30c4b8550c661abccd51aee39feef6021421640a6cf84f19101188f4167911a908f7d58261bd45dc5dca4c265d916e462d924445248a8ae61656a0
+  languageName: node
+  linkType: hard
+
 "vue@npm:^3.4.21":
   version: 3.4.21
   resolution: "vue@npm:3.4.21"
@@ -11036,7 +11047,7 @@ __metadata:
     nuxt: "npm:^3.11.1"
     sass: "npm:^1.72.0"
     vue: "npm:^3.4.21"
-    vue-router: "npm:^4.3.0"
+    vue-router: "npm:^4.4.0"
   languageName: unknown
   linkType: soft
 
