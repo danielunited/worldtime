@@ -200,7 +200,9 @@ watch(
       meta: [
         {
           name: 'description',
-          content: `מצא את הזמן המדויק ב${titleAndContentSuffix}. הכלי מאפשר חישוב זמנים ומציאת שעות מתאימות שמתאימות לשני האזורים.`,
+          content: `מצא את השעה הנוכחית ב${titleAndContentSuffix} ואת הפרש השעות בינה לבין ישראל. ${
+            titleEmoji ? ' ' + titleEmoji : ''
+          } הכלי מציג גם את זמני כניסת השבת ב${titleAndContentSuffix}, מזג האוויר במקום ומדריך קצר למטייל.`,
         },
         {
           property: 'og:title',
@@ -208,7 +210,7 @@ watch(
         },
         {
           property: 'og:description',
-          content: `מצא והשווה זמנים ב${titleAndContentSuffix} וברחבי העולם. אידיאלי לתכנון פגישות בינלאומיות.`,
+          content: `מצא את השעה הנוכחית ב${titleAndContentSuffix} ואת הפרש השעות בינה לבין ישראל.`,
         },
         {
           property: 'og:image',
