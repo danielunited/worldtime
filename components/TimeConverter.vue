@@ -84,13 +84,11 @@ const timeDifferenceMessage = computed(() => {
   const localDateTime = DateTime.now().setZone(timezone.value);
   const otherDateTime = DateTime.now().setZone(otherTimezone.value);
   const differenceInHours = Math.abs(otherDateTime.offset / 60 - localDateTime.offset / 60);
-  let diffMessage;
 
   const displayName = entityInfo.country ? `${entityName.value} (${entityInfo.country})` : entityName.value;
-  const pluralSuffix = isPlural(entityName.value) ? 'ים' : 'ה';
 
   if (differenceInHours === 0) {
-    diffMessage = 'זהה לאזור הזמן שלך';
+    return 'זהה לאזור הזמן שלך';
   } else {
     let hoursText;
     switch (differenceInHours) {
@@ -104,14 +102,16 @@ const timeDifferenceMessage = computed(() => {
         hoursText = `ב-${differenceInHours} שעות`;
     }
 
+    const pluralSuffix = isPlural(entityName.value) ? 'ים' : 'ה';
+    const aheadSuffix = 'מקדימ' + (isPlural(entityName.value) ? 'ים' : 'ה');
+    const behindSuffix = 'מפגר' + (isPlural(entityName.value) ? 'ים' : 'ת');
+
     if (otherDateTime.offset > localDateTime.offset) {
-      diffMessage = isUserInIsrael.value ? `${displayName} מקדימ${pluralSuffix} את ישראל ${hoursText}` : `${displayName} מקדימ${pluralSuffix} אותך ${hoursText}`;
+      return isUserInIsrael.value ? `${displayName} ${aheadSuffix} את ישראל ${hoursText}` : `${displayName} ${aheadSuffix} אותך ${hoursText}`;
     } else {
-      diffMessage = isUserInIsrael.value ? `${displayName} מפגר${pluralSuffix} אחר ישראל ${hoursText}` : `${displayName} מפגר${pluralSuffix} אחריך ${hoursText}`;
+      return isUserInIsrael.value ? `${displayName} ${behindSuffix} אחר ישראל ${hoursText}` : `${displayName} ${behindSuffix} אחריך ${hoursText}`;
     }
   }
-
-  return diffMessage;
 });
 
 const backgroundStyle = computed(() => {
