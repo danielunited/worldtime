@@ -1,10 +1,29 @@
 <template>
   <Accordion :title="shabbatTitle">
-    <div v-if="shabbatTimes" class="description">
-      <p>{{ shabbatTimes.dateGregorian }}</p>
-      <p>{{ shabbatTimes.start }}</p>
-      <p>{{ shabbatTimes.end }}</p>
-      <p>{{ shabbatTimes.torahPortion }}</p>
+    <div v-if="shabbatTimes" class="weather-forecast">
+      <div class="forecast">
+        <p class="description">כניסת שבת</p>
+        <div class="temperature">
+          <span class="weather-icon">🕯️</span>
+          <p>{{ shabbatTimes.startTime }}</p>
+        </div>
+        <p class="description weather-description">{{ shabbatTimes.startDate }}</p>
+      </div>
+      <div class="forecast">
+        <p class="description">יציאת שבת</p>
+        <div class="temperature">
+          <span class="weather-icon">✨</span>
+          <p>{{ shabbatTimes.endTime }}</p>
+        </div>
+        <p class="description weather-description">{{ shabbatTimes.endDate }}</p>
+      </div>
+      <div class="forecast">
+        <p class="description">פרשת השבוע</p>
+        <div class="temperature">
+          <span class="weather-icon">📜</span>
+          <p>{{ shabbatTimes.torahPortion }}</p>
+        </div>
+      </div>
     </div>
     <p v-else>זמני שבת ופרשת השבוע אינם זמינים כעת.</p>
   </Accordion>
@@ -51,8 +70,8 @@ async function fetchShabbatTimes(lat, lon, timezone) {
     const startDate = DateTime.fromISO(data.range.start, { zone: timezone });
     const endDate = DateTime.fromISO(data.range.end, { zone: timezone });
 
-    const formattedStartDate = startDate.toFormat('d לMMMM, yyyy', { locale: 'he' });
-    const formattedEndDate = endDate.toFormat('d לMMMM, yyyy', { locale: 'he' });
+    const formattedStartDate = startDate.toFormat('d בMMMM, yyyy', { locale: 'he' });
+    const formattedEndDate = endDate.toFormat('d בMMMM, yyyy', { locale: 'he' });
 
     const shabbatStart = data.items.find((item) => item.category === 'candles');
     const shabbatEnd = data.items.find((item) => item.category === 'havdalah');
@@ -62,9 +81,11 @@ async function fetchShabbatTimes(lat, lon, timezone) {
     const formattedShabbatEnd = DateTime.fromISO(shabbatEnd.date, { zone: timezone }).toFormat('HH:mm');
 
     shabbatTimes.value = {
-      start: `🕯️ כניסת שבת: ${formattedShabbatStart} (${formattedStartDate})`,
-      end: `🌅 יציאת שבת: ${formattedShabbatEnd} (${formattedEndDate})`,
-      torahPortion: `📜 פרשת השבוע: ${parashah ? parashah.hebrew : 'N/A'}`,
+      startTime: formattedShabbatStart,
+      startDate: formattedStartDate,
+      endTime: formattedShabbatEnd,
+      endDate: formattedEndDate,
+      torahPortion: parashah ? parashah.hebrew : 'N/A',
     };
   } catch (error) {
     console.error('Error fetching Shabbat times:', error);
@@ -72,4 +93,4 @@ async function fetchShabbatTimes(lat, lon, timezone) {
 }
 </script>
 
-<style scoped src="../TimeConverter.styles.scss"></style>
+<style scoped src="../weather-forecast/WeatherForecast.styles.scss"></style>
