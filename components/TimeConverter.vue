@@ -200,9 +200,7 @@ watch(
       meta: [
         {
           name: 'description',
-          content: `מצא את השעה הנוכחית ב${titleAndContentSuffix} ואת הפרש השעות בינה לבין ישראל. ${
-            titleEmoji ? ' ' + titleEmoji : ''
-          } הכלי מציג גם את זמני כניסת השבת ב${titleAndContentSuffix}, מזג האוויר במקום ומדריך קצר למטייל.`,
+          content: `מצא את השעה הנוכחית ב${titleAndContentSuffix} ואת הפרש השעות בינה לבין ישראל. הכלי מציג גם את זמני כניסת השבת ב${titleAndContentSuffix}, מזג האוויר במקום ומדריך קצר למטייל.`,
         },
         {
           property: 'og:title',
