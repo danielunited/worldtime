@@ -67,6 +67,12 @@ async function fetchShabbatTimes(lat, lon, timezone) {
   try {
     const response = await fetch(hebcalUrl);
     const data = await response.json();
+
+    if (!data.range) {
+      console.error('Invalid response structure:', data);
+      return;
+    }
+
     const startDate = DateTime.fromISO(data.range.start, { zone: timezone });
     const endDate = DateTime.fromISO(data.range.end, { zone: timezone });
 
@@ -77,15 +83,15 @@ async function fetchShabbatTimes(lat, lon, timezone) {
     const shabbatEnd = data.items.find((item) => item.category === 'havdalah');
     const parashah = data.items.find((item) => item.category === 'parashat');
 
-    const formattedShabbatStart = DateTime.fromISO(shabbatStart.date, { zone: timezone }).toFormat('HH:mm');
-    const formattedShabbatEnd = DateTime.fromISO(shabbatEnd.date, { zone: timezone }).toFormat('HH:mm');
+    const formattedShabbatStart = shabbatStart ? DateTime.fromISO(shabbatStart.date, { zone: timezone }).toFormat('HH:mm') : 'לא זמין';
+    const formattedShabbatEnd = shabbatEnd ? DateTime.fromISO(shabbatEnd.date, { zone: timezone }).toFormat('HH:mm') : 'לא זמין';
 
     shabbatTimes.value = {
       startTime: formattedShabbatStart,
       startDate: formattedStartDate,
       endTime: formattedShabbatEnd,
       endDate: formattedEndDate,
-      torahPortion: parashah ? parashah.hebrew : 'N/A',
+      torahPortion: parashah ? parashah.hebrew : 'לא זמין',
     };
   } catch (error) {
     console.error('Error fetching Shabbat times:', error);
