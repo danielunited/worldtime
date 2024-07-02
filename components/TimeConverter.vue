@@ -5,7 +5,7 @@
         <h1 class="time-difference">{{ timeDifferenceMessage }}</h1>
         <location-row type="local" :title="isUserInIsrael ? 'ישראל' : 'זמן מקומי'" :timezone="timezone" :time="localDateTime" @change="updateTimes" />
         <location-row type="other" :title="entityName" :timezone="otherTimezone" :time="otherDateTime" @change="updateTimes" />
-        <Accordion :title="`מדריך למטייל ב${entityName}`">
+        <Accordion :title="tourGuideTitle">
           <div v-if="description" class="description tour-guide" v-html="description"></div>
           <p v-else class="description">המידע בטעינה...</p>
         </Accordion>
@@ -25,15 +25,29 @@
 import { DateTime } from 'luxon';
 import { computed, defineProps, onBeforeMount, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { default as locationData } from '../public/data.json';
-import emojis from '../public/emoji.json';
 import ShabbatTimes from '~/components/shabbat-times/ShabbatTimes.vue';
 import WeatherForecast from '~/components/weather-forecast/WeatherForecast.vue';
 import { getLocationTime, getUserTimezone } from '~/utils/timeUtils.js';
+import { default as locationData } from '../public/data.json';
+import emojis from '../public/emoji.json';
 
 const props = defineProps({
   entitySlug: String,
   entityType: String,
+});
+
+const edgeCases = ['הפיליפינים', 'האיים המלדיביים'];
+
+const removeLeadingHe = (name) => {
+  return edgeCases.includes(name) ? name.slice(1) : name;
+};
+
+const isPlural = (name) => {
+  return edgeCases.includes(name);
+};
+
+const tourGuideTitle = computed(() => {
+  return `מדריך למטייל ב${removeLeadingHe(entityName.value)}`;
 });
 
 let timezone = ref('Asia/Jerusalem');
@@ -73,6 +87,7 @@ const timeDifferenceMessage = computed(() => {
   let diffMessage;
 
   const displayName = entityInfo.country ? `${entityName.value} (${entityInfo.country})` : entityName.value;
+  const pluralSuffix = isPlural(entityName.value) ? 'ים' : 'ה';
 
   if (differenceInHours === 0) {
     diffMessage = 'זהה לאזור הזמן שלך';
@@ -90,13 +105,13 @@ const timeDifferenceMessage = computed(() => {
     }
 
     if (otherDateTime.offset > localDateTime.offset) {
-      diffMessage = isUserInIsrael.value ? `מקדימה את ישראל ${hoursText}` : `מקדימה אותך ${hoursText}`;
+      diffMessage = isUserInIsrael.value ? `${displayName} מקדימ${pluralSuffix} את ישראל ${hoursText}` : `${displayName} מקדימ${pluralSuffix} אותך ${hoursText}`;
     } else {
-      diffMessage = isUserInIsrael.value ? `מפגרת אחר ישראל ${hoursText}` : `מפגרת אחריך ${hoursText}`;
+      diffMessage = isUserInIsrael.value ? `${displayName} מפגר${pluralSuffix} אחר ישראל ${hoursText}` : `${displayName} מפגר${pluralSuffix} אחריך ${hoursText}`;
     }
   }
 
-  return `${displayName} ${diffMessage}`;
+  return diffMessage;
 });
 
 const backgroundStyle = computed(() => {
@@ -173,14 +188,15 @@ watch(
   entityName,
   (entityName) => {
     const optimizedImageUrl = image.value?.replace('w=2000', 'w=1200');
-    const titleAndContentSuffix = entityInfo.country ? `${entityName}, ${entityInfo.country}` : `${entityName}`;
+    const adjustedEntityName = removeLeadingHe(entityName);
+    const titleAndContentSuffix = entityInfo.country ? `${adjustedEntityName}, ${entityInfo.country}` : `${adjustedEntityName}`;
     const titleEmoji = entityTimezoneEmoji.value;
 
     useHead({
       htmlAttrs: {
         lang: 'he',
       },
-      title: `מה השעה ב${titleAndContentSuffix}?${titleEmoji ? ' ' + titleEmoji : ''} הפרש השעות בין ${entityName} לישראל`,
+      title: `מה השעה ב${titleAndContentSuffix}?${titleEmoji ? ' ' + titleEmoji : ''} הפרש השעות בין ${adjustedEntityName} לישראל`,
       meta: [
         {
           name: 'description',
@@ -188,7 +204,7 @@ watch(
         },
         {
           property: 'og:title',
-          content: `מה השעה ב${titleAndContentSuffix}?${titleEmoji ? ' ' + titleEmoji : ''} הפרש השעות בין ${entityName} לישראל`,
+          content: `מה השעה ב${titleAndContentSuffix}?${titleEmoji ? ' ' + titleEmoji : ''} הפרש השעות בין ${adjustedEntityName} לישראל`,
         },
         {
           property: 'og:description',
