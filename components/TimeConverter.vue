@@ -88,7 +88,7 @@ const timeDifferenceMessage = computed(() => {
   const displayName = entityInfo.country ? `${entityName.value} (${entityInfo.country})` : entityName.value;
 
   if (differenceInHours === 0) {
-    return 'זהה לאזור הזמן שלך';
+    return `${displayName} זהה לאזור הזמן שלך`;
   } else {
     let hoursText;
     switch (differenceInHours) {
